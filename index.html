@@ -1,0 +1,3791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Crispy Chicken — Compensation Tickets Dashboard</title>
+  <!-- CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root{
+      --crispy-red:#d32f2f;
+      --crispy-dark:#b71c1c;
+      --crispy-light:#ffebee;
+      --crispy-accent:#ff7043;
+      --bg:#fafafa;
+      --muted:#6c757d;
+      --card-bg:#ffffff;
+      --text-primary:#212529;
+      --text-secondary:#6c757d;
+      --shadow:0 4px 6px rgba(0,0,0,0.1);
+      --shadow-hover:0 8px 15px rgba(0,0,0,0.2);
+      --dock-bg:rgba(255,255,255,0.95);
+      --dock-shadow:0 10px 40px rgba(0,0,0,0.2);
+    }
+    html,body{height:100%;background:var(--bg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text-primary);direction:ltr;}
+    .navbar{background:linear-gradient(135deg,var(--crispy-red),var(--crispy-dark));box-shadow:0 2px 10px rgba(0,0,0,.12);padding:0.8rem 0;}
+    .navbar .navbar-brand{color:#fff;font-weight:700;font-size:1.3rem;}
+    .container-page{max-width:1400px;margin:20px auto;padding:0 20px;}
+    .card-ghost{background:var(--card-bg);border-radius:16px;padding:24px;box-shadow:var(--shadow);transition:all 0.3s ease;border:1px solid rgba(0,0,0,0.05);}
+    .card-ghost:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px);}
+    
+    /* Enhanced Stats */
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-bottom:30px;}
+    .stat-card{padding:24px;border-radius:16px;background:linear-gradient(135deg,rgba(211,47,47,0.05),rgba(211,47,47,0.1));border-left:6px solid var(--crispy-red);box-shadow:var(--shadow);transition:all 0.3s ease;}
+    .stat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);}
+    .stat-card h2{font-size:2.5rem;font-weight:700;margin:10px 0;color:var(--crispy-red);}
+    .stat-card .text-muted{font-size:0.95rem;font-weight:500;letter-spacing:0.5px;}
+    
+    /* Enhanced Platform Cards */
+    .platform-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-bottom:30px;}
+    .platform-card{padding:30px;border-radius:16px;background:linear-gradient(135deg,rgba(255,112,67,0.05),rgba(255,112,67,0.1));text-align:center;box-shadow:var(--shadow);transition:all 0.3s ease;border:1px solid rgba(255,112,67,0.1);}
+    .platform-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);}
+    .platform-card h3{font-size:2.2rem;font-weight:700;margin:15px 0;color:var(--crispy-accent);}
+    .platform-card .percentage{font-size:1.4rem;font-weight:600;color:var(--crispy-accent);margin-top:8px;}
+    
+    /* Enhanced Reports Section */
+    #reports{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:30px;}
+    .report-card{padding:24px;border-radius:16px;background:var(--card-bg);box-shadow:var(--shadow);border:1px solid rgba(0,0,0,0.05);}
+    .report-card h5{font-size:1.3rem;font-weight:700;margin-bottom:20px;color:var(--text-primary);}
+    .report-card .chart-container{position:relative;height:220px;}
+    
+    /* Enhanced Case Analysis */
+    .case-analysis-section{background:var(--card-bg);border-radius:16px;padding:30px;margin-bottom:30px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,0.05);}
+    .case-analysis-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;}
+    .case-analysis-header h5{font-size:1.4rem;font-weight:700;margin:0;color:var(--text-primary);}
+    .case-badge{padding:8px 16px;border-radius:24px;font-size:0.9rem;font-weight:600;}
+    .badge-high{background:var(--crispy-light);color:var(--crispy-red);}
+    .badge-medium{background:#fff3e0;color:#ef6c00;}
+    .badge-low{background:#e8f5e9;color:#2e7d32;}
+    
+    .branch-analysis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:24px;}
+    .branch-card{background:#f8f9fa;border-radius:12px;padding:20px;border:1px solid rgba(0,0,0,0.05);}
+    .branch-card h6{font-size:1.1rem;font-weight:700;margin-bottom:15px;color:var(--crispy-dark);}
+    .branch-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+    .branch-stat-item{text-align:center;padding:12px;background:var(--card-bg);border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.05);}
+    .branch-stat-value{font-size:1.3rem;font-weight:700;color:var(--crispy-red);margin-bottom:4px;}
+    .branch-stat-label{font-size:0.8rem;color:var(--text-secondary);font-weight:500;}
+    
+    .case-reasons{margin-top:20px;}
+    .case-reasons h6{font-size:1rem;font-weight:600;margin-bottom:12px;color:var(--text-primary);}
+    .case-reason-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.05);}
+    .case-reason-item:last-child{border-bottom:none;}
+    .case-reason-info{display:flex;flex-direction:column;align-items:flex-end;}
+    .case-reason-name{font-size:0.95rem;font-weight:500;margin-bottom:4px;}
+    .case-reason-count{font-size:0.85rem;color:var(--text-secondary);}
+    .case-reason-bar{width:100%;height:8px;background:#e9ecef;border-radius:4px;margin-top:6px;overflow:hidden;}
+    .case-reason-progress{height:100%;background:var(--crispy-red);border-radius:4px;}
+    
+    /* Compensation Analysis Section */
+    .compensation-analysis-section{background:var(--card-bg);border-radius:16px;padding:30px;margin-bottom:30px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,0.05);}
+    .compensation-analysis-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;}
+    .compensation-analysis-header h5{font-size:1.4rem;font-weight:700;margin:0;color:var(--text-primary);}
+    .compensation-analysis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;}
+    .compensation-card{background:#f8f9fa;border-radius:12px;padding:20px;border:1px solid rgba(0,0,0,0.05);}
+    .compensation-card h6{font-size:1.1rem;font-weight:700;margin-bottom:15px;color:var(--crispy-dark);}
+    .compensation-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+    .stat-item{text-align:center;padding:16px;background:var(--card-bg);border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.05);}
+    .stat-value{font-size:1.3rem;font-weight:700;color:var(--crispy-red);margin-bottom:4px;}
+    .stat-label{font-size:0.85rem;color:var(--text-secondary);font-weight:500;}
+    
+    /* Rejection Analysis Section */
+    .rejection-analysis-section{background:var(--card-bg);border-radius:16px;padding:30px;margin-bottom:30px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,0.05);}
+    .rejection-analysis-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;}
+    .rejection-analysis-header h5{font-size:1.4rem;font-weight:700;margin:0;color:var(--text-primary);}
+    .rejection-analysis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;}
+    .rejection-card{background:#f8f9fa;border-radius:12px;padding:20px;border:1px solid rgba(0,0,0,0.05);}
+    .rejection-card h6{font-size:1.1rem;font-weight:700;margin-bottom:15px;color:var(--crispy-dark);}
+    .rejection-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+    .rejection-metric-item{text-align:center;padding:16px;background:var(--card-bg);border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.05);}
+    .rejection-metric-value{font-size:1.3rem;font-weight:700;color:#dc3545;margin-bottom:4px;}
+    .rejection-metric-label{font-size:0.85rem;color:var(--text-secondary);font-weight:500;}
+    
+    /* Refund Analysis Section */
+    .refund-analysis-section{background:var(--card-bg);border-radius:16px;padding:30px;margin-bottom:30px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,0.05);}
+    .refund-analysis-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;}
+    .refund-analysis-header h5{font-size:1.4rem;font-weight:700;margin:0;color:var(--text-primary);}
+    .refund-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:25px;}
+    .refund-card{background:#f8f9fa;border-radius:12px;padding:20px;border:1px solid rgba(0,0,0,0.05);}
+    .refund-card h6{font-size:1.1rem;font-weight:700;margin-bottom:15px;color:var(--crispy-dark);}
+    .refund-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+    .refund-metric-item{text-align:center;padding:16px;background:var(--card-bg);border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.05);}
+    .refund-metric-value{font-size:1.3rem;font-weight:700;color:var(--crispy-red);margin-bottom:4px;}
+    .refund-metric-label{font-size:0.85rem;color:var(--text-secondary);font-weight:500;}
+    .refund-chart-container{height:200px;margin-top:20px;}
+    .refund-table-container{margin-top:20px;max-height:300px;overflow-y:auto;}
+    .refund-table{width:100%;border-collapse:collapse;}
+    .refund-table th{background:#f1f3f5;padding:12px;text-align:left;font-weight:600;font-size:0.9rem;}
+    .refund-table td{padding:12px;border-bottom:1px solid #eee;}
+    .refund-table tr:hover{background:#f8f9fa;}
+    .refund-status-badge{padding:4px 8px;border-radius:12px;font-size:0.8rem;font-weight:600;}
+    .status-refunded{background:#d4edda;color:#155724;}
+    
+    /* Enhanced Tickets Section with Scrollable Table */
+    .tickets-section{background:var(--card-bg);border-radius:16px;padding:24px;box-shadow:var(--shadow);margin-bottom:30px;border:1px solid rgba(0,0,0,0.05);}
+    .tickets-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:15px;}
+    .tickets-header h5{font-size:1.4rem;font-weight:700;margin:0;color:var(--text-primary);}
+    .tickets-header .filters{display:flex;flex-wrap:wrap;gap:12px;align-items:center;flex:1;}
+    .tickets-header .search-input{min-width:200px;border-radius:8px;border:1px solid rgba(0,0,0,0.1);padding:8px 12px;font-size:0.95rem;}
+    .tickets-header .filter-select{min-width:160px;border-radius:8px;border:1px solid rgba(0,0,0,0.1);font-size:0.95rem;}
+    .tickets-header .action-buttons{display:flex;gap:8px;}
+    .tickets-header .btn{border-radius:8px;font-weight:600;padding:8px 16px;}
+    
+    /* Enhanced Scrollable Table Container */
+    .scrollable-table-container{
+      max-height:600px;
+      overflow-y:auto;
+      border:1px solid rgba(0,0,0,0.1);
+      border-radius:8px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+      position:relative;
+      background:var(--card-bg);
+    }
+    
+    /* Sticky Table Headers */
+    .tickets-table th{
+      position:sticky;
+      top:0;
+      z-index:10;
+      background:linear-gradient(135deg,rgba(211,47,47,0.1),rgba(211,47,47,0.05));
+      color:var(--crispy-dark);
+      font-weight:600;
+      padding:16px 12px;
+      text-align:left;
+      font-size:0.95rem;
+      border-bottom:2px solid rgba(211,47,47,0.2);
+    }
+    
+    /* Enhanced Table */
+    .tickets-table{width:100%;border-collapse:collapse;background:var(--card-bg);}
+    .tickets-table td{
+      padding:16px 12px;
+      border-bottom:1px solid rgba(0,0,0,0.05);
+      vertical-align:middle;
+    }
+    .tickets-table tr:last-child td{border-bottom:none;}
+    .tickets-table tr:hover{background:rgba(211,47,47,0.05);}
+    .ticket-order-id{font-weight:700;font-size:1.1rem;color:var(--crispy-dark);}
+    .ticket-issue{max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-block;vertical-align:middle;}
+    .issue-expand{background:none;border:none;color:#0d6efd;text-decoration:underline;font-size:0.9rem;cursor:pointer;padding-left:8px;}
+    .ticket-actions{display:flex;flex-wrap:wrap;gap:4px;}
+    .ticket-actions .btn{padding:4px 8px;font-size:0.8rem;border-radius:6px;}
+    
+    /* Scrollbar Styling */
+    .scrollable-table-container::-webkit-scrollbar{
+      width:10px;
+    }
+    .scrollable-table-container::-webkit-scrollbar-track{
+      background:#f1f1f1;
+      border-radius:5px;
+    }
+    .scrollable-table-container::-webkit-scrollbar-thumb{
+      background:var(--crispy-red);
+      border-radius:5px;
+      border:2px solid #f1f1f1;
+    }
+    .scrollable-table-container::-webkit-scrollbar-thumb:hover{
+      background:var(--crispy-dark);
+    }
+    
+    /* Table Footer */
+    .table-footer{
+      margin-top:16px;
+      padding:12px 0;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-top:1px solid rgba(0,0,0,0.05);
+    }
+    
+    /* High compensation highlight */
+    .high-compensation{background-color:rgba(255,235,238,0.5) !important;}
+    
+    /* Refunded highlight */
+    .refunded-case{background-color:rgba(220,242,220,0.5) !important;}
+    
+    /* Rejected highlight */
+    .rejected-case{background-color:rgba(255,236,236,0.5) !important;}
+    
+    /* Restaurant fault highlight */
+    .restaurant-fault{background-color:rgba(255,241,196,0.5) !important;}
+    
+    /* Status badges */
+    .status-badge{padding:6px 12px;border-radius:20px;font-size:0.85rem;font-weight:600;}
+    .status-open{background:#e7f3ff;color:#0d6efd;}
+    .status-sent{background:#fff9e6;color:#ffc107;}
+    .status-closed{background:#e8f5e9;color:#198754;}
+    .status-rejected{background:#ffebee;color:#dc3545;}
+    .status-restaurant-fault{background:#fff3e0;color:#ff7043;}
+    
+    /* Empty State */
+    .empty-state{
+      padding:60px 20px;
+      text-align:center;
+    }
+    .empty-state i{
+      font-size:3rem;
+      color:#dee2e6;
+      margin-bottom:1rem;
+    }
+    .empty-state h5{
+      color:#6c757d;
+      margin-bottom:0.5rem;
+    }
+    .empty-state p{
+      color:#adb5bd;
+      max-width:400px;
+      margin:0 auto 1.5rem;
+    }
+    
+    /* Enhanced Modal */
+    .modal-content{border-radius:16px;border:none;box-shadow:0 10px 30px rgba(0,0,0,0.15);}
+    .modal-header{background:linear-gradient(135deg,var(--crispy-red),var(--crispy-dark));color:#fff;border-radius:16px 16px 0 0;padding:20px 24px;}
+    .modal-header .modal-title{font-weight:700;font-size:1.3rem;}
+    .modal-body{padding:24px;}
+    .form-label{font-weight:600;font-size:0.95rem;margin-bottom:8px;color:var(--text-primary);}
+    .form-control,.form-select{border-radius:8px;border:1px solid rgba(0,0,0,0.1);padding:10px 14px;font-size:0.95rem;transition:border-color 0.3s;}
+    .form-control:focus,.form-select:focus{border-color:var(--crispy-red);box-shadow:0 0 0 0.2rem rgba(211,47,47,0.12);}
+    .form-check-label{font-size:0.9rem;}
+    .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:20px 24px;}
+    .modal-footer .btn{border-radius:8px;font-weight:600;padding:10px 20px;}
+    
+    /* Image upload styling */
+    .image-upload-container{border:2px dashed #ddd;border-radius:8px;padding:20px;text-align:center;margin-bottom:16px;position:relative;}
+    .image-upload-container:hover{border-color:var(--crispy-red);background-color:#fafafa;}
+    .image-upload-container input[type="file"]{display:none;}
+    .image-preview{max-width:100%;max-height:200px;margin-top:10px;border-radius:8px;}
+    .short-link-container{margin-top:16px;}
+    .short-link-input{width:100%;border-radius:8px;border:1px solid #ddd;padding:8px 12px;font-size:0.95rem;}
+    .short-link-button{position:absolute;right:20px;top:50%;transform:translateY(-50%);background:var(--crispy-red);color:white;border:none;border-radius:6px;padding:6px 12px;font-size:0.9rem;cursor:pointer;}
+    
+    /* Enhanced Dock - Modern Design */
+    #dock-container{
+      position:fixed;
+      right:20px;
+      bottom:20px;
+      z-index:9999;
+      pointer-events:none;
+    }
+    
+    #dock{
+      position:relative;
+      pointer-events:all;
+      transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .dock-toggle{
+      width:60px;
+      height:60px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--crispy-red),var(--crispy-dark));
+      color:#fff;
+      border:none;
+      box-shadow:0 8px 32px rgba(211,47,47,0.4);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      transition:all 0.3s ease;
+      font-size:1.5rem;
+      position:relative;
+      overflow:hidden;
+    }
+    
+    .dock-toggle::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(255,255,255,0.2);
+      border-radius:50%;
+      transform:scale(0);
+      transition:transform 0.3s ease;
+    }
+    
+    .dock-toggle:hover::before{
+      transform:scale(1);
+    }
+    
+    .dock-toggle:hover{
+      transform:scale(1.1);
+      box-shadow:0 12px 40px rgba(211,47,47,0.5);
+    }
+    
+    .dock-toggle:active{
+      transform:scale(0.95);
+    }
+    
+    .dock-panel{
+      position:absolute;
+      bottom:80px;
+      right:0;
+      background:var(--dock-bg);
+      backdrop-filter:blur(20px);
+      border-radius:20px;
+      box-shadow:var(--dock-shadow);
+      padding:20px;
+      min-width:280px;
+      opacity:0;
+      visibility:hidden;
+      transform:translateY(20px) scale(0.95);
+      transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border:1px solid rgba(255,255,255,0.2);
+    }
+    
+    .dock-panel.show{
+      opacity:1;
+      visibility:visible;
+      transform:translateY(0) scale(1);
+    }
+    
+    .dock-panel::before{
+      content:'';
+      position:absolute;
+      bottom:-10px;
+      right:30px;
+      width:0;
+      height:0;
+      border-left:10px solid transparent;
+      border-right:10px solid transparent;
+      border-top:10px solid var(--dock-bg);
+    }
+    
+    .dock-panel .dock-section{
+      margin-bottom:20px;
+    }
+    
+    .dock-panel .dock-section:last-child{
+      margin-bottom:0;
+    }
+    
+    .dock-panel .dock-section-title{
+      font-size:0.75rem;
+      font-weight:700;
+      color:var(--text-secondary);
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+      margin-bottom:10px;
+      padding:0 10px;
+    }
+    
+    .dock-panel .btn{
+      width:100%;
+      margin-bottom:8px;
+      border-radius:12px;
+      padding:12px 16px;
+      font-weight:600;
+      text-align:left;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      transition:all 0.2s ease;
+      border:none;
+      font-size:0.9rem;
+    }
+    
+    .dock-panel .btn:last-child{
+      margin-bottom:0;
+    }
+    
+    .dock-panel .btn:hover{
+      transform:translateX(-5px);
+      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .dock-panel .btn i{
+      font-size:1.1rem;
+      width:24px;
+      text-align:center;
+    }
+    
+    .dock-panel .btn-primary{
+      background:var(--crispy-red);
+      color:white;
+    }
+    
+    .dock-panel .btn-primary:hover{
+      background:var(--crispy-dark);
+    }
+    
+    .dock-panel .btn-outline-primary{
+      background:transparent;
+      color:var(--crispy-red);
+      border:1px solid var(--crispy-red);
+    }
+    
+    .dock-panel .btn-outline-primary:hover{
+      background:var(--crispy-red);
+      color:white;
+    }
+    
+    .dock-panel .btn-success{
+      background:#28a745;
+      color:white;
+    }
+    
+    .dock-panel .btn-success:hover{
+      background:#218838;
+    }
+    
+    .dock-panel .btn-warning{
+      background:#ffc107;
+      color:#212529;
+    }
+    
+    .dock-panel .btn-warning:hover{
+      background:#e0a800;
+    }
+    
+    .dock-panel .btn-danger{
+      background:#dc3545;
+      color:white;
+    }
+    
+    .dock-panel .btn-danger:hover{
+      background:#c82333;
+    }
+    
+    .dock-panel .btn-outline-secondary{
+      background:transparent;
+      color:#6c757d;
+      border:1px solid #6c757d;
+    }
+    
+    .dock-panel .btn-outline-secondary:hover{
+      background:#6c757d;
+      color:white;
+    }
+    
+    .dock-panel .btn-outline-info{
+      background:transparent;
+      color:#17a2b8;
+      border:1px solid #17a2b8;
+    }
+    
+    .dock-panel .btn-outline-info:hover{
+      background:#17a2b8;
+      color:white;
+    }
+    
+    .dock-panel .btn-outline-dark{
+      background:transparent;
+      color:#343a40;
+      border:1px solid #343a40;
+    }
+    
+    .dock-panel .btn-outline-dark:hover{
+      background:#343a40;
+      color:white;
+    }
+    
+    /* Enhanced Notifications */
+    .notification{
+      position:fixed;
+      top:24px;
+      right:24px;
+      padding:16px 24px;
+      border-radius:12px;
+      color:#fff;
+      z-index:3000;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      box-shadow:0 8px 32px rgba(0,0,0,0.2);
+      transform:translateX(400px);
+      transition:transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      max-width:400px;
+    }
+    
+    .notification.show{
+      transform:translateX(0);
+    }
+    
+    .notification i{
+      font-size:1.5rem;
+    }
+    
+    .notification.success{
+      background:linear-gradient(135deg,#28a745,#20c997);
+    }
+    
+    .notification.error{
+      background:linear-gradient(135deg,#dc3545,#fd7e14);
+    }
+    
+    .notification.warning{
+      background:linear-gradient(135deg,#ffc107,#fd7e14);
+    }
+    
+    .notification .notification-content{
+      flex:1;
+    }
+    
+    .notification .notification-title{
+      font-weight:700;
+      margin-bottom:2px;
+    }
+    
+    .notification .notification-message{
+      font-size:0.9rem;
+      opacity:0.9;
+    }
+    
+    /* Summary Section */
+    .summary-section{background:var(--card-bg);border-radius:16px;padding:30px;margin-bottom:30px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,0.05);}
+    .summary-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;}
+    .summary-header h5{font-size:1.4rem;font-weight:700;margin:0;color:var(--text-primary);}
+    .summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;}
+    .summary-card{background:#f8f9fa;border-radius:12px;padding:20px;border:1px solid rgba(0,0,0,0.05);}
+    .summary-card h6{font-size:1.1rem;font-weight:700;margin-bottom:15px;color:var(--crispy-dark);}
+    .summary-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:20px;}
+    .metric-item{text-align:center;padding:16px;background:var(--card-bg);border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.05);}
+    .metric-value{font-size:1.5rem;font-weight:700;color:var(--crispy-red);margin-bottom:4px;}
+    .metric-label{font-size:0.85rem;color:var(--text-secondary);font-weight:500;}
+    .metric-change{font-size:0.8rem;font-weight:600;margin-top:4px;}
+    .metric-change.positive{color:#198754;}
+    .metric-change.negative{color:#dc3545;}
+    .metric-change.neutral{color:#6c757d;}
+    .chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;}
+    .mini-chart{height:150px;}
+    
+    /* Daily Branch Summary Modal */
+    .daily-summary-modal .modal-body{max-height:70vh;overflow-y:auto;}
+    .daily-branch-item{border-bottom:1px solid #eee;padding:12px 0;}
+    .daily-branch-item:last-child{border-bottom:none;}
+    .daily-branch-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+    .daily-branch-name{font-weight:600;}
+    .daily-branch-stats{display:flex;gap:16px;}
+    .daily-stat{text-align:center;}
+    .daily-stat-value{font-weight:700;font-size:1.1rem;}
+    .daily-stat-label{font-size:0.85rem;color:var(--text-secondary);}
+    
+    /* Commands Section Styles */
+    .commands-section {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .commands-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    
+    /* Fixed Commands Window (Right Side) */
+    .commands-window {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      width: 320px;
+      background: linear-gradient(135deg, rgba(211,47,47,0.95), rgba(183,28,28,0.95));
+      color: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 26px rgba(0,0,0,0.3);
+      z-index: 1500;
+      transition: all 0.3s ease;
+      max-height: 180px;
+      overflow: hidden;
+    }
+    
+    .commands-window:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    }
+    
+    .commands-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .commands-header h6 {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    
+    .commands-list {
+      padding: 10px;
+      max-height: 120px;
+      overflow-y: auto;
+    }
+    
+    .commands-list .command-item {
+      padding: 8px 12px;
+      margin-bottom: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+    
+    .commands-list .command-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .commands-list .command-time {
+      font-size: 0.75rem;
+      opacity: 0.7;
+      margin-top: 4px;
+    }
+    
+    /* All Commands Container */
+    .all-commands-container {
+      margin-top: 180px;
+      margin-right: 340px; /* Space for fixed window */
+    }
+    
+    .all-commands-container h6 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--crispy-dark);
+    }
+    
+    .all-commands-list {
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 8px;
+      padding: 12px;
+      background: #f8f9fa;
+    }
+    
+    .all-commands-list .command-item {
+      padding: 12px;
+      margin-bottom: 12px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      border-left: 3px solid var(--crispy-red);
+    }
+    
+    .all-commands-list .command-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .all-commands-list .command-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    
+    .all-commands-list .command-title {
+      font-weight: 600;
+      color: var(--crispy-dark);
+    }
+    
+    .all-commands-list .command-time {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    
+    .all-commands-list .command-details {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    
+    /* Scrollbar styling */
+    .commands-list::-webkit-scrollbar,
+    .all-commands-list::-webkit-scrollbar,
+    .scrollable-table-container::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .commands-list::-webkit-scrollbar-track,
+    .all-commands-list::-webkit-scrollbar-track,
+    .scrollable-table-container::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+    }
+    
+    .commands-list::-webkit-scrollbar-thumb,
+    .all-commands-list::-webkit-scrollbar-thumb,
+    .scrollable-table-container::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.3);
+      border-radius: 3px;
+    }
+    
+    .commands-list::-webkit-scrollbar-thumb:hover,
+    .all-commands-list::-webkit-scrollbar-thumb:hover,
+    .scrollable-table-container::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,255,255,0.5);
+    }
+    
+    /* Storage Indicator */
+    .storage-indicator {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 12px;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    
+    .storage-warning {
+      background: rgba(220, 53, 69, 0.9) !important;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Duplicate warning */
+    .duplicate-warning {
+      font-size: 0.85rem;
+      display: none;
+    }
+    
+    .duplicate-warning.show {
+      display: block;
+    }
+    
+    /* Loading spinner */
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Print styles */
+    @media print{
+      #dock-container, .tickets-header .btn, .action-buttons, .navbar, .modal, .notification, .commands-window, .storage-indicator { display:none !important; }
+      body{background:#fff}
+      .card-ghost{box-shadow:none;border:1px solid #ddd;}
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 1200px){
+      .container-page{max-width:100%;padding:0 16px;}
+      .dock-panel{min-width:240px;}
+    }
+    @media (max-width: 992px){
+      #reports{grid-template-columns:1fr;}
+      .branch-analysis-grid{grid-template-columns:1fr;}
+      .branch-stats{grid-template-columns:repeat(2,1fr);}
+      .summary-grid{grid-template-columns:1fr;}
+      .chart-row{grid-template-columns:1fr;}
+      .refund-grid{grid-template-columns:1fr;}
+      .compensation-analysis-grid{grid-template-columns:1fr;}
+      .rejection-analysis-grid{grid-template-columns:1fr;}
+      .all-commands-container { 
+        margin-top: 160px;
+        margin-right: 0;
+      }
+    }
+    @media (max-width: 768px){
+      .stats-grid{grid-template-columns:1fr;}
+      .platform-cards{grid-template-columns:1fr;}
+      .tickets-header .filters{flex-direction:column;align-items:stretch;}
+      .tickets-header .search-input,.tickets-header .filter-select{min-width:100%;}
+      .tickets-header .action-buttons{justify-content:stretch;}
+      .tickets-header .action-buttons .btn{flex:1;}
+      .tickets-table{font-size:0.85rem;}
+      .ticket-actions{justify-content:center;}
+      #dock-container{right:16px;bottom:16px;}
+      .dock-panel{min-width:200px;right:0 !important;}
+      .commands-window {
+        width: 280px;
+        right: 16px;
+        bottom: 16px;
+      }
+      .all-commands-container { 
+        margin-top: 140px;
+        margin-right: 0;
+      }
+      .scrollable-table-container{
+        max-height:400px;
+      }
+    }
+    @media (max-width: 576px){
+      .container-page{padding:0 12px;}
+      .card-ghost{padding:16px;}
+      .stat-card h2{font-size:2rem;}
+      .platform-card h3{font-size:1.8rem;}
+      .report-card{padding:16px;}
+      .tickets-table th,.tickets-table td{padding:10px 8px;}
+      .ticket-issue{max-width:150px;}
+      .all-commands-container { 
+        margin-top: 120px;
+        margin-right: 0;
+      }
+      .scrollable-table-container{
+        max-height:300px;
+      }
+      .dock-panel{min-width:180px;padding:15px;}
+      .dock-panel .btn{padding:10px 12px;font-size:0.85rem;}
+      .dock-panel .btn i{font-size:1rem;width:20px;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Heatmap container -->
+  <div id="heatmapContainer"></div>
+  
+  <!-- Storage Indicator -->
+  <div id="storageIndicator" class="storage-indicator">0% storage used</div>
+  
+  <!-- Enhanced Navigation -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container container-page">
+      <a class="navbar-brand" href="#"><i class="bi bi-fire-fill me-2" style="font-size:1.6rem"></i> Crispy Chicken — Compensation Tickets</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link text-white fw-semibold" href="#">Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <main class="container-page">
+    <!-- Enhanced Stats Section -->
+    <section class="stats-grid">
+      <div class="stat-card text-center">
+        <div class="text-muted">Total Cases</div>
+        <h2 id="totalTickets">0</h2>
+      </div>
+      <div class="stat-card text-center" style="border-left-color:#0d6efd;">
+        <div class="text-muted">Open</div>
+        <h2 id="openTickets" style="color:#0d6efd;">0</h2>
+      </div>
+      <div class="stat-card text-center" style="border-left-color:#ffc107;">
+        <div class="text-muted">Sent</div>
+        <h2 id="sentTickets" style="color:#ffc107;">0</h2>
+      </div>
+      <div class="stat-card text-center" style="border-left-color:#198754;">
+        <div class="text-muted">Closed</div>
+        <h2 id="closedTickets" style="color:#198754;">0</h2>
+      </div>
+      <div class="stat-card text-center" style="border-left-color:#28a745;">
+        <div class="text-muted">Resolved Disputes</div>
+        <h2 id="resolvedDisputes" style="color:#28a745;">0</h2>
+      </div>
+      <div class="stat-card text-center" style="border-left-color:#17a2b8;">
+        <div class="text-muted">Active Compensations</div>
+        <h2 id="activeCompensations" style="color:#17a2b8;">0</h2>
+      </div>
+      <div class="stat-card text-center" style="border-left-color:#dc3545;">
+        <div class="text-muted">Total Compensation</div>
+        <h2 id="totalCompensationAmount" style="color:#dc3545;">0</h2>
+      </div>
+      <div class="stat-card text-center" style="border-left-color:#ffc107;">
+        <div class="text-muted">Restaurant Fault</div>
+        <h2 id="restaurantFaultCases" style="color:#ffc107;">0</h2>
+      </div>
+    </section>
+    
+    <!-- Summary Section -->
+    <section class="summary-section">
+      <div class="summary-header">
+        <h5>Dashboard Summary</h5>
+        <div class="text-muted">
+          <i class="bi bi-calendar3 me-1"></i>
+          <span id="summaryDate"></span>
+        </div>
+      </div>
+      <div class="summary-grid">
+        <div class="summary-card">
+          <h6>Financial Overview</h6>
+          <div class="summary-metrics">
+            <div class="metric-item">
+              <div class="metric-value" id="totalOriginalAmount">0</div>
+              <div class="metric-label">Total Original Amount</div>
+              <div class="metric-change" id="originalAmountChange">+0%</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value" id="totalCompensation">0</div>
+              <div class="metric-label">Total Compensation</div>
+              <div class="metric-change" id="compensationChange">+0%</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value" id="totalRefunded">0</div>
+              <div class="metric-label">Total Refunded</div>
+              <div class="metric-change" id="refundedChange">+0%</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value" id="netCompensation">0</div>
+              <div class="metric-label">Net Compensation</div>
+              <div class="metric-change" id="netCompensationChange">+0%</div>
+            </div>
+          </div>
+          <div class="chart-row">
+            <div class="mini-chart">
+              <canvas id="amountChart"></canvas>
+            </div>
+            <div class="mini-chart">
+              <canvas id="statusChart"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        <div class="summary-card">
+          <h6>Platform Performance</h6>
+          <div class="summary-metrics">
+            <div class="metric-item">
+              <div class="metric-value" id="noonTickets">0</div>
+              <div class="metric-label">Noon Cases</div>
+              <div class="metric-change" id="noonTicketsChange">+0%</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value" id="careemTickets">0</div>
+              <div class="metric-label">Careem Cases</div>
+              <div class="metric-change" id="careemTicketsChange">+0%</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value" id="noonRefunded">0</div>
+              <div class="metric-label">Noon Refunded</div>
+              <div class="metric-change" id="noonRefundedChange">+0%</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value" id="careemRefunded">0</div>
+              <div class="metric-label">Careem Refunded</div>
+              <div class="metric-change" id="careemRefundedChange">+0%</div>
+            </div>
+          </div>
+          <div class="chart-row">
+            <div class="mini-chart">
+              <canvas id="platformTicketsChart"></canvas>
+            </div>
+            <div class="mini-chart">
+              <canvas id="platformCompensationChart"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        <div class="summary-card">
+          <h6>Branch Performance</h6>
+          <div class="summary-metrics">
+            <div class="metric-item">
+              <div class="metric-value" id="topBranch">-</div>
+              <div class="metric-label">Top Branch</div>
+              <div class="metric-change" id="topBranchCases">0 cases</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value" id="topCase">-</div>
+              <div class="metric-label">Top Case</div>
+              <div class="metric-change" id="topCaseCount">0 cases</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value" id="caseRate">0%</div>
+              <div class="metric-label">Case Rate</div>
+              <div class="metric-change" id="caseRateChange">+0%</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value" id="avgOriginalAmount">0</div>
+              <div class="metric-label">Avg. Original Amount</div>
+              <div class="metric-change" id="avgOriginalAmountChange">+0%</div>
+            </div>
+          </div>
+          <div class="chart-row">
+            <div class="mini-chart">
+              <canvas id="branchCasesChart"></canvas>
+            </div>
+            <div class="mini-chart">
+              <canvas id="caseTypesChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Enhanced Platform Cards -->
+    <section class="platform-cards">
+      <div class="platform-card">
+        <div class="text-muted">Noon Cases</div>
+        <h3 id="noonCount">0</h3>
+        <div class="percentage" id="noonPercentage">0%</div>
+      </div>
+      <div class="platform-card">
+        <div class="text-muted">Careem Cases</div>
+        <h3 id="careemCount">0</h3>
+        <div class="percentage" id="careemPercentage">0%</div>
+      </div>
+    </section>
+    
+    <!-- Enhanced Reports Section -->
+    <section id="reports">
+      <div class="report-card">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5>Top Branches by Cases</h5>
+          <small class="text-muted" id="topBranchLabel"></small>
+        </div>
+        <div class="chart-container">
+          <canvas id="branchChart"></canvas>
+        </div>
+      </div>
+      <div class="report-card">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5>Case Types Breakdown</h5>
+          <small class="text-muted" id="topCaseLabel"></small>
+        </div>
+        <div class="chart-container">
+          <canvas id="caseChart"></canvas>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Enhanced Case Analysis -->
+    <section class="case-analysis-section">
+      <div class="case-analysis-header">
+        <h5>Case Analysis Causing Compensation</h5>
+        <div id="caseAnalysisBadge" class="case-badge badge-high">High Level</div>
+      </div>
+      <div id="branchAnalysisContainer"></div>
+    </section>
+    
+    <!-- Compensation Analysis Section -->
+    <section class="compensation-analysis-section">
+      <div class="compensation-analysis-header">
+        <h5>Compensation Analysis by Type</h5>
+        <div class="text-muted">
+          <i class="bi bi-bar-chart me-1"></i>
+          Breakdown of compensation cases
+        </div>
+      </div>
+      <div id="compensationAnalysisContainer"></div>
+    </section>
+    
+    <!-- Rejection Analysis Section -->
+    <section class="rejection-analysis-section">
+      <div class="rejection-analysis-header">
+        <h5>Rejection Analysis</h5>
+        <div class="text-muted">
+          <i class="bi bi-x-circle me-1"></i>
+          Analysis of rejected compensation cases
+        </div>
+      </div>
+      <div id="rejectionAnalysisContainer"></div>
+    </section>
+    
+    <!-- Restaurant Fault Analysis Section -->
+    <section class="rejection-analysis-section">
+      <div class="rejection-analysis-header">
+        <h5>Restaurant Fault Cases</h5>
+        <div class="text-muted">
+          <i class="bi bi-exclamation-triangle me-1"></i>
+          Cases where restaurant bears the cost
+        </div>
+      </div>
+      <div id="restaurantFaultContainer"></div>
+    </section>
+    
+    <!-- Refund Analysis Section -->
+    <section class="refund-analysis-section">
+      <div class="refund-analysis-header">
+        <h5>Refund Analysis</h5>
+        <div class="text-muted">
+          <i class="bi bi-arrow-repeat me-1"></i>
+          Refunded Compensation Tracking
+        </div>
+      </div>
+      <div class="refund-grid">
+        <div class="refund-card">
+          <h6>Overall Refunds</h6>
+          <div class="refund-metrics">
+            <div class="refund-metric-item">
+              <div class="refund-metric-value" id="totalRefundedAmount">0</div>
+              <div class="refund-metric-label">Total Refunded Amount</div>
+            </div>
+            <div class="refund-metric-item">
+              <div class="refund-metric-value" id="refundedCasesCount">0</div>
+              <div class="refund-metric-label">Refunded Cases</div>
+            </div>
+            <div class="refund-metric-item">
+              <div class="refund-metric-value" id="refundRate">0%</div>
+              <div class="refund-metric-label">Refund Rate</div>
+            </div>
+            <div class="refund-metric-item">
+              <div class="refund-metric-value" id="avgRefundedAmount">0</div>
+              <div class="refund-metric-label">Avg. Refunded Amount</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="refund-card">
+          <h6>Refunds by Branch</h6>
+          <div class="refund-chart-container">
+            <canvas id="refundBranchChart"></canvas>
+          </div>
+        </div>
+      </div>
+      
+      <div class="refund-table-container">
+        <table class="refund-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Branch</th>
+              <th>Original Amount</th>
+              <th>Compensation</th>
+              <th>Refunded Amount</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="refundTableBody">
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+    <!-- Enhanced Tickets Section with Scrollable Table -->
+    <section class="tickets-section">
+      <div class="tickets-header">
+        <h5>Compensation Cases</h5>
+        <div class="filters">
+          <input id="searchInput" class="form-control search-input" placeholder="Search case / branch / issue" />
+          <select id="filterBranch" class="form-select filter-select">
+            <option value="">All Branches</option>
+          </select>
+          <select id="filterPlatform" class="form-select filter-select">
+            <option value="">All Platforms</option>
+            <option>Noon</option>
+            <option>Careem</option>
+          </select>
+          <select id="filterStatus" class="form-select filter-select">
+            <option value="">All Status</option>
+            <option>Open</option>
+            <option>Sent</option>
+            <option>Closed</option>
+            <option>Rejected</option>
+            <option>Restaurant Fault</option>
+          </select>
+          <div class="action-buttons">
+            <button class="btn btn-primary" onclick="openAddModal()">
+              <i class="bi bi-plus-circle me-1"></i> Add
+            </button>
+            <button class="btn btn-outline-secondary" onclick="addSample()">
+              <i class="bi bi-flask me-1"></i> Sample
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Scrollable Table Container -->
+      <div class="scrollable-table-container">
+        <table class="tickets-table">
+          <thead>
+            <tr>
+              <th style="width: 120px;">Order ID</th>
+              <th style="width: 150px;">Order Date</th>
+              <th style="width: 140px;">Branch</th>
+              <th style="width: 100px;">Platform</th>
+              <th style="width: 300px;">Case</th>
+              <th style="width: 100px;">Evidence</th>
+              <th style="width: 120px;">Status</th>
+              <th style="width: 120px;">Original Amount</th>
+              <th style="width: 120px;">Compensation</th>
+              <th style="width: 120px;">Refunded</th>
+              <th style="width: 150px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="ticketsTableBody">
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- Table Footer -->
+      <div class="table-footer">
+        <div class="text-muted">
+          Showing <span id="tableRowCount">0</span> of <span id="tableTotalCount">0</span> cases
+        </div>
+        <div class="table-actions">
+          <button class="btn btn-sm btn-outline-secondary" onclick="exportTableData()">
+            <i class="bi bi-download me-1"></i> Export
+          </button>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Commands Section -->
+    <section class="commands-section">
+      <div class="commands-container">
+        <!-- Fixed Commands Window (Last 3 commands) -->
+        <div id="commandsWindow" class="commands-window">
+          <div class="commands-header">
+            <h6><i class="bi bi-terminal me-1"></i> Last Commands</h6>
+            <button class="btn btn-sm btn-outline-light" onclick="clearCommands()">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+          <div id="commandsList" class="commands-list">
+            <!-- Last 3 commands will be shown here -->
+          </div>
+        </div>
+        
+        <!-- Scrollable All Commands -->
+        <div class="all-commands-container">
+          <h6><i class="bi bi-list-ul me-1"></i> All Commands</h6>
+          <div id="allCommandsList" class="all-commands-list">
+            <!-- All commands will be shown here -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Enhanced Modal -->
+  <div class="modal fade" id="ticketModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">Add Compensation Case</h5>
+          <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="ticketForm">
+            <input type="hidden" id="editingId" />
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Order ID</label>
+                <input id="f_orderId" class="form-control" required>
+                <div id="duplicateWarning" class="duplicate-warning text-danger mt-1"></div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Order Date & Time</label>
+                <input id="f_orderDate" type="datetime-local" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Branch</label>
+                <select id="f_branch" class="form-select" required>
+                  <option value="">Select Branch</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Platform</label>
+                <select id="f_platform" class="form-select" required>
+                  <option value="">Select Platform</option>
+                  <option>Noon</option>
+                  <option>Careem</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Case Description</label>
+                <textarea id="f_issue" class="form-control autogrow" required></textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Original Amount (AED)</label>
+                <input id="f_originalAmount" type="number" min="0" step="0.01" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Compensation (AED)</label>
+                <input id="f_compensation" type="number" min="0" step="0.01" class="form-control" required>
+              </div>
+              
+              <!-- Refund Section -->
+              <div class="col-md-6">
+                <label class="form-label">Refunded Amount (AED)</label>
+                <input id="f_refundedAmount" type="number" min="0" step="0.01" class="form-control" value="0">
+                <div class="form-check mt-2">
+                  <input id="f_isRefunded" type="checkbox" class="form-check-input">
+                  <label class="form-check-label" for="f_isRefunded">Mark as refunded</label>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <label class="form-label">Refund Date</label>
+                <input id="f_refundDate" type="date" class="form-control">
+              </div>
+              
+              <!-- Evidence Section -->
+              <div class="col-12">
+                <label class="form-label">Evidence</label>
+                <div class="image-upload-container" onclick="document.getElementById('f_evidenceImage').click()">
+                  <i class="bi bi-cloud-upload" style="font-size:2rem;color:#ccc"></i>
+                  <p class="mb-0 mt-2">Click to upload image</p>
+                  <input type="file" id="f_evidenceImage" accept="image/*" onchange="handleImageUpload(event)">
+                  <img id="imagePreview" class="image-preview" style="display:none">
+                </div>
+                
+                <div class="short-link-container">
+                  <label class="form-label">Short Link</label>
+                  <div style="position:relative;">
+                    <input id="f_shortLink" type="text" class="form-control short-link-input" placeholder="Click 'Generate' to create short link" readonly>
+                    <button type="button" class="short-link-button" onclick="generateShortLink()">
+                      <i class="bi bi-link-45deg"></i> Generate
+                    </button>
+                  </div>
+                </div>
+                
+                <div class="form-check mt-2">
+                  <input id="f_noEvidence" type="checkbox" class="form-check-input">
+                  <label class="form-check-label" for="f_noEvidence">No evidence</label>
+                </div>
+              </div>
+              
+              <div class="col-12 mt-3 d-flex gap-2 justify-content-end">
+                <button type="submit" class="btn btn-danger">Save</button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Issue Modal -->
+  <div class="modal fade" id="issueModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Case Details</h5>
+          <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div id="issueText" style="white-space:pre-wrap;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Daily Branch Summary Modal -->
+  <div class="modal fade" id="dailySummaryModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Daily Branch Summary</h5>
+          <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body daily-summary-modal">
+          <div id="dailySummaryContent"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="exportDailySummary()">Export Summary</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Storage Cleanup Modal -->
+  <div class="modal fade" id="cleanupModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Storage Cleanup</h5>
+          <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>Your browser storage is almost full. Please choose a cleanup option:</p>
+          <div class="d-grid gap-2">
+            <button class="btn btn-warning" onclick="cleanBase64Images(); bootstrap.Modal.getInstance(document.getElementById('cleanupModal')).hide();">
+              <i class="bi bi-image me-2"></i>Remove All Images
+            </button>
+            <button class="btn btn-danger" onclick="removeOldCases(); bootstrap.Modal.getInstance(document.getElementById('cleanupModal')).hide();">
+              <i class="bi bi-trash me-2"></i>Remove Cases Older Than 3 Months
+            </button>
+            <button class="btn btn-outline-secondary" onclick="resetAll(); bootstrap.Modal.getInstance(document.getElementById('cleanupModal')).hide();">
+              <i class="bi bi-arrow-clockwise me-2"></i>Reset All Data
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Rejection Modal -->
+  <div class="modal fade" id="rejectionModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">رفض تعويض</h5>
+          <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="rejectionForm">
+            <div class="mb-3">
+              <label class="form-label">اختر الحالة</label>
+              <select id="rejectionCase" class="form-select" required>
+                <option value="">اختر حالة</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">سبب الرفض</label>
+              <select id="rejectionReason" class="form-select" required>
+                <option value="">اختر السبب</option>
+                <option value="no_evidence">لا يوجد دليل</option>
+                <option value="incorrect_claim">الادعاء غير صحيح</option>
+                <option value="driver_fault">خطأ السائق</option>
+                <option value="customer_error">خطأ العميل</option>
+                <option value="restaurant_fault">المطعم يحمل التكلفة (صحة الشكوى)</option>
+                <option value="other">أسباب أخرى</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">ملاحظات إضافية</label>
+              <textarea id="rejectionNotes" class="form-control" rows="3"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <div class="form-check">
+                <input id="sendEmail" type="checkbox" class="form-check-input" checked>
+                <label class="form-check-label" for="sendEmail">إرسال بريد إلكتروني</label>
+              </div>
+              <div class="form-check">
+                <input id="sendWhatsApp" type="checkbox" class="form-check-input" checked>
+                <label class="form-check-label" for="sendWhatsApp">إرسال عبر واتساب</label>
+              </div>
+            </div>
+            
+            <div class="d-flex justify-content-end gap-2">
+              <button type="submit" class="btn btn-danger">رفض التعويض</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Restaurant Fault Modal -->
+  <div class="modal fade" id="restaurantFaultModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-warning text-dark">
+          <h5 class="modal-title">مطعم مسؤول - صحة الشكوى</h5>
+          <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="restaurantFaultForm">
+            <div class="mb-3">
+              <label class="form-label">اختر الحالة</label>
+              <select id="faultCase" class="form-select" required>
+                <option value="">اختر حالة</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">مبلغ التعويض (AED)</label>
+              <input id="faultCompensation" type="number" min="0" step="0.01" class="form-control" required>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">ملاحظات إضافية</label>
+              <textarea id="faultNotes" class="form-control" rows="3"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <div class="form-check">
+                <input id="faultSendEmail" type="checkbox" class="form-check-input" checked>
+                <label class="form-check-label" for="faultSendEmail">إرسال بريد إلكتروني</label>
+              </div>
+              <div class="form-check">
+                <input id="faultSendWhatsApp" type="checkbox" class="form-check-input" checked>
+                <label class="form-check-label" for="faultSendWhatsApp">إرسال عبر واتساب</label>
+              </div>
+            </div>
+            
+            <div class="d-flex justify-content-end gap-2">
+              <button type="submit" class="btn btn-warning">تأكيد مسؤولية المطعم</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Enhanced Dock -->
+  <div id="dock-container">
+    <div id="dock">
+      <div class="dock-panel" id="dockPanel">
+        <div class="dock-section">
+          <div class="dock-section-title">Quick Actions</div>
+          <button class="btn btn-primary" onclick="openAddModal()">
+            <i class="bi bi-plus-circle"></i>
+            <span>New Case</span>
+          </button>
+          <button class="btn btn-outline-primary" onclick="addSample()">
+            <i class="bi bi-flask"></i>
+            <span>Add Sample</span>
+          </button>
+        </div>
+        
+        <div class="dock-section">
+          <div class="dock-section-title">Reports</div>
+          <button class="btn btn-outline-secondary" onclick="showDailySummary()">
+            <i class="bi bi-calendar-day"></i>
+            <span>Daily Summary</span>
+          </button>
+          <button class="btn btn-outline-dark" onclick="printReport()">
+            <i class="bi bi-printer"></i>
+            <span>Print Report</span>
+          </button>
+        </div>
+        
+        <div class="dock-section">
+          <div class="dock-section-title">Export</div>
+          <button class="btn btn-success" onclick="exportExcel()">
+            <i class="bi bi-file-earmark-spreadsheet"></i>
+            <span>Export Excel</span>
+          </button>
+          <button class="btn btn-warning" onclick="exportPDF()">
+            <i class="bi bi-file-earmark-pdf"></i>
+            <span>Export PDF</span>
+          </button>
+          <button class="btn btn-primary" onclick="exportDashboardSummary()">
+            <i class="bi bi-file-text"></i>
+            <span>Dashboard PDF</span>
+          </button>
+        </div>
+        
+        <div class="dock-section">
+          <div class="dock-section-title">Management</div>
+          <button class="btn btn-danger" onclick="openRejectionModal()">
+            <i class="bi bi-x-circle"></i>
+            <span>رفض تعويض</span>
+          </button>
+          <button class="btn btn-warning" onclick="openRestaurantFaultModal()">
+            <i class="bi bi-exclamation-triangle"></i>
+            <span>مطعم مسؤول</span>
+          </button>
+          <button class="btn btn-outline-secondary" onclick="resetAll()">
+            <i class="bi bi-arrow-clockwise"></i>
+            <span>Reset All</span>
+          </button>
+        </div>
+        
+        <div class="dock-section">
+          <div class="dock-section-title">Tools</div>
+          <button class="btn btn-outline-danger" onclick="toggleHeatmap()">
+            <i class="bi bi-activity"></i>
+            <span>Heatmap</span>
+          </button>
+          <button class="btn btn-outline-info" onclick="exportUsabilityLog()">
+            <i class="bi bi-box-arrow-up-right"></i>
+            <span>Export Log</span>
+          </button>
+          <button class="btn btn-outline-info" onclick="clearCommands()">
+            <i class="bi bi-trash"></i>
+            <span>Clear Commands</span>
+          </button>
+          <button class="btn btn-outline-secondary" onclick="showStorageInfo()">
+            <i class="bi bi-hdd"></i>
+            <span>Storage Info</span>
+          </button>
+        </div>
+      </div>
+      
+      <button class="dock-toggle" id="dockToggle" title="Open actions menu">
+        <i class="bi bi-three-dots-vertical"></i>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Enhanced Notification -->
+  <div id="notification" class="notification">
+    <i class="bi bi-check-circle-fill"></i>
+    <div class="notification-content">
+      <div class="notification-title">Success</div>
+      <div class="notification-message">Operation completed successfully</div>
+    </div>
+  </div>
+  
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/heatmapjs@2.0.5/heatmap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.js"></script>
+  <script>
+  // ===== State & initial data =====
+  let tickets = [];
+  const branchWhats = {
+    "Crispy Chicken Khalidiya":"971569494764",
+    "Crispy Chicken Muroor":"971505414641",
+    "Crispy Chicken Shabiya 11":"971562690688",
+    "Crispy Chicken Al Barsha":"971569659524",
+    "Crispy Chicken Al Satwa":"971567970685",
+    "Crispy Chicken Electra":"971563866859",
+    "Crispy Chicken Hamdan":"971556886650",
+    "Crispy Chicken-Al Khalidiya":"971569494764"
+  };
+  const branchesList = Object.keys(branchWhats);
+  
+  // ===== DOM refs =====
+  const ticketsTableBody = document.getElementById('ticketsTableBody');
+  const searchInput = document.getElementById('searchInput');
+  const filterBranch = document.getElementById('filterBranch');
+  const filterPlatform = document.getElementById('filterPlatform');
+  const filterStatus = document.getElementById('filterStatus');
+  const notification = document.getElementById('notification');
+  const dockToggle = document.getElementById('dockToggle');
+  const dockPanel = document.getElementById('dockPanel');
+  const dock = document.getElementById('dock');
+  const heatmapContainer = document.getElementById('heatmapContainer');
+  
+  // Charts
+  let branchChart = null, caseChart = null;
+  let amountChart = null, statusChart = null;
+  let platformTicketsChart = null, platformCompensationChart = null;
+  let branchCasesChart = null, caseTypesChart = null;
+  let refundBranchChart = null;
+  
+  // Heatmap
+  let heatmapInstance = null;
+  let heatmapVisible = false;
+  const interactions = [];
+  
+  // Commands tracking
+  let commands = [];
+  const MAX_COMMANDS_VISIBLE = 3;
+  
+  // ===== Load Tickets from Storage =====
+  function loadTickets() {
+    try {
+      const stored = localStorage.getItem('crispyTickets');
+      if (stored) {
+        tickets = JSON.parse(stored);
+        console.log('Loaded tickets from storage:', tickets.length);
+      } else {
+        console.log('No tickets found in storage');
+        tickets = [];
+      }
+    } catch (error) {
+      console.error('Error loading tickets:', error);
+      tickets = [];
+    }
+  }
+  
+  // ===== Save Tickets to Storage =====
+  function saveTickets() {
+    try {
+      localStorage.setItem('crispyTickets', JSON.stringify(tickets));
+      console.log('Saved tickets to storage:', tickets.length);
+      return true;
+    } catch (error) {
+      console.error('Error saving tickets:', error);
+      showNotif('Error saving data', 'error');
+      return false;
+    }
+  }
+  
+  // Init setup
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('Initializing application...');
+    
+    // Load tickets first
+    loadTickets();
+    
+    populateBranchFilters();
+    
+    // If no tickets, add sample data
+    if (tickets.length === 0) {
+      console.log('No tickets found, adding sample data...');
+      addSample();
+    } else {
+      renderAll();
+    }
+    
+    setupListeners();
+    initHeatmap();
+    updateSummaryDate();
+    
+    // Initialize commands display
+    updateCommandsDisplay();
+    
+    // Initialize storage indicator
+    updateStorageIndicator();
+    
+    // Initialize table scroll
+    initializeTableScroll();
+    
+    console.log('Application initialized successfully');
+  });
+  
+  // ===== Storage Management Functions =====
+  
+  // Check storage quota
+  function checkStorageQuota() {
+    try {
+      const data = JSON.stringify(tickets);
+      const dataString = 'crispyTickets=' + data;
+      
+      // Check if data exceeds typical localStorage limits (5MB)
+      if (dataString.length > 4.5 * 1024 * 1024) { // 4.5MB limit
+        console.warn('Storage quota approaching limit:', (dataString.length / 1024 / 1024).toFixed(2) + 'MB');
+        return false;
+      }
+      return true;
+    } catch (error) {
+      console.error('Error checking storage quota:', error);
+      return false;
+    }
+  }
+  
+  // Update storage indicator
+  function updateStorageIndicator() {
+    try {
+      const data = JSON.stringify(tickets);
+      const dataSize = new Blob([data]).size;
+      const usedMB = dataSize / 1024 / 1024;
+      const usedPercent = (usedMB / 5) * 100; // Assuming 5MB limit
+      
+      let indicator = document.getElementById('storageIndicator');
+      if (!indicator) {
+        indicator = document.createElement('div');
+        indicator.id = 'storageIndicator';
+        indicator.className = 'storage-indicator';
+        document.body.appendChild(indicator);
+      }
+      
+      indicator.textContent = `${usedPercent.toFixed(0)}% storage used`;
+      
+      if (usedPercent > 80) {
+        indicator.classList.add('storage-warning');
+      } else {
+        indicator.classList.remove('storage-warning');
+      }
+    } catch (error) {
+      console.error('Error updating storage indicator:', error);
+    }
+  }
+  
+  // Show storage info
+  function showStorageInfo() {
+    try {
+      const data = JSON.stringify(tickets);
+      const dataSize = new Blob([data]).size;
+      const usedMB = (dataSize / 1024 / 1024).toFixed(2);
+      const quotaMB = (localStorage.remainingSpace || 5).toFixed(2); // Approximate
+      const freeMB = (quotaMB - usedMB).toFixed(2);
+      
+      alert(`Storage Usage:\nUsed: ${usedMB} MB\nFree: ${freeMB} MB\nTotal Cases: ${tickets.length}`);
+    } catch (error) {
+      console.error('Error getting storage info:', error);
+      alert('Error getting storage information');
+    }
+  }
+  
+  // Clean base64 images
+  function cleanBase64Images() {
+    let cleanedCount = 0;
+    tickets = tickets.map(ticket => {
+      if (ticket.evidence && ticket.evidence.startsWith('data:image')) {
+        cleanedCount++;
+        return { ...ticket, evidence: 'None' };
+      }
+      return ticket;
+    });
+    
+    if (cleanedCount > 0) {
+      if (saveTickets()) {
+        renderAll();
+        showNotif(`Cleaned ${cleanedCount} images. Storage freed.`, 'success');
+      }
+    } else {
+      showNotif('No base64 images found to clean.', 'info');
+    }
+  }
+  
+  // Remove old cases
+  function removeOldCases() {
+    const monthsToKeep = 3; // Keep last 3 months
+    const cutoffDate = new Date();
+    cutoffDate.setMonth(cutoffDate.getMonth() - monthsToKeep);
+    
+    const originalCount = tickets.length;
+    tickets = tickets.filter(ticket => {
+      const ticketDate = new Date(ticket.orderDate || ticket.dateCreated || Date.now());
+      return ticketDate > cutoffDate;
+    });
+    
+    const removedCount = originalCount - tickets.length;
+    
+    if (removedCount > 0) {
+      if (saveTickets()) {
+        renderAll();
+        showNotif(`Removed ${removedCount} old cases. Storage freed.`, 'success');
+      }
+    } else {
+      showNotif('No old cases found to remove.', 'info');
+    }
+  }
+  
+  // Offer storage cleanup
+  function offerStorageCleanup() {
+    if (confirm('Storage is full. Would you like to clean up old cases or images?')) {
+      // Show a modal with cleanup options
+      const cleanupModal = new bootstrap.Modal(document.getElementById('cleanupModal'));
+      cleanupModal.show();
+    }
+  }
+  
+  // ===== Commands tracking functions =====
+  function addCommand(title, details = '') {
+    const now = new Date();
+    const command = {
+      id: Date.now(),
+      title,
+      details,
+      time: now.toLocaleTimeString()
+    };
+    
+    commands.unshift(command);
+    
+    // Keep only last 50 commands to prevent memory issues
+    if (commands.length > 50) {
+      commands = commands.slice(0, 50);
+    }
+    
+    updateCommandsDisplay();
+  }
+  
+  function updateCommandsDisplay() {
+    // Update fixed window (last 3 commands)
+    const commandsList = document.getElementById('commandsList');
+    const lastCommands = commands.slice(0, MAX_COMMANDS_VISIBLE);
+    
+    commandsList.innerHTML = lastCommands.map(cmd => `
+      <div class="command-item">
+        <div>${cmd.title}</div>
+        <div class="command-time">${cmd.time}</div>
+      </div>
+    `).join('');
+    
+    // Update all commands list
+    const allCommandsList = document.getElementById('allCommandsList');
+    allCommandsList.innerHTML = commands.map(cmd => `
+      <div class="command-item">
+        <div class="command-header">
+          <div class="command-title">${cmd.title}</div>
+          <div class="command-time">${cmd.time}</div>
+        </div>
+        ${cmd.details ? `<div class="command-details">${cmd.details}</div>` : ''}
+      </div>
+    `).join('');
+  }
+  
+  function clearCommands() {
+    if (confirm('Clear all command history?')) {
+      commands = [];
+      updateCommandsDisplay();
+      showNotif('Command history cleared', 'success');
+    }
+  }
+  
+  // ===== Populate branch selects =====
+  function populateBranchFilters() {
+    // branch select in filters and modal
+    filterBranch.innerHTML = '<option value="">All Branches</option>';
+    const fBranch = document.getElementById('f_branch');
+    fBranch.innerHTML = '<option value="">Select Branch</option>';
+    branchesList.forEach(b => {
+      const opt1 = document.createElement('option'); opt1.value = b; opt1.textContent = b; filterBranch.appendChild(opt1);
+      const opt2 = document.createElement('option'); opt2.value = b; opt2.textContent = b; fBranch.appendChild(opt2);
+    });
+  }
+  
+  // ===== Utility =====
+  function showNotif(msg, type = 'success', title = '') {
+    const notif = notification;
+    const icon = notif.querySelector('i');
+    const titleEl = notif.querySelector('.notification-title');
+    const msgEl = notif.querySelector('.notification-message');
+    
+    // Update icon based on type
+    if (type === 'success') {
+      icon.className = 'bi bi-check-circle-fill';
+    } else if (type === 'error') {
+      icon.className = 'bi bi-x-circle-fill';
+    } else if (type === 'warning') {
+      icon.className = 'bi bi-exclamation-triangle-fill';
+    }
+    
+    // Update content
+    titleEl.textContent = title || type.charAt(0).toUpperCase() + type.slice(1);
+    msgEl.textContent = msg;
+    
+    // Update classes
+    notif.className = `notification ${type}`;
+    
+    // Show notification
+    setTimeout(() => { notif.classList.add('show'); }, 10);
+    
+    // Hide after 3 seconds
+    setTimeout(() => { notif.classList.remove('show'); }, 3000);
+  }
+  
+  function formatDateISO(dt) {
+    if (!dt) return '';
+    const d = new Date(dt);
+    return d.toLocaleString();
+  }
+  
+  function updateSummaryDate() {
+    const now = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+    document.getElementById('summaryDate').textContent = now.toLocaleDateString('en-US', options);
+  }
+  
+  // ===== Generate Short Link =====
+  function generateShortLink() {
+    const ticketId = Date.now().toString();
+    const shortLink = `https://crispy.ch/t/${ticketId.slice(-6)}`;
+    document.getElementById('f_shortLink').value = shortLink;
+    showNotif('Short link generated', 'success');
+  }
+  
+  // ===== Handle Image Upload =====
+  function handleImageUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+      // Check file size (limit to 1MB)
+      if (file.size > 1024 * 1024) {
+        showNotif('Image size must be less than 1MB', 'error');
+        return;
+      }
+      
+      // Check storage before uploading
+      if (!checkStorageQuota()) {
+        showNotif('Not enough storage space. Please clean up first.', 'error');
+        offerStorageCleanup();
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const preview = document.getElementById('imagePreview');
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+        
+        // Store base64 data in a hidden field
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.id = 'f_evidenceBase64';
+        hiddenInput.value = e.target.result;
+        document.getElementById('ticketForm').appendChild(hiddenInput);
+        
+        showNotif('Image uploaded successfully', 'success');
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  
+  // ===== Show Daily Summary =====
+  function showDailySummary() {
+    const today = new Date().toISOString().split('T')[0];
+    const todayTickets = tickets.filter(t => t.orderDate && t.orderDate.startsWith(today));
+    
+    // Group by branch
+    const branchSummary = {};
+    todayTickets.forEach(ticket => {
+      if (!branchSummary[ticket.branch]) {
+        branchSummary[ticket.branch] = {
+          totalCases: 0,
+          totalCompensation: 0,
+          totalRefunded: 0,
+          cases: []
+        };
+      }
+      branchSummary[ticket.branch].totalCases++;
+      branchSummary[ticket.branch].totalCompensation += ticket.compensation || 0;
+      branchSummary[ticket.branch].totalRefunded += ticket.refundedAmount || 0;
+      branchSummary[ticket.branch].cases.push(ticket);
+    });
+    
+    // Generate HTML for daily summary
+    let html = '';
+    Object.keys(branchSummary).forEach(branch => {
+      const summary = branchSummary[branch];
+      html += `
+        <div class="daily-branch-item">
+          <div class="daily-branch-header">
+            <div class="daily-branch-name">${branch}</div>
+            <div class="daily-branch-stats">
+              <div class="daily-stat">
+                <div class="daily-stat-value">${summary.totalCases}</div>
+                <div class="daily-stat-label">Cases</div>
+              </div>
+              <div class="daily-stat">
+                <div class="daily-stat-value">${summary.totalCompensation.toFixed(2)}</div>
+                <div class="daily-stat-label">Comp</div>
+              </div>
+              <div class="daily-stat">
+                <div class="daily-stat-value">${summary.totalRefunded.toFixed(2)}</div>
+                <div class="daily-stat-label">Refund</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    
+    document.getElementById('dailySummaryContent').innerHTML = html || '<p>No cases today</p>';
+    
+    const modal = new bootstrap.Modal(document.getElementById('dailySummaryModal'));
+    modal.show();
+  }
+  
+  // ===== Export Daily Summary =====
+  function exportDailySummary() {
+    const today = new Date().toISOString().split('T')[0];
+    const todayTickets = tickets.filter(t => t.orderDate && t.orderDate.startsWith(today));
+    
+    // Create CSV content
+    const headers = ['Branch', 'Total Cases', 'Total Compensation', 'Total Refunded'];
+    const rows = [];
+    
+    // Group by branch
+    const branchSummary = {};
+    todayTickets.forEach(ticket => {
+      if (!branchSummary[ticket.branch]) {
+        branchSummary[ticket.branch] = {
+          totalCases: 0,
+          totalCompensation: 0,
+          totalRefunded: 0
+        };
+      }
+      branchSummary[ticket.branch].totalCases++;
+      branchSummary[ticket.branch].totalCompensation += ticket.compensation || 0;
+      branchSummary[ticket.branch].totalRefunded += ticket.refundedAmount || 0;
+    });
+    
+    // Add branch data
+    Object.keys(branchSummary).forEach(branch => {
+      const summary = branchSummary[branch];
+      rows.push([
+        branch,
+        summary.totalCases,
+        summary.totalCompensation.toFixed(2),
+        summary.totalRefunded.toFixed(2)
+      ]);
+    });
+    
+    // Create CSV
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.join(','))
+    ].join('\n');
+    
+    // Download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `daily_summary_${today}.csv`;
+    link.click();
+    
+    showNotif('Daily summary exported', 'success');
+  }
+  
+  // ===== Setup Listeners =====
+  function setupListeners() {
+    // Search and filters
+    searchInput.addEventListener('input', renderTable);
+    filterBranch.addEventListener('change', renderTable);
+    filterPlatform.addEventListener('change', renderTable);
+    filterStatus.addEventListener('change', renderTable);
+    
+    // Form submission
+    document.getElementById('ticketForm').addEventListener('submit', handleFormSubmit);
+    
+    // Dock toggle
+    dockToggle.addEventListener('click', toggleDock);
+    
+    // Rejection form
+    document.getElementById('rejectionForm').addEventListener('submit', handleRejectionSubmit);
+    
+    // Restaurant fault form
+    document.getElementById('restaurantFaultForm').addEventListener('submit', handleRestaurantFaultSubmit);
+    
+    // Duplicate check
+    document.getElementById('f_orderId').addEventListener('input', checkDuplicate);
+    
+    // Refund checkbox
+    document.getElementById('f_isRefunded').addEventListener('change', function() {
+      const refundDateInput = document.getElementById('f_refundDate');
+      if (this.checked) {
+        refundDateInput.required = true;
+        if (!refundDateInput.value) {
+          refundDateInput.value = new Date().toISOString().split('T')[0];
+        }
+      } else {
+        refundDateInput.required = false;
+      }
+    });
+    
+    // No evidence checkbox
+    document.getElementById('f_noEvidence').addEventListener('change', function() {
+      const evidenceImage = document.getElementById('f_evidenceImage');
+      const shortLink = document.getElementById('f_shortLink');
+      if (this.checked) {
+        evidenceImage.disabled = true;
+        shortLink.disabled = true;
+      } else {
+        evidenceImage.disabled = false;
+        shortLink.disabled = false;
+      }
+    });
+    
+    // Make dock draggable
+    makeDockDraggable();
+    
+    // Close dock when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!dock.contains(e.target) && dockPanel.classList.contains('show')) {
+        dockPanel.classList.remove('show');
+      }
+    });
+  }
+  
+  // ===== Toggle Dock =====
+  function toggleDock() {
+    dockPanel.classList.toggle('show');
+  }
+  
+  // ===== Check for duplicate Order ID =====
+  function checkDuplicate() {
+    const orderId = document.getElementById('f_orderId').value;
+    const editingId = document.getElementById('editingId').value;
+    const warning = document.getElementById('duplicateWarning');
+    
+    if (orderId) {
+      const duplicate = tickets.find(t => 
+        t.orderId === orderId && t.id !== editingId
+      );
+      
+      if (duplicate) {
+        warning.textContent = 'Order ID already exists!';
+        warning.classList.add('show');
+      } else {
+        warning.classList.remove('show');
+      }
+    } else {
+      warning.classList.remove('show');
+    }
+  }
+  
+  // ===== Form Handling =====
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    
+    const formData = {
+      id: document.getElementById('editingId').value || Date.now().toString(),
+      orderId: document.getElementById('f_orderId').value,
+      orderDate: document.getElementById('f_orderDate').value,
+      branch: document.getElementById('f_branch').value,
+      platform: document.getElementById('f_platform').value,
+      issue: document.getElementById('f_issue').value,
+      originalAmount: parseFloat(document.getElementById('f_originalAmount').value),
+      compensation: parseFloat(document.getElementById('f_compensation').value),
+      refundedAmount: parseFloat(document.getElementById('f_refundedAmount').value) || 0,
+      refundDate: document.getElementById('f_refundDate').value,
+      evidence: document.getElementById('f_noEvidence').checked ? 'None' : 
+                (document.getElementById('f_evidenceBase64')?.value || 'None'),
+      shortLink: document.getElementById('f_shortLink').value,
+      status: 'Open',
+      dateCreated: document.getElementById('editingId').value ? 
+                   tickets.find(t => t.id === document.getElementById('editingId').value)?.dateCreated || new Date().toISOString() :
+                   new Date().toISOString()
+    };
+    
+    // Check for duplicate
+    const duplicate = tickets.find(t => 
+      t.orderId === formData.orderId && t.id !== formData.id
+    );
+    
+    if (duplicate) {
+      showNotif('Order ID already exists!', 'error');
+      return;
+    }
+    
+    // Save or update
+    if (document.getElementById('editingId').value) {
+      const index = tickets.findIndex(t => t.id === formData.id);
+      if (index !== -1) {
+        tickets[index] = formData;
+        showNotif('Case updated successfully', 'success');
+        addCommand('Updated Case', `Order ID: ${formData.orderId}`);
+      }
+    } else {
+      tickets.push(formData);
+      showNotif('Case added successfully', 'success');
+      addCommand('Added New Case', `Order ID: ${formData.orderId}`);
+    }
+    
+    if (saveTickets()) {
+      renderAll();
+      bootstrap.Modal.getInstance(document.getElementById('ticketModal')).hide();
+      document.getElementById('ticketForm').reset();
+      document.getElementById('imagePreview').style.display = 'none';
+      document.getElementById('duplicateWarning').classList.remove('show');
+    }
+  }
+  
+  // ===== Rejection Handling =====
+  function handleRejectionSubmit(e) {
+    e.preventDefault();
+    
+    const caseId = document.getElementById('rejectionCase').value;
+    const reason = document.getElementById('rejectionReason').value;
+    const notes = document.getElementById('rejectionNotes').value;
+    const sendEmail = document.getElementById('sendEmail').checked;
+    const sendWhatsApp = document.getElementById('sendWhatsApp').checked;
+    
+    // Update ticket status
+    const ticket = tickets.find(t => t.id === caseId);
+    if (ticket) {
+      ticket.status = 'Rejected';
+      ticket.rejectionReason = reason;
+      ticket.rejectionNotes = notes;
+      ticket.rejectionDate = new Date().toISOString();
+      
+      if (saveTickets()) {
+        renderAll();
+        showNotif('Case rejected successfully', 'success');
+        addCommand('Rejected Case', `Order ID: ${ticket.orderId}, Reason: ${reason}`);
+        
+        // Simulate sending notifications
+        if (sendEmail) {
+          console.log('Sending email notification...');
+        }
+        if (sendWhatsApp) {
+          console.log('Sending WhatsApp notification...');
+        }
+        
+        bootstrap.Modal.getInstance(document.getElementById('rejectionModal')).hide();
+      }
+    }
+  }
+  
+  // ===== Restaurant Fault Handling =====
+  function handleRestaurantFaultSubmit(e) {
+    e.preventDefault();
+    
+    const caseId = document.getElementById('faultCase').value;
+    const compensation = parseFloat(document.getElementById('faultCompensation').value);
+    const notes = document.getElementById('faultNotes').value;
+    const sendEmail = document.getElementById('faultSendEmail').checked;
+    const sendWhatsApp = document.getElementById('faultSendWhatsApp').checked;
+    
+    // Update ticket status
+    const ticket = tickets.find(t => t.id === caseId);
+    if (ticket) {
+      ticket.status = 'Restaurant Fault';
+      ticket.compensation = compensation;
+      ticket.faultNotes = notes;
+      ticket.faultDate = new Date().toISOString();
+      
+      if (saveTickets()) {
+        renderAll();
+        showNotif('Restaurant fault confirmed', 'success');
+        addCommand('Restaurant Fault', `Order ID: ${ticket.orderId}, Compensation: ${compensation} AED`);
+        
+        // Simulate sending notifications
+        if (sendEmail) {
+          console.log('Sending email notification...');
+        }
+        if (sendWhatsApp) {
+          console.log('Sending WhatsApp notification...');
+        }
+        
+        bootstrap.Modal.getInstance(document.getElementById('restaurantFaultModal')).hide();
+      }
+    }
+  }
+  
+  // ===== Table Rendering =====
+  function renderTable() {
+    const startTime = performance.now();
+    
+    const filtered = filterTickets();
+    const tbody = document.getElementById('ticketsTableBody');
+    const rowCount = document.getElementById('tableRowCount');
+    const totalCount = document.getElementById('tableTotalCount');
+    
+    tbody.innerHTML = '';
+    
+    // Update counters
+    rowCount.textContent = filtered.length;
+    totalCount.textContent = tickets.length;
+    
+    if (filtered.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="11" class="text-center py-5">
+            <div class="empty-state">
+              <i class="bi bi-inbox"></i>
+              <h5>No compensation cases found</h5>
+              <p>Try adjusting your filters or add a new case</p>
+              <button class="btn btn-primary" onclick="openAddModal()">
+                <i class="bi bi-plus-circle me-1"></i> Add First Case
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+      return;
+    }
+    
+    filtered.forEach(ticket => {
+      const row = document.createElement('tr');
+      
+      // Add special classes for different statuses
+      if (ticket.status === 'Rejected') {
+        row.classList.add('rejected-case');
+      } else if (ticket.refundedAmount > 0) {
+        row.classList.add('refunded-case');
+      } else if (ticket.compensation > 50) {
+        row.classList.add('high-compensation');
+      } else if (ticket.status === 'Restaurant Fault') {
+        row.classList.add('restaurant-fault');
+      }
+      
+      row.innerHTML = `
+        <td class="ticket-order-id">${ticket.orderId}</td>
+        <td>${ticket.orderDate ? formatDateISO(ticket.orderDate) : 'N/A'}</td>
+        <td>${ticket.branch}</td>
+        <td>${ticket.platform}</td>
+        <td>
+          <div class="ticket-issue" title="${ticket.issue}">
+            ${ticket.issue}
+            <button class="issue-expand" onclick="showIssue('${ticket.id}')">View</button>
+          </div>
+        </td>
+        <td>
+          ${ticket.evidence && ticket.evidence !== 'None' 
+            ? '<i class="bi bi-check-circle-fill text-success"></i>' 
+            : '<i class="bi bi-x-circle-fill text-danger"></i>'}
+        </td>
+        <td>
+          <span class="status-badge status-${ticket.status.toLowerCase().replace(' ', '-')}">
+            ${ticket.status}
+          </span>
+        </td>
+        <td class="text-end">${ticket.originalAmount.toFixed(2)} AED</td>
+        <td class="text-end">${ticket.compensation.toFixed(2)} AED</td>
+        <td class="text-end">${ticket.refundedAmount.toFixed(2)} AED</td>
+        <td>
+          <div class="ticket-actions">
+            <button class="btn btn-sm btn-outline-primary" onclick="editTicket('${ticket.id}')" title="Edit">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger" onclick="deleteTicket('${ticket.id}')" title="Delete">
+              <i class="bi bi-trash"></i>
+            </button>
+            ${ticket.status === 'Open' ? `
+              <button class="btn btn-sm btn-outline-warning" onclick="openRejectionModal('${ticket.id}')" title="Reject">
+                <i class="bi bi-x-circle"></i>
+              </button>
+            ` : ''}
+            ${ticket.status === 'Open' ? `
+              <button class="btn btn-sm btn-outline-success" onclick="openRestaurantFaultModal('${ticket.id}')" title="Restaurant Fault">
+                <i class="bi bi-exclamation-triangle"></i>
+              </button>
+            ` : ''}
+          </div>
+        </td>
+      `;
+      
+      tbody.appendChild(row);
+    });
+    
+    const endTime = performance.now();
+    const renderTime = endTime - startTime;
+    console.log(`Table rendered in ${renderTime.toFixed(2)}ms`);
+    
+    // Show performance warning if slow
+    if (renderTime > 500) {
+      console.warn('Table rendering is slow');
+      showNotif('Table loading took longer than expected', 'warning');
+    }
+  }
+  
+  // ===== Filter Tickets =====
+  function filterTickets() {
+    const search = searchInput.value.toLowerCase();
+    const branch = filterBranch.value;
+    const platform = filterPlatform.value;
+    const status = filterStatus.value;
+    
+    return tickets.filter(ticket => {
+      const matchSearch = !search || 
+        (ticket.orderId && ticket.orderId.toLowerCase().includes(search)) ||
+        (ticket.branch && ticket.branch.toLowerCase().includes(search)) ||
+        (ticket.issue && ticket.issue.toLowerCase().includes(search));
+      
+      const matchBranch = !branch || ticket.branch === branch;
+      const matchPlatform = !platform || ticket.platform === platform;
+      const matchStatus = !status || ticket.status === status;
+      
+      return matchSearch && matchBranch && matchPlatform && matchStatus;
+    });
+  }
+  
+  // ===== Export Table Data =====
+  function exportTableData() {
+    const filtered = filterTickets();
+    if (filtered.length === 0) {
+      showNotif('No data to export', 'warning');
+      return;
+    }
+    
+    // Create CSV content
+    const headers = [
+      'Order ID', 'Order Date', 'Branch', 'Platform', 'Case', 
+      'Evidence', 'Status', 'Original Amount', 'Compensation', 'Refunded'
+    ];
+    
+    const csvContent = [
+      headers.join(','),
+      ...filtered.map(ticket => [
+        ticket.orderId,
+        ticket.orderDate || '',
+        ticket.branch,
+        ticket.platform,
+        `"${ticket.issue.replace(/"/g, '""')}"`,
+        ticket.evidence,
+        ticket.status,
+        ticket.originalAmount,
+        ticket.compensation,
+        ticket.refundedAmount
+      ].join(','))
+    ].join('\n');
+    
+    // Download CSV
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `compensation_cases_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+    
+    showNotif('Table data exported successfully', 'success');
+    addCommand('Exported Table Data', `${filtered.length} cases`);
+  }
+  
+  // ===== Initialize Table Scroll =====
+  function initializeTableScroll() {
+    const container = document.querySelector('.scrollable-table-container');
+    
+    // Smooth scroll behavior
+    container.style.scrollBehavior = 'smooth';
+    
+    // Add scroll to top button
+    const scrollButton = document.createElement('button');
+    scrollButton.className = 'btn btn-sm btn-danger position-absolute';
+    scrollButton.style.cssText = `
+      bottom: 10px;
+      right: 10px;
+      z-index: 100;
+      display: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+    `;
+    scrollButton.innerHTML = '<i class="bi bi-arrow-up"></i>';
+    scrollButton.title = 'Scroll to top';
+    
+    scrollButton.addEventListener('click', () => {
+      container.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    container.appendChild(scrollButton);
+    
+    // Show/hide scroll button
+    container.addEventListener('scroll', () => {
+      scrollButton.style.display = container.scrollTop > 100 ? 'flex' : 'none';
+    });
+    
+    // Add scroll event listener for lazy loading
+    container.addEventListener('scroll', handleTableScroll);
+  }
+  
+  // ===== Handle Table Scroll =====
+  function handleTableScroll() {
+    const container = document.querySelector('.scrollable-table-container');
+    if (container.scrollTop + container.clientHeight >= container.scrollHeight - 100) {
+      // Near bottom - could load more data if implementing pagination
+      console.log('Near bottom of table');
+    }
+  }
+  
+  // ===== Modal Functions =====
+  function openAddModal() {
+    document.getElementById('modalTitle').textContent = 'Add Compensation Case';
+    document.getElementById('editingId').value = '';
+    document.getElementById('ticketForm').reset();
+    document.getElementById('imagePreview').style.display = 'none';
+    document.getElementById('duplicateWarning').classList.remove('show');
+    
+    // Remove any existing base64 input
+    const base64Input = document.getElementById('f_evidenceBase64');
+    if (base64Input) base64Input.remove();
+    
+    const modal = new bootstrap.Modal(document.getElementById('ticketModal'));
+    modal.show();
+  }
+  
+  function editTicket(id) {
+    const ticket = tickets.find(t => t.id === id);
+    if (!ticket) return;
+    
+    document.getElementById('modalTitle').textContent = 'Edit Compensation Case';
+    document.getElementById('editingId').value = ticket.id;
+    document.getElementById('f_orderId').value = ticket.orderId;
+    document.getElementById('f_orderDate').value = ticket.orderDate || '';
+    document.getElementById('f_branch').value = ticket.branch;
+    document.getElementById('f_platform').value = ticket.platform;
+    document.getElementById('f_issue').value = ticket.issue;
+    document.getElementById('f_originalAmount').value = ticket.originalAmount;
+    document.getElementById('f_compensation').value = ticket.compensation;
+    document.getElementById('f_refundedAmount').value = ticket.refundedAmount || 0;
+    document.getElementById('f_refundDate').value = ticket.refundDate || '';
+    document.getElementById('f_shortLink').value = ticket.shortLink || '';
+    
+    // Handle evidence
+    if (ticket.evidence && ticket.evidence !== 'None') {
+      if (ticket.evidence.startsWith('data:image')) {
+        document.getElementById('imagePreview').src = ticket.evidence;
+        document.getElementById('imagePreview').style.display = 'block';
+        
+        // Store base64 in hidden field
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.id = 'f_evidenceBase64';
+        hiddenInput.value = ticket.evidence;
+        document.getElementById('ticketForm').appendChild(hiddenInput);
+      } else {
+        document.getElementById('f_noEvidence').checked = true;
+      }
+    }
+    
+    // Handle refund checkbox
+    if (ticket.refundedAmount > 0) {
+      document.getElementById('f_isRefunded').checked = true;
+      document.getElementById('f_refundDate').required = true;
+    }
+    
+    const modal = new bootstrap.Modal(document.getElementById('ticketModal'));
+    modal.show();
+  }
+  
+  function deleteTicket(id) {
+    if (confirm('Are you sure you want to delete this case?')) {
+      const ticket = tickets.find(t => t.id === id);
+      tickets = tickets.filter(t => t.id !== id);
+      
+      if (saveTickets()) {
+        renderAll();
+        showNotif('Case deleted successfully', 'success');
+        addCommand('Deleted Case', `Order ID: ${ticket.orderId}`);
+      }
+    }
+  }
+  
+  function showIssue(id) {
+    const ticket = tickets.find(t => t.id === id);
+    if (ticket) {
+      document.getElementById('issueText').textContent = ticket.issue;
+      const modal = new bootstrap.Modal(document.getElementById('issueModal'));
+      modal.show();
+    }
+  }
+  
+  function openRejectionModal(ticketId = '') {
+    // Populate rejection case dropdown
+    const rejectionCase = document.getElementById('rejectionCase');
+    rejectionCase.innerHTML = '<option value="">اختر حالة</option>';
+    
+    const openTickets = tickets.filter(t => t.status === 'Open');
+    openTickets.forEach(ticket => {
+      const option = document.createElement('option');
+      option.value = ticket.id;
+      option.textContent = `${ticket.orderId} - ${ticket.branch}`;
+      rejectionCase.appendChild(option);
+    });
+    
+    // Pre-select if ticketId provided
+    if (ticketId) {
+      rejectionCase.value = ticketId;
+    }
+    
+    const modal = new bootstrap.Modal(document.getElementById('rejectionModal'));
+    modal.show();
+  }
+  
+  function openRestaurantFaultModal(ticketId = '') {
+    // Populate fault case dropdown
+    const faultCase = document.getElementById('faultCase');
+    faultCase.innerHTML = '<option value="">اختر حالة</option>';
+    
+    const openTickets = tickets.filter(t => t.status === 'Open');
+    openTickets.forEach(ticket => {
+      const option = document.createElement('option');
+      option.value = ticket.id;
+      option.textContent = `${ticket.orderId} - ${ticket.branch}`;
+      faultCase.appendChild(option);
+    });
+    
+    // Pre-select if ticketId provided
+    if (ticketId) {
+      faultCase.value = ticketId;
+      // Set compensation amount
+      const ticket = tickets.find(t => t.id === ticketId);
+      if (ticket) {
+        document.getElementById('faultCompensation').value = ticket.compensation;
+      }
+    }
+    
+    const modal = new bootstrap.Modal(document.getElementById('restaurantFaultModal'));
+    modal.show();
+  }
+  
+  // ===== Render All =====
+  function renderAll() {
+    renderStats();
+    renderSummary();
+    renderPlatformCards();
+    renderReports();
+    renderCaseAnalysis();
+    renderCompensationAnalysis();
+    renderRejectionAnalysis();
+    renderRestaurantFaultAnalysis();
+    renderRefundAnalysis();
+    renderTable();
+    updateStorageIndicator();
+  }
+  
+  // ===== Render Stats =====
+  function renderStats() {
+    const total = tickets.length;
+    const open = tickets.filter(t => t.status === 'Open').length;
+    const sent = tickets.filter(t => t.status === 'Sent').length;
+    const closed = tickets.filter(t => t.status === 'Closed').length;
+    const resolved = closed; // Assuming closed means resolved
+    const active = open + sent;
+    const totalComp = tickets.reduce((sum, t) => sum + t.compensation, 0);
+    const restaurantFault = tickets.filter(t => t.status === 'Restaurant Fault').length;
+    
+    document.getElementById('totalTickets').textContent = total;
+    document.getElementById('openTickets').textContent = open;
+    document.getElementById('sentTickets').textContent = sent;
+    document.getElementById('closedTickets').textContent = closed;
+    document.getElementById('resolvedDisputes').textContent = resolved;
+    document.getElementById('activeCompensations').textContent = active;
+    document.getElementById('totalCompensationAmount').textContent = totalComp.toFixed(2);
+    document.getElementById('restaurantFaultCases').textContent = restaurantFault;
+  }
+  
+  // ===== Render Summary =====
+  function renderSummary() {
+    // Financial Overview
+    const totalOriginal = tickets.reduce((sum, t) => sum + t.originalAmount, 0);
+    const totalComp = tickets.reduce((sum, t) => sum + t.compensation, 0);
+    const totalRefund = tickets.reduce((sum, t) => sum + t.refundedAmount, 0);
+    const netComp = totalComp - totalRefund;
+    
+    document.getElementById('totalOriginalAmount').textContent = totalOriginal.toFixed(2);
+    document.getElementById('totalCompensation').textContent = totalComp.toFixed(2);
+    document.getElementById('totalRefunded').textContent = totalRefund.toFixed(2);
+    document.getElementById('netCompensation').textContent = netComp.toFixed(2);
+    
+    // Platform Performance
+    const noonTickets = tickets.filter(t => t.platform === 'Noon');
+    const careemTickets = tickets.filter(t => t.platform === 'Careem');
+    const noonRefunded = noonTickets.reduce((sum, t) => sum + t.refundedAmount, 0);
+    const careemRefunded = careemTickets.reduce((sum, t) => sum + t.refundedAmount, 0);
+    
+    document.getElementById('noonTickets').textContent = noonTickets.length;
+    document.getElementById('careemTickets').textContent = careemTickets.length;
+    document.getElementById('noonRefunded').textContent = noonRefunded.toFixed(2);
+    document.getElementById('careemRefunded').textContent = careemRefunded.toFixed(2);
+    
+    // Branch Performance
+    const branchCounts = {};
+    tickets.forEach(t => {
+      branchCounts[t.branch] = (branchCounts[t.branch] || 0) + 1;
+    });
+    
+    const topBranch = Object.keys(branchCounts).reduce((a, b) => 
+      branchCounts[a] > branchCounts[b] ? a : b, '-');
+    const topBranchCount = branchCounts[topBranch] || 0;
+    
+    const caseTypes = {};
+    tickets.forEach(t => {
+      const type = t.issue ? t.issue.split(' ')[0] : 'Unknown'; // Simple extraction
+      caseTypes[type] = (caseTypes[type] || 0) + 1;
+    });
+    
+    const topCase = Object.keys(caseTypes).reduce((a, b) => 
+      caseTypes[a] > caseTypes[b] ? a : b, '-');
+    const topCaseCount = caseTypes[topCase] || 0;
+    
+    const caseRate = total > 0 ? ((total / (total * 10)) * 100).toFixed(1) : 0; // Dummy calculation
+    const avgOriginal = total > 0 ? (totalOriginal / total).toFixed(2) : 0;
+    
+    document.getElementById('topBranch').textContent = topBranch;
+    document.getElementById('topBranchCases').textContent = `${topBranchCount} cases`;
+    document.getElementById('topCase').textContent = topCase;
+    document.getElementById('topCaseCount').textContent = `${topCaseCount} cases`;
+    document.getElementById('caseRate').textContent = `${caseRate}%`;
+    document.getElementById('avgOriginalAmount').textContent = avgOriginal;
+    
+    // Update mini charts
+    updateMiniCharts();
+  }
+  
+  // ===== Render Platform Cards =====
+  function renderPlatformCards() {
+    const noon = tickets.filter(t => t.platform === 'Noon').length;
+    const careem = tickets.filter(t => t.platform === 'Careem').length;
+    const total = tickets.length;
+    
+    const noonPct = total > 0 ? ((noon / total) * 100).toFixed(1) : 0;
+    const careemPct = total > 0 ? ((careem / total) * 100).toFixed(1) : 0;
+    
+    document.getElementById('noonCount').textContent = noon;
+    document.getElementById('careemCount').textContent = careem;
+    document.getElementById('noonPercentage').textContent = `${noonPct}%`;
+    document.getElementById('careemPercentage').textContent = `${careemPct}%`;
+  }
+  
+  // ===== Render Reports =====
+  function renderReports() {
+    // Branch Chart
+    const branchCounts = {};
+    tickets.forEach(t => {
+      branchCounts[t.branch] = (branchCounts[t.branch] || 0) + 1;
+    });
+    
+    const branchLabels = Object.keys(branchCounts).slice(0, 5); // Top 5
+    const branchData = branchLabels.map(b => branchCounts[b]);
+    
+    if (branchChart) branchChart.destroy();
+    const branchCtx = document.getElementById('branchChart').getContext('2d');
+    branchChart = new Chart(branchCtx, {
+      type: 'bar',
+      data: {
+        labels: branchLabels,
+        datasets: [{
+          label: 'Cases',
+          data: branchData,
+          backgroundColor: 'rgba(211, 47, 47, 0.7)',
+          borderColor: 'rgba(211, 47, 47, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+    
+    // Case Chart
+    const caseTypes = {};
+    tickets.forEach(t => {
+      const type = t.issue ? t.issue.split(' ')[0] : 'Unknown'; // Simple extraction
+      caseTypes[type] = (caseTypes[type] || 0) + 1;
+    });
+    
+    const caseLabels = Object.keys(caseTypes).slice(0, 5); // Top 5
+    const caseData = caseLabels.map(c => caseTypes[c]);
+    
+    if (caseChart) caseChart.destroy();
+    const caseCtx = document.getElementById('caseChart').getContext('2d');
+    caseChart = new Chart(caseCtx, {
+      type: 'doughnut',
+      data: {
+        labels: caseLabels,
+        datasets: [{
+          data: caseData,
+          backgroundColor: [
+            'rgba(211, 47, 47, 0.7)',
+            'rgba(255, 112, 67, 0.7)',
+            'rgba(33, 150, 243, 0.7)',
+            'rgba(76, 175, 80, 0.7)',
+            'rgba(255, 193, 7, 0.7)'
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'right' }
+        }
+      }
+    });
+    
+    // Update labels
+    document.getElementById('topBranchLabel').textContent = 
+      branchLabels.length > 0 ? `Top: ${branchLabels[0]}` : '';
+    document.getElementById('topCaseLabel').textContent = 
+      caseLabels.length > 0 ? `Top: ${caseLabels[0]}` : '';
+  }
+  
+  // ===== Render Case Analysis =====
+  function renderCaseAnalysis() {
+    const container = document.getElementById('branchAnalysisContainer');
+    const branchData = {};
+    
+    tickets.forEach(ticket => {
+      if (!branchData[ticket.branch]) {
+        branchData[ticket.branch] = {
+          total: 0,
+          compensation: 0,
+          refunded: 0,
+          cases: []
+        };
+      }
+      branchData[ticket.branch].total++;
+      branchData[ticket.branch].compensation += ticket.compensation || 0;
+      branchData[ticket.branch].refunded += ticket.refundedAmount || 0;
+      branchData[ticket.branch].cases.push(ticket);
+    });
+    
+    let html = '<div class="branch-analysis-grid">';
+    Object.keys(branchData).forEach(branch => {
+      const data = branchData[branch];
+      const avgComp = data.total > 0 ? data.compensation / data.total : 0;
+      const refundRate = data.compensation > 0 ? (data.refunded / data.compensation) * 100 : 0;
+      
+      html += `
+        <div class="branch-card">
+          <h6>${branch}</h6>
+          <div class="branch-stats">
+            <div class="branch-stat-item">
+              <div class="branch-stat-value">${data.total}</div>
+              <div class="branch-stat-label">Cases</div>
+            </div>
+            <div class="branch-stat-item">
+              <div class="branch-stat-value">${avgComp.toFixed(1)}</div>
+              <div class="branch-stat-label">Avg Comp</div>
+            </div>
+            <div class="branch-stat-item">
+              <div class="branch-stat-value">${refundRate.toFixed(1)}%</div>
+              <div class="branch-stat-label">Refund Rate</div>
+            </div>
+            <div class="branch-stat-item">
+              <div class="branch-stat-value">${data.refunded.toFixed(1)}</div>
+              <div class="branch-stat-label">Total Refund</div>
+            </div>
+          </div>
+          
+          <div class="case-reasons">
+            <h6>Common Issues</h6>
+            ${getCommonIssues(data.cases)}
+          </div>
+        </div>
+      `;
+    });
+    html += '</div>';
+    
+    container.innerHTML = html;
+    
+    // Update badge
+    const avgCompensation = tickets.length > 0 ? 
+      tickets.reduce((sum, t) => sum + t.compensation, 0) / tickets.length : 0;
+    
+    const badge = document.getElementById('caseAnalysisBadge');
+    if (avgCompensation > 50) {
+      badge.textContent = 'High Level';
+      badge.className = 'case-badge badge-high';
+    } else if (avgCompensation > 30) {
+      badge.textContent = 'Medium Level';
+      badge.className = 'case-badge badge-medium';
+    } else {
+      badge.textContent = 'Low Level';
+      badge.className = 'case-badge badge-low';
+    }
+  }
+  
+  // ===== Get Common Issues =====
+  function getCommonIssues(cases) {
+    const issues = {};
+    cases.forEach(ticket => {
+      const issue = ticket.issue ? ticket.issue.split(' ')[0] : 'Unknown'; // Simple extraction
+      issues[issue] = (issues[issue] || 0) + 1;
+    });
+    
+    const sorted = Object.entries(issues)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3); // Top 3
+    
+    let html = '';
+    sorted.forEach(([issue, count]) => {
+      const percentage = cases.length > 0 ? (count / cases.length) * 100 : 0;
+      html += `
+        <div class="case-reason-item">
+          <div>${issue}</div>
+          <div class="case-reason-info">
+            <div class="case-reason-name">${count} cases</div>
+            <div class="case-reason-count">${percentage.toFixed(1)}%</div>
+            <div class="case-reason-bar">
+              <div class="case-reason-progress" style="width:${percentage}%"></div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    
+    return html || '<p class="text-muted">No data</p>';
+  }
+  
+  // ===== Render Compensation Analysis =====
+  function renderCompensationAnalysis() {
+    const container = document.getElementById('compensationAnalysisContainer');
+    const compTypes = {
+      'High (>50 AED)': tickets.filter(t => t.compensation > 50),
+      'Medium (20-50 AED)': tickets.filter(t => t.compensation >= 20 && t.compensation <= 50),
+      'Low (<20 AED)': tickets.filter(t => t.compensation < 20)
+    };
+    
+    let html = '<div class="compensation-analysis-grid">';
+    Object.keys(compTypes).forEach(type => {
+      const cases = compTypes[type];
+      const totalComp = cases.reduce((sum, t) => sum + t.compensation, 0);
+      const avgComp = cases.length > 0 ? totalComp / cases.length : 0;
+      
+      html += `
+        <div class="compensation-card">
+          <h6>${type}</h6>
+          <div class="compensation-stats">
+            <div class="stat-item">
+              <div class="stat-value">${cases.length}</div>
+              <div class="stat-label">Cases</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">${totalComp.toFixed(1)}</div>
+              <div class="stat-label">Total Comp</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">${avgComp.toFixed(1)}</div>
+              <div class="stat-label">Avg Comp</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">${getTopBranchForCompensation(cases)}</div>
+              <div class="stat-label">Top Branch</div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    html += '</div>';
+    
+    container.innerHTML = html;
+  }
+  
+  // ===== Get Top Branch for Compensation =====
+  function getTopBranchForCompensation(cases) {
+    const branchCounts = {};
+    cases.forEach(t => {
+      branchCounts[t.branch] = (branchCounts[t.branch] || 0) + 1;
+    });
+    
+    return Object.keys(branchCounts).reduce((a, b) => 
+      branchCounts[a] > branchCounts[b] ? a : b, '-');
+  }
+  
+  // ===== Render Rejection Analysis =====
+  function renderRejectionAnalysis() {
+    const container = document.getElementById('rejectionAnalysisContainer');
+    const rejected = tickets.filter(t => t.status === 'Rejected');
+    
+    if (rejected.length === 0) {
+      container.innerHTML = '<p class="text-center text-muted">No rejected cases</p>';
+      return;
+    }
+    
+    const reasons = {};
+    rejected.forEach(t => {
+      reasons[t.rejectionReason || 'Unknown'] = (reasons[t.rejectionReason || 'Unknown'] || 0) + 1;
+    });
+    
+    let html = '<div class="rejection-analysis-grid">';
+    Object.keys(reasons).forEach(reason => {
+      const count = reasons[reason];
+      const percentage = rejected.length > 0 ? (count / rejected.length) * 100 : 0;
+      
+      html += `
+        <div class="rejection-card">
+          <h6>${formatReason(reason)}</h6>
+          <div class="rejection-stats">
+            <div class="rejection-metric-item">
+              <div class="rejection-metric-value">${count}</div>
+              <div class="rejection-metric-label">Cases</div>
+            </div>
+            <div class="rejection-metric-item">
+              <div class="rejection-metric-value">${percentage.toFixed(1)}%</div>
+              <div class="rejection-metric-label">of Total</div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    html += '</div>';
+    
+    container.innerHTML = html;
+  }
+  
+  // ===== Format Reason =====
+  function formatReason(reason) {
+    const reasonMap = {
+      'no_evidence': 'No Evidence',
+      'incorrect_claim': 'Incorrect Claim',
+      'driver_fault': 'Driver Fault',
+      'customer_error': 'Customer Error',
+      'restaurant_fault': 'Restaurant Fault',
+      'other': 'Other Reasons'
+    };
+    return reasonMap[reason] || reason;
+  }
+  
+  // ===== Render Restaurant Fault Analysis =====
+  function renderRestaurantFaultAnalysis() {
+    const container = document.getElementById('restaurantFaultContainer');
+    const faultCases = tickets.filter(t => t.status === 'Restaurant Fault');
+    
+    if (faultCases.length === 0) {
+      container.innerHTML = '<p class="text-center text-muted">No restaurant fault cases</p>';
+      return;
+    }
+    
+    const branchData = {};
+    faultCases.forEach(t => {
+      if (!branchData[t.branch]) {
+        branchData[t.branch] = {
+          count: 0,
+          totalComp: 0
+        };
+      }
+      branchData[t.branch].count++;
+      branchData[t.branch].totalComp += t.compensation;
+    });
+    
+    let html = '<div class="rejection-analysis-grid">';
+    Object.keys(branchData).forEach(branch => {
+      const data = branchData[branch];
+      const avgComp = data.count > 0 ? data.totalComp / data.count : 0;
+      
+      html += `
+        <div class="rejection-card">
+          <h6>${branch}</h6>
+          <div class="rejection-stats">
+            <div class="rejection-metric-item">
+              <div class="rejection-metric-value">${data.count}</div>
+              <div class="rejection-metric-label">Cases</div>
+            </div>
+            <div class="rejection-metric-item">
+              <div class="rejection-metric-value">${data.totalComp.toFixed(1)}</div>
+              <div class="rejection-metric-label">Total Comp</div>
+            </div>
+            <div class="rejection-metric-item">
+              <div class="rejection-metric-value">${avgComp.toFixed(1)}</div>
+              <div class="rejection-metric-label">Avg Comp</div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    html += '</div>';
+    
+    container.innerHTML = html;
+  }
+  
+  // ===== Render Refund Analysis =====
+  function renderRefundAnalysis() {
+    const refunded = tickets.filter(t => t.refundedAmount > 0);
+    const totalRefunded = refunded.reduce((sum, t) => sum + t.refundedAmount, 0);
+    const totalComp = tickets.reduce((sum, t) => sum + t.compensation, 0);
+    const refundRate = totalComp > 0 ? (totalRefunded / totalComp) * 100 : 0;
+    const avgRefunded = refunded.length > 0 ? totalRefunded / refunded.length : 0;
+    
+    document.getElementById('totalRefundedAmount').textContent = totalRefunded.toFixed(2);
+    document.getElementById('refundedCasesCount').textContent = refunded.length;
+    document.getElementById('refundRate').textContent = `${refundRate.toFixed(1)}%`;
+    document.getElementById('avgRefundedAmount').textContent = avgRefunded.toFixed(2);
+    
+    // Refund by branch chart
+    const branchRefunds = {};
+    refunded.forEach(t => {
+      if (!branchRefunds[t.branch]) {
+        branchRefunds[t.branch] = 0;
+      }
+      branchRefunds[t.branch] += t.refundedAmount;
+    });
+    
+    if (refundBranchChart) refundBranchChart.destroy();
+    const refundCtx = document.getElementById('refundBranchChart').getContext('2d');
+    refundBranchChart = new Chart(refundCtx, {
+      type: 'bar',
+      data: {
+        labels: Object.keys(branchRefunds),
+        datasets: [{
+          label: 'Refunded Amount',
+          data: Object.values(branchRefunds),
+          backgroundColor: 'rgba(76, 175, 80, 0.7)',
+          borderColor: 'rgba(76, 175, 80, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+    
+    // Refund table
+    const tbody = document.getElementById('refundTableBody');
+    tbody.innerHTML = '';
+    
+    refunded.slice(0, 10).forEach(ticket => { // Show last 10
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${ticket.orderId}</td>
+        <td>${ticket.branch}</td>
+        <td>${ticket.originalAmount.toFixed(2)} AED</td>
+        <td>${ticket.compensation.toFixed(2)} AED</td>
+        <td>${ticket.refundedAmount.toFixed(2)} AED</td>
+        <td><span class="refund-status-badge status-refunded">Refunded</span></td>
+        <td>${new Date(ticket.refundDate || ticket.dateCreated).toLocaleDateString()}</td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+  
+  // ===== Update Mini Charts =====
+  function updateMiniCharts() {
+    // Amount Chart
+    const amountData = {
+      labels: ['Original', 'Compensation', 'Refunded', 'Net'],
+      datasets: [{
+        data: [
+          tickets.reduce((sum, t) => sum + t.originalAmount, 0),
+          tickets.reduce((sum, t) => sum + t.compensation, 0),
+          tickets.reduce((sum, t) => sum + t.refundedAmount, 0),
+          tickets.reduce((sum, t) => sum + t.compensation - t.refundedAmount, 0)
+        ],
+        backgroundColor: [
+          'rgba(33, 150, 243, 0.7)',
+          'rgba(211, 47, 47, 0.7)',
+          'rgba(76, 175, 80, 0.7)',
+          'rgba(255, 152, 0, 0.7)'
+        ]
+      }]
+    };
+    
+    if (amountChart) amountChart.destroy();
+    const amountCtx = document.getElementById('amountChart').getContext('2d');
+    amountChart = new Chart(amountCtx, {
+      type: 'doughnut',
+      data: amountData,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        }
+      }
+    });
+    
+    // Status Chart
+    const statusData = {
+      labels: ['Open', 'Sent', 'Closed', 'Rejected', 'Restaurant Fault'],
+      datasets: [{
+        data: [
+          tickets.filter(t => t.status === 'Open').length,
+          tickets.filter(t => t.status === 'Sent').length,
+          tickets.filter(t => t.status === 'Closed').length,
+          tickets.filter(t => t.status === 'Rejected').length,
+          tickets.filter(t => t.status === 'Restaurant Fault').length
+        ],
+        backgroundColor: [
+          'rgba(33, 150, 243, 0.7)',
+          'rgba(255, 193, 7, 0.7)',
+          'rgba(76, 175, 80, 0.7)',
+          'rgba(211, 47, 47, 0.7)',
+          'rgba(255, 112, 67, 0.7)'
+        ]
+      }]
+    };
+    
+    if (statusChart) statusChart.destroy();
+    const statusCtx = document.getElementById('statusChart').getContext('2d');
+    statusChart = new Chart(statusCtx, {
+      type: 'pie',
+      data: statusData,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        }
+      }
+    });
+    
+    // Platform Tickets Chart
+    const platformTicketsData = {
+      labels: ['Noon', 'Careem'],
+      datasets: [{
+        label: 'Cases',
+        data: [
+          tickets.filter(t => t.platform === 'Noon').length,
+          tickets.filter(t => t.platform === 'Careem').length
+        ],
+        backgroundColor: [
+          'rgba(255, 193, 7, 0.7)',
+          'rgba(33, 150, 243, 0.7)'
+        ]
+      }]
+    };
+    
+    if (platformTicketsChart) platformTicketsChart.destroy();
+    const platformTicketsCtx = document.getElementById('platformTicketsChart').getContext('2d');
+    platformTicketsChart = new Chart(platformTicketsCtx, {
+      type: 'bar',
+      data: platformTicketsData,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+    
+    // Platform Compensation Chart
+    const platformCompData = {
+      labels: ['Noon', 'Careem'],
+      datasets: [{
+        label: 'Compensation',
+        data: [
+          tickets.filter(t => t.platform === 'Noon').reduce((sum, t) => sum + t.compensation, 0),
+          tickets.filter(t => t.platform === 'Careem').reduce((sum, t) => sum + t.compensation, 0)
+        ],
+        backgroundColor: [
+          'rgba(255, 193, 7, 0.7)',
+          'rgba(33, 150, 243, 0.7)'
+        ]
+      }]
+    };
+    
+    if (platformCompensationChart) platformCompensationChart.destroy();
+    const platformCompCtx = document.getElementById('platformCompensationChart').getContext('2d');
+    platformCompensationChart = new Chart(platformCompCtx, {
+      type: 'bar',
+      data: platformCompData,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+    
+    // Branch Cases Chart
+    const branchCounts = {};
+    tickets.forEach(t => {
+      branchCounts[t.branch] = (branchCounts[t.branch] || 0) + 1;
+    });
+    
+    const topBranches = Object.entries(branchCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5);
+    
+    const branchCasesData = {
+      labels: topBranches.map(b => b[0]),
+      datasets: [{
+        label: 'Cases',
+        data: topBranches.map(b => b[1]),
+        backgroundColor: 'rgba(211, 47, 47, 0.7)'
+      }]
+    };
+    
+    if (branchCasesChart) branchCasesChart.destroy();
+    const branchCasesCtx = document.getElementById('branchCasesChart').getContext('2d');
+    branchCasesChart = new Chart(branchCasesCtx, {
+      type: 'bar',
+      data: branchCasesData,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+    
+    // Case Types Chart
+    const caseTypes = {};
+    tickets.forEach(t => {
+      const type = t.issue ? t.issue.split(' ')[0] : 'Unknown';
+      caseTypes[type] = (caseTypes[type] || 0) + 1;
+    });
+    
+    const topCaseTypes = Object.entries(caseTypes)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5);
+    
+    const caseTypesData = {
+      labels: topCaseTypes.map(c => c[0]),
+      datasets: [{
+        label: 'Cases',
+        data: topCaseTypes.map(c => c[1]),
+        backgroundColor: 'rgba(255, 112, 67, 0.7)'
+      }]
+    };
+    
+    if (caseTypesChart) caseTypesChart.destroy();
+    const caseTypesCtx = document.getElementById('caseTypesChart').getContext('2d');
+    caseTypesChart = new Chart(caseTypesCtx, {
+      type: 'bar',
+      data: caseTypesData,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  }
+  
+  // ===== Heatmap Functions =====
+  function initHeatmap() {
+    heatmapContainer.style.position = 'fixed';
+    heatmapContainer.style.top = '0';
+    heatmapContainer.style.left = '0';
+    heatmapContainer.style.width = '100%';
+    heatmapContainer.style.height = '100%';
+    heatmapContainer.style.pointerEvents = 'none';
+    heatmapContainer.style.zIndex = '9999';
+    heatmapContainer.style.display = 'none';
+    
+    heatmapInstance = h337.create({
+      container: heatmapContainer,
+      radius: 25,
+      maxOpacity: 0.5
+    });
+    
+    // Track interactions
+    document.addEventListener('click', recordInteraction);
+    document.addEventListener('mousemove', throttle(recordInteraction, 100));
+  }
+  
+  function recordInteraction(e) {
+    if (!heatmapVisible) return;
+    
+    interactions.push({
+      x: e.clientX,
+      y: e.clientY,
+      value: 1,
+      timestamp: Date.now()
+    });
+    
+    // Keep only last 1000 interactions
+    if (interactions.length > 1000) {
+      interactions.shift();
+    }
+    
+    updateHeatmap();
+  }
+  
+  function updateHeatmap() {
+    if (!heatmapInstance) return;
+    
+    const data = {
+      max: 5,
+      data: interactions
+    };
+    
+    heatmapInstance.setData(data);
+  }
+  
+  function toggleHeatmap() {
+    heatmapVisible = !heatmapVisible;
+    heatmapContainer.style.display = heatmapVisible ? 'block' : 'none';
+    
+    const btn = document.getElementById('heatmapToggleBtn');
+    if (heatmapVisible) {
+      btn.classList.remove('btn-outline-danger');
+      btn.classList.add('btn-danger');
+      showNotif('Heatmap enabled', 'success');
+    } else {
+      btn.classList.remove('btn-danger');
+      btn.classList.add('btn-outline-danger');
+      showNotif('Heatmap disabled', 'info');
+    }
+  }
+  
+  // ===== Dock Functions =====
+  function makeDockDraggable() {
+    let isDragging = false;
+    let currentX;
+    let currentY;
+    let initialX;
+    let initialY;
+    let xOffset = 0;
+    let yOffset = 0;
+    
+    const dockContainer = document.getElementById('dock-container');
+    
+    dockContainer.addEventListener('mousedown', dragStart);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', dragEnd);
+    
+    function dragStart(e) {
+      if (e.target === dockToggle || e.target.closest('#dockPanel')) return;
+      
+      initialX = e.clientX - xOffset;
+      initialY = e.clientY - yOffset;
+      
+      if (e.target === dockContainer || e.target.closest('#dock-container')) {
+        isDragging = true;
+        dockContainer.style.cursor = 'grabbing';
+      }
+    }
+    
+    function drag(e) {
+      if (isDragging) {
+        e.preventDefault();
+        currentX = e.clientX - initialX;
+        currentY = e.clientY - initialY;
+        
+        xOffset = currentX;
+        yOffset = currentY;
+        
+        dockContainer.style.transform = `translate(${currentX}px, ${currentY}px)`;
+      }
+    }
+    
+    function dragEnd(e) {
+      initialX = currentX;
+      initialY = currentY;
+      isDragging = false;
+      dockContainer.style.cursor = 'grab';
+    }
+  }
+  
+  // ===== Export Functions =====
+  function exportExcel() {
+    const wb = XLSX.utils.book_new();
+    
+    // Main data sheet
+    const wsData = [
+      [
+        'Order ID', 'Order Date', 'Branch', 'Platform', 'Issue', 
+        'Original Amount', 'Compensation', 'Refunded Amount', 'Status'
+      ],
+      ...tickets.map(t => [
+        t.orderId,
+        t.orderDate || '',
+        t.branch,
+        t.platform,
+        t.issue,
+        t.originalAmount,
+        t.compensation,
+        t.refundedAmount,
+        t.status
+      ])
+    ];
+    
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    XLSX.utils.book_append_sheet(wb, ws, 'Compensation Cases');
+    
+    // Summary sheet
+    const summaryData = [
+      ['Metric', 'Value'],
+      ['Total Cases', tickets.length],
+      ['Open Cases', tickets.filter(t => t.status === 'Open').length],
+      ['Closed Cases', tickets.filter(t => t.status === 'Closed').length],
+      ['Total Compensation', tickets.reduce((sum, t) => sum + t.compensation, 0)],
+      ['Total Refunded', tickets.reduce((sum, t) => sum + t.refundedAmount, 0)]
+    ];
+    
+    const summaryWs = XLSX.utils.aoa_to_sheet(summaryData);
+    XLSX.utils.book_append_sheet(wb, summaryWs, 'Summary');
+    
+    XLSX.writeFile(wb, `compensation_report_${new Date().toISOString().split('T')[0]}.xlsx`);
+    
+    showNotif('Excel exported successfully', 'success');
+    addCommand('Exported Excel Report');
+  }
+  
+  function exportPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    // Title
+    doc.setFontSize(20);
+    doc.text('Crispy Chicken - Compensation Report', 20, 20);
+    
+    // Date
+    doc.setFontSize(12);
+    doc.text(`Generated: ${new Date().toLocaleDateString()}`, 20, 30);
+    
+    // Summary
+    doc.setFontSize(14);
+    doc.text('Summary', 20, 45);
+    doc.setFontSize(10);
+    doc.text(`Total Cases: ${tickets.length}`, 20, 55);
+    doc.text(`Open Cases: ${tickets.filter(t => t.status === 'Open').length}`, 20, 62);
+    doc.text(`Total Compensation: ${tickets.reduce((sum, t) => sum + t.compensation, 0).toFixed(2)} AED`, 20, 69);
+    
+    // Table
+    doc.setFontSize(14);
+    doc.text('Cases', 20, 85);
+    
+    // Simple table (first 10 cases)
+    const tableData = tickets.slice(0, 10).map(t => [
+      t.orderId,
+      t.branch,
+      t.platform,
+      t.compensation.toFixed(2),
+      t.status
+    ]);
+    
+    doc.autoTable({
+      head: [['Order ID', 'Branch', 'Platform', 'Compensation', 'Status']],
+      body: tableData,
+      startY: 95,
+      theme: 'grid'
+    });
+    
+    doc.save(`compensation_report_${new Date().toISOString().split('T')[0]}.pdf`);
+    
+    showNotif('PDF exported successfully', 'success');
+    addCommand('Exported PDF Report');
+  }
+  
+  function exportDashboardSummary() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    // Capture dashboard
+    html2canvas(document.querySelector('.container-page')).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const imgWidth = 210;
+      const pageHeight = 295;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      
+      let position = 0;
+      
+      doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+      
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        doc.addPage();
+        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      
+      doc.save(`dashboard_summary_${new Date().toISOString().split('T')[0]}.pdf`);
+      
+      showNotif('Dashboard summary exported successfully', 'success');
+      addCommand('Exported Dashboard Summary');
+    });
+  }
+  
+  function exportUsabilityLog() {
+    const logData = {
+      interactions: interactions,
+      commands: commands,
+      summary: {
+        totalInteractions: interactions.length,
+        totalCommands: commands.length,
+        date: new Date().toISOString()
+      }
+    };
+    
+    const blob = new Blob([JSON.stringify(logData, null, 2)], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `usability_log_${new Date().toISOString().split('T')[0]}.json`;
+    link.click();
+    
+    showNotif('Usability log exported', 'success');
+    addCommand('Exported Usability Log');
+  }
+  
+  // ===== Print Functions =====
+  function printReport() {
+    window.print();
+    addCommand('Printed Report');
+  }
+  
+  // ===== Utility Functions =====
+  function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+      const args = arguments;
+      const context = this;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => inThrottle = false, limit);
+      }
+    };
+  }
+  
+  // ===== Add Sample Data =====
+  function addSample() {
+    const sampleTickets = [
+      {
+        id: Date.now().toString() + '1',
+        orderId: 'ORD-2023-001',
+        orderDate: new Date(Date.now() - 86400000).toISOString(),
+        branch: 'Crispy Chicken Khalidiya',
+        platform: 'Noon',
+        issue: 'Wrong item delivered - customer ordered chicken burger but received beef burger',
+        originalAmount: 45.00,
+        compensation: 20.00,
+        refundedAmount: 0,
+        refundDate: '',
+        evidence: 'None',
+        shortLink: 'https://crispy.ch/t/abc123',
+        status: 'Open',
+        dateCreated: new Date().toISOString()
+      },
+      {
+        id: Date.now().toString() + '2',
+        orderId: 'ORD-2023-002',
+        orderDate: new Date(Date.now() - 172800000).toISOString(),
+        branch: 'Crispy Chicken Muroor',
+        platform: 'Careem',
+        issue: 'Cold food - customer complained that food was not hot enough',
+        originalAmount: 38.50,
+        compensation: 15.00,
+        refundedAmount: 15.00,
+        refundDate: new Date().toISOString().split('T')[0],
+        evidence: 'None',
+        shortLink: '',
+        status: 'Closed',
+        dateCreated: new Date().toISOString()
+      },
+      {
+        id: Date.now().toString() + '3',
+        orderId: 'ORD-2023-003',
+        orderDate: new Date(Date.now() - 259200000).toISOString(),
+        branch: 'Crispy Chicken Shabiya 11',
+        platform: 'Noon',
+        issue: 'Missing items - customer did not receive the ordered drinks',
+        originalAmount: 52.75,
+        compensation: 25.00,
+        refundedAmount: 0,
+        refundDate: '',
+        evidence: 'None',
+        shortLink: '',
+        status: 'Rejected',
+        rejectionReason: 'no_evidence',
+        rejectionDate: new Date().toISOString(),
+        dateCreated: new Date().toISOString()
+      },
+      {
+        id: Date.now().toString() + '4',
+        orderId: 'ORD-2023-004',
+        orderDate: new Date(Date.now() - 345600000).toISOString(),
+        branch: 'Crispy Chicken Al Barsha',
+        platform: 'Careem',
+        issue: 'Long delivery time - order took more than 90 minutes to arrive',
+        originalAmount: 65.00,
+        compensation: 30.00,
+        refundedAmount: 0,
+        refundDate: '',
+        evidence: 'None',
+        shortLink: '',
+        status: 'Restaurant Fault',
+        faultDate: new Date().toISOString(),
+        dateCreated: new Date().toISOString()
+      },
+      {
+        id: Date.now().toString() + '5',
+        orderId: 'ORD-2023-005',
+        orderDate: new Date(Date.now() - 432000000).toISOString(),
+        branch: 'Crispy Chicken Al Satwa',
+        platform: 'Noon',
+        issue: 'Food quality issue - customer reported that chicken was undercooked',
+        originalAmount: 48.25,
+        compensation: 40.00,
+        refundedAmount: 40.00,
+        refundDate: new Date().toISOString().split('T')[0],
+        evidence: 'None',
+        shortLink: '',
+        status: 'Closed',
+        dateCreated: new Date().toISOString()
+      }
+    ];
+    
+    tickets = [...tickets, ...sampleTickets];
+    
+    if (saveTickets()) {
+      renderAll();
+      showNotif('Sample data added successfully', 'success');
+      addCommand('Added Sample Data', `${sampleTickets.length} cases`);
+    }
+  }
+  
+  // ===== Reset All =====
+  function resetAll() {
+    if (confirm('Are you sure you want to reset all data? This cannot be undone.')) {
+      tickets = [];
+      if (saveTickets()) {
+        renderAll();
+        showNotif('All data reset successfully', 'success');
+        addCommand('Reset All Data');
+      }
+    }
+  }
+  </script>
+</body>
+</html>
