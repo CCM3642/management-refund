@@ -20,8 +20,6 @@
       --text-secondary:#6c757d;
       --shadow:0 4px 6px rgba(0,0,0,0.1);
       --shadow-hover:0 8px 15px rgba(0,0,0,0.2);
-      --dock-bg:rgba(255,255,255,0.95);
-      --dock-shadow:0 10px 40px rgba(0,0,0,0.2);
     }
     html,body{height:100%;background:var(--bg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text-primary);direction:ltr;}
     .navbar{background:linear-gradient(135deg,var(--crispy-red),var(--crispy-dark));box-shadow:0 2px 10px rgba(0,0,0,.12);padding:0.8rem 0;}
@@ -121,82 +119,27 @@
     .refund-status-badge{padding:4px 8px;border-radius:12px;font-size:0.8rem;font-weight:600;}
     .status-refunded{background:#d4edda;color:#155724;}
     
-    /* Enhanced Tickets Section with Scrollable Table */
+    /* Enhanced Tickets Section */
     .tickets-section{background:var(--card-bg);border-radius:16px;padding:24px;box-shadow:var(--shadow);margin-bottom:30px;border:1px solid rgba(0,0,0,0.05);}
-    .tickets-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:15px;}
+    .tickets-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
     .tickets-header h5{font-size:1.4rem;font-weight:700;margin:0;color:var(--text-primary);}
-    .tickets-header .filters{display:flex;flex-wrap:wrap;gap:12px;align-items:center;flex:1;}
+    .tickets-header .filters{display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
     .tickets-header .search-input{min-width:200px;border-radius:8px;border:1px solid rgba(0,0,0,0.1);padding:8px 12px;font-size:0.95rem;}
     .tickets-header .filter-select{min-width:160px;border-radius:8px;border:1px solid rgba(0,0,0,0.1);font-size:0.95rem;}
     .tickets-header .action-buttons{display:flex;gap:8px;}
     .tickets-header .btn{border-radius:8px;font-weight:600;padding:8px 16px;}
     
-    /* Enhanced Scrollable Table Container */
-    .scrollable-table-container{
-      max-height:600px;
-      overflow-y:auto;
-      border:1px solid rgba(0,0,0,0.1);
-      border-radius:8px;
-      box-shadow:0 2px 8px rgba(0,0,0,0.05);
-      position:relative;
-      background:var(--card-bg);
-    }
-    
-    /* Sticky Table Headers */
-    .tickets-table th{
-      position:sticky;
-      top:0;
-      z-index:10;
-      background:linear-gradient(135deg,rgba(211,47,47,0.1),rgba(211,47,47,0.05));
-      color:var(--crispy-dark);
-      font-weight:600;
-      padding:16px 12px;
-      text-align:left;
-      font-size:0.95rem;
-      border-bottom:2px solid rgba(211,47,47,0.2);
-    }
-    
     /* Enhanced Table */
-    .tickets-table{width:100%;border-collapse:collapse;background:var(--card-bg);}
-    .tickets-table td{
-      padding:16px 12px;
-      border-bottom:1px solid rgba(0,0,0,0.05);
-      vertical-align:middle;
-    }
+    .tickets-table{width:100%;border-collapse:collapse;background:var(--card-bg);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+    .tickets-table th{background:linear-gradient(135deg,rgba(211,47,47,0.1),rgba(211,47,47,0.05));color:var(--crispy-dark);font-weight:600;padding:16px 12px;text-align:left;font-size:0.95rem;}
+    .tickets-table td{padding:16px 12px;border-bottom:1px solid rgba(0,0,0,0.05);vertical-align:middle;}
     .tickets-table tr:last-child td{border-bottom:none;}
-    .tickets-table tr:hover{background:rgba(211,47,47,0.05);}
+    .tickets-table tr:hover{background:rgba(0,0,0,0.02);}
     .ticket-order-id{font-weight:700;font-size:1.1rem;color:var(--crispy-dark);}
     .ticket-issue{max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-block;vertical-align:middle;}
     .issue-expand{background:none;border:none;color:#0d6efd;text-decoration:underline;font-size:0.9rem;cursor:pointer;padding-left:8px;}
     .ticket-actions{display:flex;flex-wrap:wrap;gap:4px;}
     .ticket-actions .btn{padding:4px 8px;font-size:0.8rem;border-radius:6px;}
-    
-    /* Scrollbar Styling */
-    .scrollable-table-container::-webkit-scrollbar{
-      width:10px;
-    }
-    .scrollable-table-container::-webkit-scrollbar-track{
-      background:#f1f1f1;
-      border-radius:5px;
-    }
-    .scrollable-table-container::-webkit-scrollbar-thumb{
-      background:var(--crispy-red);
-      border-radius:5px;
-      border:2px solid #f1f1f1;
-    }
-    .scrollable-table-container::-webkit-scrollbar-thumb:hover{
-      background:var(--crispy-dark);
-    }
-    
-    /* Table Footer */
-    .table-footer{
-      margin-top:16px;
-      padding:12px 0;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      border-top:1px solid rgba(0,0,0,0.05);
-    }
     
     /* High compensation highlight */
     .high-compensation{background-color:rgba(255,235,238,0.5) !important;}
@@ -209,34 +152,6 @@
     
     /* Restaurant fault highlight */
     .restaurant-fault{background-color:rgba(255,241,196,0.5) !important;}
-    
-    /* Status badges */
-    .status-badge{padding:6px 12px;border-radius:20px;font-size:0.85rem;font-weight:600;}
-    .status-open{background:#e7f3ff;color:#0d6efd;}
-    .status-sent{background:#fff9e6;color:#ffc107;}
-    .status-closed{background:#e8f5e9;color:#198754;}
-    .status-rejected{background:#ffebee;color:#dc3545;}
-    .status-restaurant-fault{background:#fff3e0;color:#ff7043;}
-    
-    /* Empty State */
-    .empty-state{
-      padding:60px 20px;
-      text-align:center;
-    }
-    .empty-state i{
-      font-size:3rem;
-      color:#dee2e6;
-      margin-bottom:1rem;
-    }
-    .empty-state h5{
-      color:#6c757d;
-      margin-bottom:0.5rem;
-    }
-    .empty-state p{
-      color:#adb5bd;
-      max-width:400px;
-      margin:0 auto 1.5rem;
-    }
     
     /* Enhanced Modal */
     .modal-content{border-radius:16px;border:none;box-shadow:0 10px 30px rgba(0,0,0,0.15);}
@@ -259,279 +174,23 @@
     .short-link-input{width:100%;border-radius:8px;border:1px solid #ddd;padding:8px 12px;font-size:0.95rem;}
     .short-link-button{position:absolute;right:20px;top:50%;transform:translateY(-50%);background:var(--crispy-red);color:white;border:none;border-radius:6px;padding:6px 12px;font-size:0.9rem;cursor:pointer;}
     
-    /* Enhanced Dock - Modern Design */
-    #dock-container{
-      position:fixed;
-      right:20px;
-      bottom:20px;
-      z-index:9999;
-      pointer-events:none;
-    }
-    
-    #dock{
-      position:relative;
-      pointer-events:all;
-      transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .dock-toggle{
-      width:60px;
-      height:60px;
-      border-radius:50%;
-      background:linear-gradient(135deg,var(--crispy-red),var(--crispy-dark));
-      color:#fff;
-      border:none;
-      box-shadow:0 8px 32px rgba(211,47,47,0.4);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-      transition:all 0.3s ease;
-      font-size:1.5rem;
-      position:relative;
-      overflow:hidden;
-    }
-    
-    .dock-toggle::before{
-      content:'';
-      position:absolute;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      background:rgba(255,255,255,0.2);
-      border-radius:50%;
-      transform:scale(0);
-      transition:transform 0.3s ease;
-    }
-    
-    .dock-toggle:hover::before{
-      transform:scale(1);
-    }
-    
-    .dock-toggle:hover{
-      transform:scale(1.1);
-      box-shadow:0 12px 40px rgba(211,47,47,0.5);
-    }
-    
-    .dock-toggle:active{
-      transform:scale(0.95);
-    }
-    
-    .dock-panel{
-      position:absolute;
-      bottom:80px;
-      right:0;
-      background:var(--dock-bg);
-      backdrop-filter:blur(20px);
-      border-radius:20px;
-      box-shadow:var(--dock-shadow);
-      padding:20px;
-      min-width:280px;
-      opacity:0;
-      visibility:hidden;
-      transform:translateY(20px) scale(0.95);
-      transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border:1px solid rgba(255,255,255,0.2);
-    }
-    
-    .dock-panel.show{
-      opacity:1;
-      visibility:visible;
-      transform:translateY(0) scale(1);
-    }
-    
-    .dock-panel::before{
-      content:'';
-      position:absolute;
-      bottom:-10px;
-      right:30px;
-      width:0;
-      height:0;
-      border-left:10px solid transparent;
-      border-right:10px solid transparent;
-      border-top:10px solid var(--dock-bg);
-    }
-    
-    .dock-panel .dock-section{
-      margin-bottom:20px;
-    }
-    
-    .dock-panel .dock-section:last-child{
-      margin-bottom:0;
-    }
-    
-    .dock-panel .dock-section-title{
-      font-size:0.75rem;
-      font-weight:700;
-      color:var(--text-secondary);
-      text-transform:uppercase;
-      letter-spacing:0.5px;
-      margin-bottom:10px;
-      padding:0 10px;
-    }
-    
-    .dock-panel .btn{
-      width:100%;
-      margin-bottom:8px;
-      border-radius:12px;
-      padding:12px 16px;
-      font-weight:600;
-      text-align:left;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      transition:all 0.2s ease;
-      border:none;
-      font-size:0.9rem;
-    }
-    
-    .dock-panel .btn:last-child{
-      margin-bottom:0;
-    }
-    
-    .dock-panel .btn:hover{
-      transform:translateX(-5px);
-      box-shadow:0 4px 12px rgba(0,0,0,0.1);
-    }
-    
-    .dock-panel .btn i{
-      font-size:1.1rem;
-      width:24px;
-      text-align:center;
-    }
-    
-    .dock-panel .btn-primary{
-      background:var(--crispy-red);
-      color:white;
-    }
-    
-    .dock-panel .btn-primary:hover{
-      background:var(--crispy-dark);
-    }
-    
-    .dock-panel .btn-outline-primary{
-      background:transparent;
-      color:var(--crispy-red);
-      border:1px solid var(--crispy-red);
-    }
-    
-    .dock-panel .btn-outline-primary:hover{
-      background:var(--crispy-red);
-      color:white;
-    }
-    
-    .dock-panel .btn-success{
-      background:#28a745;
-      color:white;
-    }
-    
-    .dock-panel .btn-success:hover{
-      background:#218838;
-    }
-    
-    .dock-panel .btn-warning{
-      background:#ffc107;
-      color:#212529;
-    }
-    
-    .dock-panel .btn-warning:hover{
-      background:#e0a800;
-    }
-    
-    .dock-panel .btn-danger{
-      background:#dc3545;
-      color:white;
-    }
-    
-    .dock-panel .btn-danger:hover{
-      background:#c82333;
-    }
-    
-    .dock-panel .btn-outline-secondary{
-      background:transparent;
-      color:#6c757d;
-      border:1px solid #6c757d;
-    }
-    
-    .dock-panel .btn-outline-secondary:hover{
-      background:#6c757d;
-      color:white;
-    }
-    
-    .dock-panel .btn-outline-info{
-      background:transparent;
-      color:#17a2b8;
-      border:1px solid #17a2b8;
-    }
-    
-    .dock-panel .btn-outline-info:hover{
-      background:#17a2b8;
-      color:white;
-    }
-    
-    .dock-panel .btn-outline-dark{
-      background:transparent;
-      color:#343a40;
-      border:1px solid #343a40;
-    }
-    
-    .dock-panel .btn-outline-dark:hover{
-      background:#343a40;
-      color:white;
-    }
+    /* Enhanced Dock */
+    #dock{position:fixed;right:24px;bottom:24px;z-index:2000;display:flex;flex-direction:column;gap:12px;align-items:flex-end;}
+    .dock-toggle{width:56px;height:56px;border-radius:50%;background:var(--crispy-red);color:#fff;border:none;box-shadow:0 8px 26px rgba(0,0,0,0.18);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s;}
+    .dock-toggle:hover{transform:scale(1.1);box-shadow:0 10px 30px rgba(0,0,0,0.25);}
+    .dock-panel{display:none;flex-direction:column;gap:10px;padding:12px;background:var(--card-bg);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.15);width:200px;}
+    .dock-panel.show{display:flex;animation:slideUp 0.3s ease-out;}
+    @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .dock-panel button{min-width:180px;font-weight:600;border-radius:10px;padding:10px 16px;font-size:0.95rem;transition:all 0.2s;}
+    .dock-panel button:hover{transform:translateX(-4px);}
     
     /* Enhanced Notifications */
-    .notification{
-      position:fixed;
-      top:24px;
-      right:24px;
-      padding:16px 24px;
-      border-radius:12px;
-      color:#fff;
-      z-index:3000;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      box-shadow:0 8px 32px rgba(0,0,0,0.2);
-      transform:translateX(400px);
-      transition:transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      max-width:400px;
-    }
-    
-    .notification.show{
-      transform:translateX(0);
-    }
-    
-    .notification i{
-      font-size:1.5rem;
-    }
-    
-    .notification.success{
-      background:linear-gradient(135deg,#28a745,#20c997);
-    }
-    
-    .notification.error{
-      background:linear-gradient(135deg,#dc3545,#fd7e14);
-    }
-    
-    .notification.warning{
-      background:linear-gradient(135deg,#ffc107,#fd7e14);
-    }
-    
-    .notification .notification-content{
-      flex:1;
-    }
-    
-    .notification .notification-title{
-      font-weight:700;
-      margin-bottom:2px;
-    }
-    
-    .notification .notification-message{
-      font-size:0.9rem;
-      opacity:0.9;
-    }
+    .notification{position:fixed;top:24px;right:24px;padding:16px 20px;border-radius:12px;color:#fff;z-index:3000;display:none;box-shadow:0 6px 20px rgba(0,0,0,0.15);animation:slideIn 0.3s ease-out;}
+    .notification.show{display:block;}
+    .notification.success{background:#198754;}
+    .notification.error{background:#dc3545;}
+    .notification.warning{background:#ffc107;}
+    @keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
     
     /* Summary Section */
     .summary-section{background:var(--card-bg);border-radius:16px;padding:30px;margin-bottom:30px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,0.05);}
@@ -699,28 +358,24 @@
     
     /* Scrollbar styling */
     .commands-list::-webkit-scrollbar,
-    .all-commands-list::-webkit-scrollbar,
-    .scrollable-table-container::-webkit-scrollbar {
+    .all-commands-list::-webkit-scrollbar {
       width: 6px;
     }
     
     .commands-list::-webkit-scrollbar-track,
-    .all-commands-list::-webkit-scrollbar-track,
-    .scrollable-table-container::-webkit-scrollbar-track {
+    .all-commands-list::-webkit-scrollbar-track {
       background: rgba(255,255,255,0.1);
       border-radius: 3px;
     }
     
     .commands-list::-webkit-scrollbar-thumb,
-    .all-commands-list::-webkit-scrollbar-thumb,
-    .scrollable-table-container::-webkit-scrollbar-thumb {
+    .all-commands-list::-webkit-scrollbar-thumb {
       background: rgba(255,255,255,0.3);
       border-radius: 3px;
     }
     
     .commands-list::-webkit-scrollbar-thumb:hover,
-    .all-commands-list::-webkit-scrollbar-thumb:hover,
-    .scrollable-table-container::-webkit-scrollbar-thumb:hover {
+    .all-commands-list::-webkit-scrollbar-thumb:hover {
       background: rgba(255,255,255,0.5);
     }
     
@@ -759,24 +414,9 @@
       display: block;
     }
     
-    /* Loading spinner */
-    .loading-spinner {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 3px solid rgba(255,255,255,.3);
-      border-radius: 50%;
-      border-top-color: #fff;
-      animation: spin 1s ease-in-out infinite;
-    }
-    
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    
     /* Print styles */
     @media print{
-      #dock-container, .tickets-header .btn, .action-buttons, .navbar, .modal, .notification, .commands-window, .storage-indicator { display:none !important; }
+      #dock, .tickets-header .btn, .action-buttons, .navbar, .modal, .notification, .commands-window, .storage-indicator { display:none !important; }
       body{background:#fff}
       .card-ghost{box-shadow:none;border:1px solid #ddd;}
     }
@@ -784,7 +424,6 @@
     /* Responsive styles */
     @media (max-width: 1200px){
       .container-page{max-width:100%;padding:0 16px;}
-      .dock-panel{min-width:240px;}
     }
     @media (max-width: 992px){
       #reports{grid-template-columns:1fr;}
@@ -809,8 +448,9 @@
       .tickets-header .action-buttons .btn{flex:1;}
       .tickets-table{font-size:0.85rem;}
       .ticket-actions{justify-content:center;}
-      #dock-container{right:16px;bottom:16px;}
-      .dock-panel{min-width:200px;right:0 !important;}
+      #dock{right:16px;bottom:16px;}
+      .dock-panel{width:180px;}
+      .dock-panel button{min-width:160px;font-size:0.9rem;}
       .commands-window {
         width: 280px;
         right: 16px;
@@ -819,9 +459,6 @@
       .all-commands-container { 
         margin-top: 140px;
         margin-right: 0;
-      }
-      .scrollable-table-container{
-        max-height:400px;
       }
     }
     @media (max-width: 576px){
@@ -836,12 +473,6 @@
         margin-top: 120px;
         margin-right: 0;
       }
-      .scrollable-table-container{
-        max-height:300px;
-      }
-      .dock-panel{min-width:180px;padding:15px;}
-      .dock-panel .btn{padding:10px 12px;font-size:0.85rem;}
-      .dock-panel .btn i{font-size:1rem;width:20px;}
     }
   </style>
 </head>
@@ -1155,7 +786,7 @@
       </div>
     </section>
     
-    <!-- Enhanced Tickets Section with Scrollable Table -->
+    <!-- Enhanced Tickets Section -->
     <section class="tickets-section">
       <div class="tickets-header">
         <h5>Compensation Cases</h5>
@@ -1187,41 +818,7 @@
           </div>
         </div>
       </div>
-      
-      <!-- Scrollable Table Container -->
-      <div class="scrollable-table-container">
-        <table class="tickets-table">
-          <thead>
-            <tr>
-              <th style="width: 120px;">Order ID</th>
-              <th style="width: 150px;">Order Date</th>
-              <th style="width: 140px;">Branch</th>
-              <th style="width: 100px;">Platform</th>
-              <th style="width: 300px;">Case</th>
-              <th style="width: 100px;">Evidence</th>
-              <th style="width: 120px;">Status</th>
-              <th style="width: 120px;">Original Amount</th>
-              <th style="width: 120px;">Compensation</th>
-              <th style="width: 120px;">Refunded</th>
-              <th style="width: 150px;">Actions</th>
-            </tr>
-          </thead>
-          <tbody id="ticketsTableBody">
-          </tbody>
-        </table>
-      </div>
-      
-      <!-- Table Footer -->
-      <div class="table-footer">
-        <div class="text-muted">
-          Showing <span id="tableRowCount">0</span> of <span id="tableTotalCount">0</span> cases
-        </div>
-        <div class="table-actions">
-          <button class="btn btn-sm btn-outline-secondary" onclick="exportTableData()">
-            <i class="bi bi-download me-1"></i> Export
-          </button>
-        </div>
-      </div>
+      <div id="ticketsContainer"></div>
     </section>
     
     <!-- Commands Section -->
@@ -1467,6 +1064,60 @@
     </div>
   </div>
   
+  <!-- Enhanced Notification -->
+  <div id="notification" class="notification"></div>
+  
+  <!-- Enhanced Dock -->
+  <div id="dock" title="Drag me">
+    <div id="dockPanel" class="dock-panel" role="toolbar" aria-hidden="true">
+      <button class="btn btn-danger" onclick="openAddModal()" title="New Case">
+        <i class="bi bi-plus-circle me-1"></i> New Case
+      </button>
+      <button class="btn btn-outline-primary" onclick="addSample()" title="Add sample cases">
+        <i class="bi bi-flask me-1"></i> Add Sample
+      </button>
+      <button class="btn btn-outline-secondary" onclick="showDailySummary()" title="Daily branch summary">
+        <i class="bi bi-calendar-day me-1"></i> Daily Summary
+      </button>
+      <button class="btn btn-outline-danger" onclick="openRejectionModal()" title="Reject compensation">
+        <i class="bi bi-x-circle me-1"></i> رفض تعويض
+      </button>
+      <button class="btn btn-outline-warning" onclick="openRestaurantFaultModal()" title="Restaurant fault case">
+        <i class="bi bi-exclamation-triangle me-1"></i> مطعم مسؤول
+      </button>
+      <button class="btn btn-outline-secondary" onclick="resetAll()" title="Reset all data">
+        <i class="bi bi-arrow-clockwise me-1"></i> Reset
+      </button>
+      <button class="btn btn-outline-dark" onclick="printReport()" title="Print report">
+        <i class="bi bi-printer me-1"></i> Print
+      </button>
+      <button class="btn btn-success" onclick="exportExcel()" title="Export Excel (XLSX)">
+        <i class="bi bi-file-earmark-spreadsheet me-1"></i> Export Excel
+      </button>
+      <button class="btn btn-warning" onclick="exportPDF()" title="Export PDF">
+        <i class="bi bi-file-earmark-pdf me-1"></i> Export PDF
+      </button>
+      <button class="btn btn-primary" onclick="exportDashboardSummary()" title="Dashboard Summary PDF">
+        <i class="bi bi-file-text me-1"></i> Dashboard PDF
+      </button>
+      <button id="heatmapToggleBtn" class="btn btn-outline-danger" onclick="toggleHeatmap()" title="Toggle Heatmap">
+        <i class="bi bi-activity me-1"></i> Heatmap
+      </button>
+      <button class="btn btn-outline-secondary" onclick="exportUsabilityLog()" title="Export user interactions">
+        <i class="bi bi-box-arrow-up-right me-1"></i> Export Log
+      </button>
+      <button class="btn btn-outline-info" onclick="clearCommands()" title="Clear commands">
+        <i class="bi bi-trash me-1"></i> Clear Commands
+      </button>
+      <button class="btn btn-outline-info" onclick="showStorageInfo()" title="Storage Info">
+        <i class="bi bi-hdd me-1"></i> Storage
+      </button>
+    </div>
+    <button id="dockToggle" class="dock-toggle" title="Open actions">
+      <i class="bi bi-gear-fill"></i>
+    </button>
+  </div>
+  
   <!-- Restaurant Fault Modal -->
   <div class="modal fade" id="restaurantFaultModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -1515,102 +1166,6 @@
     </div>
   </div>
   
-  <!-- Enhanced Dock -->
-  <div id="dock-container">
-    <div id="dock">
-      <div class="dock-panel" id="dockPanel">
-        <div class="dock-section">
-          <div class="dock-section-title">Quick Actions</div>
-          <button class="btn btn-primary" onclick="openAddModal()">
-            <i class="bi bi-plus-circle"></i>
-            <span>New Case</span>
-          </button>
-          <button class="btn btn-outline-primary" onclick="addSample()">
-            <i class="bi bi-flask"></i>
-            <span>Add Sample</span>
-          </button>
-        </div>
-        
-        <div class="dock-section">
-          <div class="dock-section-title">Reports</div>
-          <button class="btn btn-outline-secondary" onclick="showDailySummary()">
-            <i class="bi bi-calendar-day"></i>
-            <span>Daily Summary</span>
-          </button>
-          <button class="btn btn-outline-dark" onclick="printReport()">
-            <i class="bi bi-printer"></i>
-            <span>Print Report</span>
-          </button>
-        </div>
-        
-        <div class="dock-section">
-          <div class="dock-section-title">Export</div>
-          <button class="btn btn-success" onclick="exportExcel()">
-            <i class="bi bi-file-earmark-spreadsheet"></i>
-            <span>Export Excel</span>
-          </button>
-          <button class="btn btn-warning" onclick="exportPDF()">
-            <i class="bi bi-file-earmark-pdf"></i>
-            <span>Export PDF</span>
-          </button>
-          <button class="btn btn-primary" onclick="exportDashboardSummary()">
-            <i class="bi bi-file-text"></i>
-            <span>Dashboard PDF</span>
-          </button>
-        </div>
-        
-        <div class="dock-section">
-          <div class="dock-section-title">Management</div>
-          <button class="btn btn-danger" onclick="openRejectionModal()">
-            <i class="bi bi-x-circle"></i>
-            <span>رفض تعويض</span>
-          </button>
-          <button class="btn btn-warning" onclick="openRestaurantFaultModal()">
-            <i class="bi bi-exclamation-triangle"></i>
-            <span>مطعم مسؤول</span>
-          </button>
-          <button class="btn btn-outline-secondary" onclick="resetAll()">
-            <i class="bi bi-arrow-clockwise"></i>
-            <span>Reset All</span>
-          </button>
-        </div>
-        
-        <div class="dock-section">
-          <div class="dock-section-title">Tools</div>
-          <button class="btn btn-outline-danger" onclick="toggleHeatmap()">
-            <i class="bi bi-activity"></i>
-            <span>Heatmap</span>
-          </button>
-          <button class="btn btn-outline-info" onclick="exportUsabilityLog()">
-            <i class="bi bi-box-arrow-up-right"></i>
-            <span>Export Log</span>
-          </button>
-          <button class="btn btn-outline-info" onclick="clearCommands()">
-            <i class="bi bi-trash"></i>
-            <span>Clear Commands</span>
-          </button>
-          <button class="btn btn-outline-secondary" onclick="showStorageInfo()">
-            <i class="bi bi-hdd"></i>
-            <span>Storage Info</span>
-          </button>
-        </div>
-      </div>
-      
-      <button class="dock-toggle" id="dockToggle" title="Open actions menu">
-        <i class="bi bi-three-dots-vertical"></i>
-      </button>
-    </div>
-  </div>
-  
-  <!-- Enhanced Notification -->
-  <div id="notification" class="notification">
-    <i class="bi bi-check-circle-fill"></i>
-    <div class="notification-content">
-      <div class="notification-title">Success</div>
-      <div class="notification-message">Operation completed successfully</div>
-    </div>
-  </div>
-  
   <!-- Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -1620,7 +1175,7 @@
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.js"></script>
   <script>
   // ===== State & initial data =====
-  let tickets = [];
+  let tickets = JSON.parse(localStorage.getItem('crispyTickets')) || [];
   const branchWhats = {
     "Crispy Chicken Khalidiya":"971569494764",
     "Crispy Chicken Muroor":"971505414641",
@@ -1634,7 +1189,7 @@
   const branchesList = Object.keys(branchWhats);
   
   // ===== DOM refs =====
-  const ticketsTableBody = document.getElementById('ticketsTableBody');
+  const ticketsContainer = document.getElementById('ticketsContainer');
   const searchInput = document.getElementById('searchInput');
   const filterBranch = document.getElementById('filterBranch');
   const filterPlatform = document.getElementById('filterPlatform');
@@ -1661,50 +1216,32 @@
   let commands = [];
   const MAX_COMMANDS_VISIBLE = 3;
   
-  // ===== Load Tickets from Storage =====
-  function loadTickets() {
-    try {
-      const stored = localStorage.getItem('crispyTickets');
-      if (stored) {
-        tickets = JSON.parse(stored);
-        console.log('Loaded tickets from storage:', tickets.length);
-      } else {
-        console.log('No tickets found in storage');
-        tickets = [];
-      }
-    } catch (error) {
-      console.error('Error loading tickets:', error);
-      tickets = [];
-    }
-  }
-  
-  // ===== Save Tickets to Storage =====
-  function saveTickets() {
-    try {
-      localStorage.setItem('crispyTickets', JSON.stringify(tickets));
-      console.log('Saved tickets to storage:', tickets.length);
-      return true;
-    } catch (error) {
-      console.error('Error saving tickets:', error);
-      showNotif('Error saving data', 'error');
-      return false;
-    }
-  }
-  
   // Init setup
   document.addEventListener('DOMContentLoaded', () => {
     console.log('Initializing application...');
     
-    // Load tickets first
-    loadTickets();
-    
     populateBranchFilters();
     
-    // If no tickets, add sample data
+    // تحميل البيانات من localStorage مع معالجة الأخطاء
+    try {
+      const storedTickets = localStorage.getItem('crispyTickets');
+      if (storedTickets) {
+        tickets = JSON.parse(storedTickets);
+        console.log('Loaded tickets:', tickets.length);
+      } else {
+        console.log('No stored tickets found');
+      }
+    } catch (error) {
+      console.error('Error loading tickets from localStorage:', error);
+      tickets = [];
+    }
+    
+    // إذا لم تكن هناك بيانات، أضف عينات
     if (tickets.length === 0) {
       console.log('No tickets found, adding sample data...');
       addSample();
     } else {
+      // إذا كانت هناك بيانات، قم بتحديث الواجهة
       renderAll();
     }
     
@@ -1717,9 +1254,6 @@
     
     // Initialize storage indicator
     updateStorageIndicator();
-    
-    // Initialize table scroll
-    initializeTableScroll();
     
     console.log('Application initialized successfully');
   });
@@ -1800,7 +1334,7 @@
     });
     
     if (cleanedCount > 0) {
-      if (saveTickets()) {
+      if (save()) {
         renderAll();
         showNotif(`Cleaned ${cleanedCount} images. Storage freed.`, 'success');
       }
@@ -1824,7 +1358,7 @@
     const removedCount = originalCount - tickets.length;
     
     if (removedCount > 0) {
-      if (saveTickets()) {
+      if (save()) {
         renderAll();
         showNotif(`Removed ${removedCount} old cases. Storage freed.`, 'success');
       }
@@ -1908,33 +1442,38 @@
   }
   
   // ===== Utility =====
-  function showNotif(msg, type = 'success', title = '') {
-    const notif = notification;
-    const icon = notif.querySelector('i');
-    const titleEl = notif.querySelector('.notification-title');
-    const msgEl = notif.querySelector('.notification-message');
-    
-    // Update icon based on type
-    if (type === 'success') {
-      icon.className = 'bi bi-check-circle-fill';
-    } else if (type === 'error') {
-      icon.className = 'bi bi-x-circle-fill';
-    } else if (type === 'warning') {
-      icon.className = 'bi bi-exclamation-triangle-fill';
+  function save() {
+    try {
+      // Check storage quota before saving
+      if (!checkStorageQuota()) {
+        showNotif('Storage quota exceeded. Please clean up old cases or images.', 'error');
+        offerStorageCleanup();
+        return false;
+      }
+      
+      localStorage.setItem('crispyTickets', JSON.stringify(tickets));
+      console.log('Saved tickets:', tickets.length);
+      return true;
+    } catch (error) {
+      console.error('Error saving tickets to localStorage:', error);
+      
+      // Handle specific quota exceeded error
+      if (error.name === 'QuotaExceededError' || 
+          error.message.includes('quota') || 
+          error.message.includes('exceeded')) {
+        showNotif('Storage full! Please clean up old cases or images.', 'error');
+        offerStorageCleanup();
+      } else {
+        showNotif('Error saving data', 'error');
+      }
+      return false;
     }
-    
-    // Update content
-    titleEl.textContent = title || type.charAt(0).toUpperCase() + type.slice(1);
-    msgEl.textContent = msg;
-    
-    // Update classes
-    notif.className = `notification ${type}`;
-    
-    // Show notification
-    setTimeout(() => { notif.classList.add('show'); }, 10);
-    
-    // Hide after 3 seconds
-    setTimeout(() => { notif.classList.remove('show'); }, 3000);
+  }
+  
+  function showNotif(msg, type = 'success') {
+    notification.className = `notification ${type} show`;
+    notification.textContent = msg;
+    setTimeout(() => { notification.className = `notification ${type}`; }, 3000);
   }
   
   function formatDateISO(dt) {
@@ -1996,7 +1535,7 @@
   // ===== Show Daily Summary =====
   function showDailySummary() {
     const today = new Date().toISOString().split('T')[0];
-    const todayTickets = tickets.filter(t => t.orderDate && t.orderDate.startsWith(today));
+    const todayTickets = tickets.filter(t => t.orderDate.startsWith(today));
     
     // Group by branch
     const branchSummary = {};
@@ -2029,1133 +1568,312 @@
                 <div class="daily-stat-label">Cases</div>
               </div>
               <div class="daily-stat">
-                <div class="daily-stat-value">${summary.totalCompensation.toFixed(2)}</div>
-                <div class="daily-stat-label">Comp</div>
+                <div class="daily-stat-value">AED ${summary.totalCompensation.toFixed(2)}</div>
+                <div class="daily-stat-label">Compensation</div>
               </div>
               <div class="daily-stat">
-                <div class="daily-stat-value">${summary.totalRefunded.toFixed(2)}</div>
-                <div class="daily-stat-label">Refund</div>
+                <div class="daily-stat-value">AED ${summary.totalRefunded.toFixed(2)}</div>
+                <div class="daily-stat-label">Refunded</div>
               </div>
             </div>
+          </div>
+          <div class="mt-3">
+            <h6 class="mb-2">Cases:</h6>
+            <ul class="list-group">
+      `;
+      
+      summary.cases.forEach(ticket => {
+        const compensationClass = ticket.compensation > 25 ? 'list-group-item-danger' : '';
+        const refundedClass = ticket.isRefunded ? 'list-group-item-success' : '';
+        const rowClass = compensationClass + (refundedClass ? ' ' + refundedClass : '');
+        
+        html += `
+          <li class="list-group-item ${rowClass} d-flex justify-content-between align-items-center">
+            <div>
+              <strong>${ticket.orderId}</strong> - ${ticket.issue.substring(0, 50)}...
+              <div class="text-muted small">
+                Original: AED ${ticket.originalAmount || 0} | 
+                Compensation: AED ${ticket.compensation || 0} | 
+                Refunded: AED ${ticket.refundedAmount || 0}
+              </div>
+            </div>
+            <div>
+              <span class="badge bg-${ticket.status === 'Open' ? 'primary' : ticket.status === 'Sent' ? 'warning' : 'success'}">${ticket.status}</span>
+              ${ticket.isRefunded ? '<span class="badge bg-success ms-1">Refunded</span>' : ''}
+            </div>
+          </li>
+        `;
+      });
+      
+      html += `
+            </ul>
           </div>
         </div>
       `;
     });
     
-    document.getElementById('dailySummaryContent').innerHTML = html || '<p>No cases today</p>';
-    
-    const modal = new bootstrap.Modal(document.getElementById('dailySummaryModal'));
-    modal.show();
+    document.getElementById('dailySummaryContent').innerHTML = html;
+    new bootstrap.Modal(document.getElementById('dailySummaryModal')).show();
   }
   
   // ===== Export Daily Summary =====
   function exportDailySummary() {
-    const today = new Date().toISOString().split('T')[0];
-    const todayTickets = tickets.filter(t => t.orderDate && t.orderDate.startsWith(today));
-    
-    // Create CSV content
-    const headers = ['Branch', 'Total Cases', 'Total Compensation', 'Total Refunded'];
-    const rows = [];
-    
-    // Group by branch
-    const branchSummary = {};
-    todayTickets.forEach(ticket => {
-      if (!branchSummary[ticket.branch]) {
-        branchSummary[ticket.branch] = {
-          totalCases: 0,
-          totalCompensation: 0,
-          totalRefunded: 0
-        };
-      }
-      branchSummary[ticket.branch].totalCases++;
-      branchSummary[ticket.branch].totalCompensation += ticket.compensation || 0;
-      branchSummary[ticket.branch].totalRefunded += ticket.refundedAmount || 0;
-    });
-    
-    // Add branch data
-    Object.keys(branchSummary).forEach(branch => {
-      const summary = branchSummary[branch];
-      rows.push([
-        branch,
-        summary.totalCases,
-        summary.totalCompensation.toFixed(2),
-        summary.totalRefunded.toFixed(2)
-      ]);
-    });
-    
-    // Create CSV
-    const csvContent = [
-      headers.join(','),
-      ...rows.map(row => row.join(','))
-    ].join('\n');
-    
-    // Download
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `daily_summary_${today}.csv`;
-    link.click();
-    
-    showNotif('Daily summary exported', 'success');
+    const content = document.getElementById('dailySummaryContent').innerHTML;
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Daily Branch Summary</title>
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+          <style>
+            body { font-family: Arial, sans-serif; padding: 20px; }
+            .daily-branch-item { margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+            .daily-branch-name { font-weight: bold; font-size: 1.2rem; }
+            .daily-stat { text-align: center; }
+            .daily-stat-value { font-weight: bold; font-size: 1.1rem; }
+            .list-group-item-danger { background-color: #ffebee; }
+            .list-group-item-success { background-color: #d4edda; }
+          </style>
+        </head>
+        <body>
+          <h1>Daily Branch Summary</h1>
+          <p>Generated on: ${new Date().toLocaleString()}</p>
+          ${content}
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+    printWindow.print();
   }
   
-  // ===== Setup Listeners =====
-  function setupListeners() {
-    // Search and filters
-    searchInput.addEventListener('input', renderTable);
-    filterBranch.addEventListener('change', renderTable);
-    filterPlatform.addEventListener('change', renderTable);
-    filterStatus.addEventListener('change', renderTable);
-    
-    // Form submission
-    document.getElementById('ticketForm').addEventListener('submit', handleFormSubmit);
-    
-    // Dock toggle
-    dockToggle.addEventListener('click', toggleDock);
-    
-    // Rejection form
-    document.getElementById('rejectionForm').addEventListener('submit', handleRejectionSubmit);
-    
-    // Restaurant fault form
-    document.getElementById('restaurantFaultForm').addEventListener('submit', handleRestaurantFaultSubmit);
-    
-    // Duplicate check
-    document.getElementById('f_orderId').addEventListener('input', checkDuplicate);
-    
-    // Refund checkbox
-    document.getElementById('f_isRefunded').addEventListener('change', function() {
-      const refundDateInput = document.getElementById('f_refundDate');
-      if (this.checked) {
-        refundDateInput.required = true;
-        if (!refundDateInput.value) {
-          refundDateInput.value = new Date().toISOString().split('T')[0];
-        }
-      } else {
-        refundDateInput.required = false;
-      }
-    });
-    
-    // No evidence checkbox
-    document.getElementById('f_noEvidence').addEventListener('change', function() {
-      const evidenceImage = document.getElementById('f_evidenceImage');
-      const shortLink = document.getElementById('f_shortLink');
-      if (this.checked) {
-        evidenceImage.disabled = true;
-        shortLink.disabled = true;
-      } else {
-        evidenceImage.disabled = false;
-        shortLink.disabled = false;
-      }
-    });
-    
-    // Make dock draggable
-    makeDockDraggable();
-    
-    // Close dock when clicking outside
-    document.addEventListener('click', function(e) {
-      if (!dock.contains(e.target) && dockPanel.classList.contains('show')) {
-        dockPanel.classList.remove('show');
-      }
-    });
-  }
-  
-  // ===== Toggle Dock =====
-  function toggleDock() {
-    dockPanel.classList.toggle('show');
-  }
-  
-  // ===== Check for duplicate Order ID =====
-  function checkDuplicate() {
-    const orderId = document.getElementById('f_orderId').value;
-    const editingId = document.getElementById('editingId').value;
-    const warning = document.getElementById('duplicateWarning');
-    
-    if (orderId) {
-      const duplicate = tickets.find(t => 
-        t.orderId === orderId && t.id !== editingId
-      );
-      
-      if (duplicate) {
-        warning.textContent = 'Order ID already exists!';
-        warning.classList.add('show');
-      } else {
-        warning.classList.remove('show');
-      }
-    } else {
-      warning.classList.remove('show');
+  // ===== Render =====
+  function renderAll() {
+    try {
+      console.log('Rendering dashboard...');
+      renderTickets();
+      updateStats();
+      updatePlatformStats();
+      renderCharts();
+      renderCaseAnalysis();
+      renderCompensationAnalysis();
+      renderRejectionAnalysis();
+      renderRestaurantFaultAnalysis();
+      renderRefundAnalysis();
+      renderSummary();
+      updateStorageIndicator();
+      console.log('Dashboard rendered successfully');
+    } catch (error) {
+      console.error('Error rendering dashboard:', error);
+      showNotif('Error rendering dashboard', 'error');
     }
   }
   
-  // ===== Form Handling =====
-  function handleFormSubmit(e) {
-    e.preventDefault();
-    
-    const formData = {
-      id: document.getElementById('editingId').value || Date.now().toString(),
-      orderId: document.getElementById('f_orderId').value,
-      orderDate: document.getElementById('f_orderDate').value,
-      branch: document.getElementById('f_branch').value,
-      platform: document.getElementById('f_platform').value,
-      issue: document.getElementById('f_issue').value,
-      originalAmount: parseFloat(document.getElementById('f_originalAmount').value),
-      compensation: parseFloat(document.getElementById('f_compensation').value),
-      refundedAmount: parseFloat(document.getElementById('f_refundedAmount').value) || 0,
-      refundDate: document.getElementById('f_refundDate').value,
-      evidence: document.getElementById('f_noEvidence').checked ? 'None' : 
-                (document.getElementById('f_evidenceBase64')?.value || 'None'),
-      shortLink: document.getElementById('f_shortLink').value,
-      status: 'Open',
-      dateCreated: document.getElementById('editingId').value ? 
-                   tickets.find(t => t.id === document.getElementById('editingId').value)?.dateCreated || new Date().toISOString() :
-                   new Date().toISOString()
-    };
-    
-    // Check for duplicate
-    const duplicate = tickets.find(t => 
-      t.orderId === formData.orderId && t.id !== formData.id
-    );
-    
-    if (duplicate) {
-      showNotif('Order ID already exists!', 'error');
+  function filteredTickets() {
+    const q = searchInput.value.trim().toLowerCase();
+    const b = filterBranch.value;
+    const p = filterPlatform.value;
+    const s = filterStatus.value;
+    return tickets.filter(t => {
+      if (b && t.branch !== b) return false;
+      if (p && t.platform !== p) return false;
+      if (s && t.status !== s) return false;
+      if (!q) return true;
+      return (t.orderId || '').toString().toLowerCase().includes(q) ||
+             (t.branch || '').toLowerCase().includes(q) ||
+             (t.issue || '').toLowerCase().includes(q);
+    });
+  }
+  
+  function renderTickets() {
+    const data = filteredTickets();
+    if (data.length === 0) {
+      ticketsContainer.innerHTML = `
+        <div class="text-center p-5 empty-state">
+          <i class="bi bi-inbox" style="font-size:48px;color:#ddd"></i>
+          <h5 class="mt-3">No cases found</h5>
+          <p class="text-muted">Add a new compensation case to get started</p>
+        </div>
+      `;
       return;
     }
     
-    // Save or update
-    if (document.getElementById('editingId').value) {
-      const index = tickets.findIndex(t => t.id === formData.id);
-      if (index !== -1) {
-        tickets[index] = formData;
-        showNotif('Case updated successfully', 'success');
-        addCommand('Updated Case', `Order ID: ${formData.orderId}`);
-      }
-    } else {
-      tickets.push(formData);
-      showNotif('Case added successfully', 'success');
-      addCommand('Added New Case', `Order ID: ${formData.orderId}`);
-    }
+    let html = `
+      <div class="table-responsive">
+        <table class="tickets-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Order Date</th>
+              <th>Branch</th>
+              <th>Platform</th>
+              <th>Case</th>
+              <th>Evidence</th>
+              <th>Status</th>
+              <th>Original Amount</th>
+              <th>Compensation</th>
+              <th>Refunded</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+    `;
     
-    if (saveTickets()) {
-      renderAll();
-      bootstrap.Modal.getInstance(document.getElementById('ticketModal')).hide();
-      document.getElementById('ticketForm').reset();
-      document.getElementById('imagePreview').style.display = 'none';
-      document.getElementById('duplicateWarning').classList.remove('show');
-    }
-  }
-  
-  // ===== Rejection Handling =====
-  function handleRejectionSubmit(e) {
-    e.preventDefault();
-    
-    const caseId = document.getElementById('rejectionCase').value;
-    const reason = document.getElementById('rejectionReason').value;
-    const notes = document.getElementById('rejectionNotes').value;
-    const sendEmail = document.getElementById('sendEmail').checked;
-    const sendWhatsApp = document.getElementById('sendWhatsApp').checked;
-    
-    // Update ticket status
-    const ticket = tickets.find(t => t.id === caseId);
-    if (ticket) {
-      ticket.status = 'Rejected';
-      ticket.rejectionReason = reason;
-      ticket.rejectionNotes = notes;
-      ticket.rejectionDate = new Date().toISOString();
+    data.forEach(t => {
+      const evidenceHtml = t.evidence && t.evidence !== 'None' 
+        ? `<a href="${t.evidence}" target="_blank" class="text-primary">link</a>` 
+        : `<span class="text-muted">No evidence</span>`;
       
-      if (saveTickets()) {
-        renderAll();
-        showNotif('Case rejected successfully', 'success');
-        addCommand('Rejected Case', `Order ID: ${ticket.orderId}, Reason: ${reason}`);
-        
-        // Simulate sending notifications
-        if (sendEmail) {
-          console.log('Sending email notification...');
-        }
-        if (sendWhatsApp) {
-          console.log('Sending WhatsApp notification...');
-        }
-        
-        bootstrap.Modal.getInstance(document.getElementById('rejectionModal')).hide();
-      }
-    }
-  }
-  
-  // ===== Restaurant Fault Handling =====
-  function handleRestaurantFaultSubmit(e) {
-    e.preventDefault();
-    
-    const caseId = document.getElementById('faultCase').value;
-    const compensation = parseFloat(document.getElementById('faultCompensation').value);
-    const notes = document.getElementById('faultNotes').value;
-    const sendEmail = document.getElementById('faultSendEmail').checked;
-    const sendWhatsApp = document.getElementById('faultSendWhatsApp').checked;
-    
-    // Update ticket status
-    const ticket = tickets.find(t => t.id === caseId);
-    if (ticket) {
-      ticket.status = 'Restaurant Fault';
-      ticket.compensation = compensation;
-      ticket.faultNotes = notes;
-      ticket.faultDate = new Date().toISOString();
+      const caseShort = `<span class="ticket-issue">${escapeHtml(t.issue)}</span>
+        <button class="issue-expand" onclick="openIssueModal('${t.id}')">View</button>`;
       
-      if (saveTickets()) {
-        renderAll();
-        showNotif('Restaurant fault confirmed', 'success');
-        addCommand('Restaurant Fault', `Order ID: ${ticket.orderId}, Compensation: ${compensation} AED`);
-        
-        // Simulate sending notifications
-        if (sendEmail) {
-          console.log('Sending email notification...');
-        }
-        if (sendWhatsApp) {
-          console.log('Sending WhatsApp notification...');
-        }
-        
-        bootstrap.Modal.getInstance(document.getElementById('restaurantFaultModal')).hide();
+      // Status badge with color coding
+      let statusBadge = '';
+      if (t.status === 'Open') {
+        statusBadge = '<span class="badge bg-primary">Open</span>';
+      } else if (t.status === 'Sent') {
+        statusBadge = '<span class="badge bg-warning">Sent</span>';
+      } else if (t.status === 'Closed') {
+        statusBadge = '<span class="badge bg-success">Closed</span>';
+      } else if (t.status === 'Rejected') {
+        statusBadge = '<span class="badge bg-danger">Rejected</span>';
+      } else if (t.status === 'Restaurant Fault') {
+        statusBadge = '<span class="badge bg-warning">Restaurant Fault</span>';
       }
-    }
-  }
-  
-  // ===== Table Rendering =====
-  function renderTable() {
-    const startTime = performance.now();
-    
-    const filtered = filterTickets();
-    const tbody = document.getElementById('ticketsTableBody');
-    const rowCount = document.getElementById('tableRowCount');
-    const totalCount = document.getElementById('tableTotalCount');
-    
-    tbody.innerHTML = '';
-    
-    // Update counters
-    rowCount.textContent = filtered.length;
-    totalCount.textContent = tickets.length;
-    
-    if (filtered.length === 0) {
-      tbody.innerHTML = `
-        <tr>
-          <td colspan="11" class="text-center py-5">
-            <div class="empty-state">
-              <i class="bi bi-inbox"></i>
-              <h5>No compensation cases found</h5>
-              <p>Try adjusting your filters or add a new case</p>
-              <button class="btn btn-primary" onclick="openAddModal()">
-                <i class="bi bi-plus-circle me-1"></i> Add First Case
+      
+      // Add highlight class for high compensation or refunded
+      const rowClass = t.compensation > 25 ? 'high-compensation' : '';
+      const refundedClass = t.isRefunded ? 'refunded-case' : '';
+      const rejectedClass = t.status === 'Rejected' ? 'rejected-case' : '';
+      const faultClass = t.status === 'Restaurant Fault' ? 'restaurant-fault' : '';
+      const finalRowClass = rowClass + (refundedClass ? ' ' + refundedClass : '') + 
+                          (rejectedClass ? ' ' + rejectedClass : '') + 
+                          (faultClass ? ' ' + faultClass : '');
+      
+      html += `
+        <tr class="${finalRowClass}">
+          <td><span class="ticket-order-id">${t.orderId}</span></td>
+          <td>${formatDateISO(t.orderDate)}</td>
+          <td>${t.branch}</td>
+          <td>${t.platform}</td>
+          <td>${caseShort}</td>
+          <td>${evidenceHtml}</td>
+          <td>${statusBadge}</td>
+          <td>AED ${Number(t.originalAmount || 0).toFixed(2)}</td>
+          <td>AED ${Number(t.compensation || 0).toFixed(2)}</td>
+          <td>
+            ${t.isRefunded ? 
+              `<span class="badge bg-success">AED ${Number(t.refundedAmount || 0).toFixed(2)}</span>` : 
+              '<span class="text-muted">-</span>'
+            }
+          </td>
+          <td>
+            <div class="ticket-actions">
+              <button class="btn btn-sm btn-outline-primary" title="Edit" onclick="editTicket('${t.id}')">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-sm btn-outline-info" title="Email" onclick="sendEmail('${t.id}')">
+                <i class="bi bi-envelope"></i>
+              </button>
+              <button class="btn btn-sm btn-outline-success" title="WhatsApp" onclick="sendWhatsApp('${t.id}')">
+                <i class="bi bi-whatsapp"></i>
+              </button>
+              <button class="btn btn-sm btn-outline-secondary" title="Copy" onclick="copyTicket('${t.id}')">
+                <i class="bi bi-clipboard"></i>
+              </button>
+              <button class="btn btn-sm btn-outline-danger" title="Reject" onclick="openRejectionModalForCase('${t.id}')">
+                <i class="bi bi-x-circle"></i>
+              </button>
+              <button class="btn btn-sm btn-outline-warning" title="Restaurant Fault" onclick="openRestaurantFaultModalForCase('${t.id}')">
+                <i class="bi bi-exclamation-triangle"></i>
+              </button>
+              <button class="btn btn-sm btn-outline-secondary" title="Close" onclick="closeTicket('${t.id}')">
+                <i class="bi bi-check2-circle"></i>
               </button>
             </div>
           </td>
         </tr>
       `;
-      return;
-    }
-    
-    filtered.forEach(ticket => {
-      const row = document.createElement('tr');
-      
-      // Add special classes for different statuses
-      if (ticket.status === 'Rejected') {
-        row.classList.add('rejected-case');
-      } else if (ticket.refundedAmount > 0) {
-        row.classList.add('refunded-case');
-      } else if (ticket.compensation > 50) {
-        row.classList.add('high-compensation');
-      } else if (ticket.status === 'Restaurant Fault') {
-        row.classList.add('restaurant-fault');
-      }
-      
-      row.innerHTML = `
-        <td class="ticket-order-id">${ticket.orderId}</td>
-        <td>${ticket.orderDate ? formatDateISO(ticket.orderDate) : 'N/A'}</td>
-        <td>${ticket.branch}</td>
-        <td>${ticket.platform}</td>
-        <td>
-          <div class="ticket-issue" title="${ticket.issue}">
-            ${ticket.issue}
-            <button class="issue-expand" onclick="showIssue('${ticket.id}')">View</button>
-          </div>
-        </td>
-        <td>
-          ${ticket.evidence && ticket.evidence !== 'None' 
-            ? '<i class="bi bi-check-circle-fill text-success"></i>' 
-            : '<i class="bi bi-x-circle-fill text-danger"></i>'}
-        </td>
-        <td>
-          <span class="status-badge status-${ticket.status.toLowerCase().replace(' ', '-')}">
-            ${ticket.status}
-          </span>
-        </td>
-        <td class="text-end">${ticket.originalAmount.toFixed(2)} AED</td>
-        <td class="text-end">${ticket.compensation.toFixed(2)} AED</td>
-        <td class="text-end">${ticket.refundedAmount.toFixed(2)} AED</td>
-        <td>
-          <div class="ticket-actions">
-            <button class="btn btn-sm btn-outline-primary" onclick="editTicket('${ticket.id}')" title="Edit">
-              <i class="bi bi-pencil"></i>
-            </button>
-            <button class="btn btn-sm btn-outline-danger" onclick="deleteTicket('${ticket.id}')" title="Delete">
-              <i class="bi bi-trash"></i>
-            </button>
-            ${ticket.status === 'Open' ? `
-              <button class="btn btn-sm btn-outline-warning" onclick="openRejectionModal('${ticket.id}')" title="Reject">
-                <i class="bi bi-x-circle"></i>
-              </button>
-            ` : ''}
-            ${ticket.status === 'Open' ? `
-              <button class="btn btn-sm btn-outline-success" onclick="openRestaurantFaultModal('${ticket.id}')" title="Restaurant Fault">
-                <i class="bi bi-exclamation-triangle"></i>
-              </button>
-            ` : ''}
-          </div>
-        </td>
-      `;
-      
-      tbody.appendChild(row);
     });
     
-    const endTime = performance.now();
-    const renderTime = endTime - startTime;
-    console.log(`Table rendered in ${renderTime.toFixed(2)}ms`);
-    
-    // Show performance warning if slow
-    if (renderTime > 500) {
-      console.warn('Table rendering is slow');
-      showNotif('Table loading took longer than expected', 'warning');
-    }
-  }
-  
-  // ===== Filter Tickets =====
-  function filterTickets() {
-    const search = searchInput.value.toLowerCase();
-    const branch = filterBranch.value;
-    const platform = filterPlatform.value;
-    const status = filterStatus.value;
-    
-    return tickets.filter(ticket => {
-      const matchSearch = !search || 
-        (ticket.orderId && ticket.orderId.toLowerCase().includes(search)) ||
-        (ticket.branch && ticket.branch.toLowerCase().includes(search)) ||
-        (ticket.issue && ticket.issue.toLowerCase().includes(search));
-      
-      const matchBranch = !branch || ticket.branch === branch;
-      const matchPlatform = !platform || ticket.platform === platform;
-      const matchStatus = !status || ticket.status === status;
-      
-      return matchSearch && matchBranch && matchPlatform && matchStatus;
-    });
-  }
-  
-  // ===== Export Table Data =====
-  function exportTableData() {
-    const filtered = filterTickets();
-    if (filtered.length === 0) {
-      showNotif('No data to export', 'warning');
-      return;
-    }
-    
-    // Create CSV content
-    const headers = [
-      'Order ID', 'Order Date', 'Branch', 'Platform', 'Case', 
-      'Evidence', 'Status', 'Original Amount', 'Compensation', 'Refunded'
-    ];
-    
-    const csvContent = [
-      headers.join(','),
-      ...filtered.map(ticket => [
-        ticket.orderId,
-        ticket.orderDate || '',
-        ticket.branch,
-        ticket.platform,
-        `"${ticket.issue.replace(/"/g, '""')}"`,
-        ticket.evidence,
-        ticket.status,
-        ticket.originalAmount,
-        ticket.compensation,
-        ticket.refundedAmount
-      ].join(','))
-    ].join('\n');
-    
-    // Download CSV
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `compensation_cases_${new Date().toISOString().split('T')[0]}.csv`;
-    link.click();
-    
-    showNotif('Table data exported successfully', 'success');
-    addCommand('Exported Table Data', `${filtered.length} cases`);
-  }
-  
-  // ===== Initialize Table Scroll =====
-  function initializeTableScroll() {
-    const container = document.querySelector('.scrollable-table-container');
-    
-    // Smooth scroll behavior
-    container.style.scrollBehavior = 'smooth';
-    
-    // Add scroll to top button
-    const scrollButton = document.createElement('button');
-    scrollButton.className = 'btn btn-sm btn-danger position-absolute';
-    scrollButton.style.cssText = `
-      bottom: 10px;
-      right: 10px;
-      z-index: 100;
-      display: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      padding: 0;
-      align-items: center;
-      justify-content: center;
+    html += `
+          </tbody>
+        </table>
+      </div>
     `;
-    scrollButton.innerHTML = '<i class="bi bi-arrow-up"></i>';
-    scrollButton.title = 'Scroll to top';
     
-    scrollButton.addEventListener('click', () => {
-      container.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    
-    container.appendChild(scrollButton);
-    
-    // Show/hide scroll button
-    container.addEventListener('scroll', () => {
-      scrollButton.style.display = container.scrollTop > 100 ? 'flex' : 'none';
-    });
-    
-    // Add scroll event listener for lazy loading
-    container.addEventListener('scroll', handleTableScroll);
+    ticketsContainer.innerHTML = html;
   }
   
-  // ===== Handle Table Scroll =====
-  function handleTableScroll() {
-    const container = document.querySelector('.scrollable-table-container');
-    if (container.scrollTop + container.clientHeight >= container.scrollHeight - 100) {
-      // Near bottom - could load more data if implementing pagination
-      console.log('Near bottom of table');
-    }
+  // ===== Stats & Platforms =====
+  function updateStats() {
+    document.getElementById('totalTickets').textContent = tickets.length;
+    document.getElementById('openTickets').textContent = tickets.filter(t => t.status === 'Open').length;
+    document.getElementById('sentTickets').textContent = tickets.filter(t => t.status === 'Sent').length;
+    document.getElementById('closedTickets').textContent = tickets.filter(t => t.status === 'Closed').length;
+    document.getElementById('rejectedTickets').textContent = tickets.filter(t => t.status === 'Rejected').length;
+    document.getElementById('restaurantFaultCases').textContent = tickets.filter(t => t.status === 'Restaurant Fault').length;
+    
+    // إضافة مؤشر النزاعات المحلولة
+    document.getElementById('resolvedDisputes').textContent = tickets.filter(t => t.status === 'Closed').length;
+    
+    // إضافة مؤشر التعويضات النشطة
+    const activeCompensations = tickets.filter(t => t.status !== 'Closed' && t.compensation > 0);
+    document.getElementById('activeCompensations').textContent = activeCompensations.length;
+    
+    // إضافة مؤشر التعويضات المحصلة
+    const totalCompensation = tickets.reduce((sum, t) => sum + (t.compensation || 0), 0);
+    document.getElementById('totalCompensationAmount').textContent = 'AED ' + totalCompensation.toFixed(2);
   }
   
-  // ===== Modal Functions =====
-  function openAddModal() {
-    document.getElementById('modalTitle').textContent = 'Add Compensation Case';
-    document.getElementById('editingId').value = '';
-    document.getElementById('ticketForm').reset();
-    document.getElementById('imagePreview').style.display = 'none';
-    document.getElementById('duplicateWarning').classList.remove('show');
-    
-    // Remove any existing base64 input
-    const base64Input = document.getElementById('f_evidenceBase64');
-    if (base64Input) base64Input.remove();
-    
-    const modal = new bootstrap.Modal(document.getElementById('ticketModal'));
-    modal.show();
-  }
-  
-  function editTicket(id) {
-    const ticket = tickets.find(t => t.id === id);
-    if (!ticket) return;
-    
-    document.getElementById('modalTitle').textContent = 'Edit Compensation Case';
-    document.getElementById('editingId').value = ticket.id;
-    document.getElementById('f_orderId').value = ticket.orderId;
-    document.getElementById('f_orderDate').value = ticket.orderDate || '';
-    document.getElementById('f_branch').value = ticket.branch;
-    document.getElementById('f_platform').value = ticket.platform;
-    document.getElementById('f_issue').value = ticket.issue;
-    document.getElementById('f_originalAmount').value = ticket.originalAmount;
-    document.getElementById('f_compensation').value = ticket.compensation;
-    document.getElementById('f_refundedAmount').value = ticket.refundedAmount || 0;
-    document.getElementById('f_refundDate').value = ticket.refundDate || '';
-    document.getElementById('f_shortLink').value = ticket.shortLink || '';
-    
-    // Handle evidence
-    if (ticket.evidence && ticket.evidence !== 'None') {
-      if (ticket.evidence.startsWith('data:image')) {
-        document.getElementById('imagePreview').src = ticket.evidence;
-        document.getElementById('imagePreview').style.display = 'block';
-        
-        // Store base64 in hidden field
-        const hiddenInput = document.createElement('input');
-        hiddenInput.type = 'hidden';
-        hiddenInput.id = 'f_evidenceBase64';
-        hiddenInput.value = ticket.evidence;
-        document.getElementById('ticketForm').appendChild(hiddenInput);
-      } else {
-        document.getElementById('f_noEvidence').checked = true;
-      }
-    }
-    
-    // Handle refund checkbox
-    if (ticket.refundedAmount > 0) {
-      document.getElementById('f_isRefunded').checked = true;
-      document.getElementById('f_refundDate').required = true;
-    }
-    
-    const modal = new bootstrap.Modal(document.getElementById('ticketModal'));
-    modal.show();
-  }
-  
-  function deleteTicket(id) {
-    if (confirm('Are you sure you want to delete this case?')) {
-      const ticket = tickets.find(t => t.id === id);
-      tickets = tickets.filter(t => t.id !== id);
-      
-      if (saveTickets()) {
-        renderAll();
-        showNotif('Case deleted successfully', 'success');
-        addCommand('Deleted Case', `Order ID: ${ticket.orderId}`);
-      }
-    }
-  }
-  
-  function showIssue(id) {
-    const ticket = tickets.find(t => t.id === id);
-    if (ticket) {
-      document.getElementById('issueText').textContent = ticket.issue;
-      const modal = new bootstrap.Modal(document.getElementById('issueModal'));
-      modal.show();
-    }
-  }
-  
-  function openRejectionModal(ticketId = '') {
-    // Populate rejection case dropdown
-    const rejectionCase = document.getElementById('rejectionCase');
-    rejectionCase.innerHTML = '<option value="">اختر حالة</option>';
-    
-    const openTickets = tickets.filter(t => t.status === 'Open');
-    openTickets.forEach(ticket => {
-      const option = document.createElement('option');
-      option.value = ticket.id;
-      option.textContent = `${ticket.orderId} - ${ticket.branch}`;
-      rejectionCase.appendChild(option);
-    });
-    
-    // Pre-select if ticketId provided
-    if (ticketId) {
-      rejectionCase.value = ticketId;
-    }
-    
-    const modal = new bootstrap.Modal(document.getElementById('rejectionModal'));
-    modal.show();
-  }
-  
-  function openRestaurantFaultModal(ticketId = '') {
-    // Populate fault case dropdown
-    const faultCase = document.getElementById('faultCase');
-    faultCase.innerHTML = '<option value="">اختر حالة</option>';
-    
-    const openTickets = tickets.filter(t => t.status === 'Open');
-    openTickets.forEach(ticket => {
-      const option = document.createElement('option');
-      option.value = ticket.id;
-      option.textContent = `${ticket.orderId} - ${ticket.branch}`;
-      faultCase.appendChild(option);
-    });
-    
-    // Pre-select if ticketId provided
-    if (ticketId) {
-      faultCase.value = ticketId;
-      // Set compensation amount
-      const ticket = tickets.find(t => t.id === ticketId);
-      if (ticket) {
-        document.getElementById('faultCompensation').value = ticket.compensation;
-      }
-    }
-    
-    const modal = new bootstrap.Modal(document.getElementById('restaurantFaultModal'));
-    modal.show();
-  }
-  
-  // ===== Render All =====
-  function renderAll() {
-    renderStats();
-    renderSummary();
-    renderPlatformCards();
-    renderReports();
-    renderCaseAnalysis();
-    renderCompensationAnalysis();
-    renderRejectionAnalysis();
-    renderRestaurantFaultAnalysis();
-    renderRefundAnalysis();
-    renderTable();
-    updateStorageIndicator();
-  }
-  
-  // ===== Render Stats =====
-  function renderStats() {
-    const total = tickets.length;
-    const open = tickets.filter(t => t.status === 'Open').length;
-    const sent = tickets.filter(t => t.status === 'Sent').length;
-    const closed = tickets.filter(t => t.status === 'Closed').length;
-    const resolved = closed; // Assuming closed means resolved
-    const active = open + sent;
-    const totalComp = tickets.reduce((sum, t) => sum + t.compensation, 0);
-    const restaurantFault = tickets.filter(t => t.status === 'Restaurant Fault').length;
-    
-    document.getElementById('totalTickets').textContent = total;
-    document.getElementById('openTickets').textContent = open;
-    document.getElementById('sentTickets').textContent = sent;
-    document.getElementById('closedTickets').textContent = closed;
-    document.getElementById('resolvedDisputes').textContent = resolved;
-    document.getElementById('activeCompensations').textContent = active;
-    document.getElementById('totalCompensationAmount').textContent = totalComp.toFixed(2);
-    document.getElementById('restaurantFaultCases').textContent = restaurantFault;
-  }
-  
-  // ===== Render Summary =====
-  function renderSummary() {
-    // Financial Overview
-    const totalOriginal = tickets.reduce((sum, t) => sum + t.originalAmount, 0);
-    const totalComp = tickets.reduce((sum, t) => sum + t.compensation, 0);
-    const totalRefund = tickets.reduce((sum, t) => sum + t.refundedAmount, 0);
-    const netComp = totalComp - totalRefund;
-    
-    document.getElementById('totalOriginalAmount').textContent = totalOriginal.toFixed(2);
-    document.getElementById('totalCompensation').textContent = totalComp.toFixed(2);
-    document.getElementById('totalRefunded').textContent = totalRefund.toFixed(2);
-    document.getElementById('netCompensation').textContent = netComp.toFixed(2);
-    
-    // Platform Performance
-    const noonTickets = tickets.filter(t => t.platform === 'Noon');
-    const careemTickets = tickets.filter(t => t.platform === 'Careem');
-    const noonRefunded = noonTickets.reduce((sum, t) => sum + t.refundedAmount, 0);
-    const careemRefunded = careemTickets.reduce((sum, t) => sum + t.refundedAmount, 0);
-    
-    document.getElementById('noonTickets').textContent = noonTickets.length;
-    document.getElementById('careemTickets').textContent = careemTickets.length;
-    document.getElementById('noonRefunded').textContent = noonRefunded.toFixed(2);
-    document.getElementById('careemRefunded').textContent = careemRefunded.toFixed(2);
-    
-    // Branch Performance
-    const branchCounts = {};
-    tickets.forEach(t => {
-      branchCounts[t.branch] = (branchCounts[t.branch] || 0) + 1;
-    });
-    
-    const topBranch = Object.keys(branchCounts).reduce((a, b) => 
-      branchCounts[a] > branchCounts[b] ? a : b, '-');
-    const topBranchCount = branchCounts[topBranch] || 0;
-    
-    const caseTypes = {};
-    tickets.forEach(t => {
-      const type = t.issue ? t.issue.split(' ')[0] : 'Unknown'; // Simple extraction
-      caseTypes[type] = (caseTypes[type] || 0) + 1;
-    });
-    
-    const topCase = Object.keys(caseTypes).reduce((a, b) => 
-      caseTypes[a] > caseTypes[b] ? a : b, '-');
-    const topCaseCount = caseTypes[topCase] || 0;
-    
-    const caseRate = total > 0 ? ((total / (total * 10)) * 100).toFixed(1) : 0; // Dummy calculation
-    const avgOriginal = total > 0 ? (totalOriginal / total).toFixed(2) : 0;
-    
-    document.getElementById('topBranch').textContent = topBranch;
-    document.getElementById('topBranchCases').textContent = `${topBranchCount} cases`;
-    document.getElementById('topCase').textContent = topCase;
-    document.getElementById('topCaseCount').textContent = `${topCaseCount} cases`;
-    document.getElementById('caseRate').textContent = `${caseRate}%`;
-    document.getElementById('avgOriginalAmount').textContent = avgOriginal;
-    
-    // Update mini charts
-    updateMiniCharts();
-  }
-  
-  // ===== Render Platform Cards =====
-  function renderPlatformCards() {
+  function updatePlatformStats() {
+    const total = Math.max(1, tickets.length);
     const noon = tickets.filter(t => t.platform === 'Noon').length;
     const careem = tickets.filter(t => t.platform === 'Careem').length;
-    const total = tickets.length;
-    
-    const noonPct = total > 0 ? ((noon / total) * 100).toFixed(1) : 0;
-    const careemPct = total > 0 ? ((careem / total) * 100).toFixed(1) : 0;
-    
     document.getElementById('noonCount').textContent = noon;
     document.getElementById('careemCount').textContent = careem;
-    document.getElementById('noonPercentage').textContent = `${noonPct}%`;
-    document.getElementById('careemPercentage').textContent = `${careemPct}%`;
+    document.getElementById('noonPercentage').textContent = ((noon / total) * 100).toFixed(1) + '%';
+    document.getElementById('careemPercentage').textContent = ((careem / total) * 100).toFixed(1) + '%';
   }
   
-  // ===== Render Reports =====
-  function renderReports() {
-    // Branch Chart
-    const branchCounts = {};
-    tickets.forEach(t => {
-      branchCounts[t.branch] = (branchCounts[t.branch] || 0) + 1;
-    });
-    
-    const branchLabels = Object.keys(branchCounts).slice(0, 5); // Top 5
-    const branchData = branchLabels.map(b => branchCounts[b]);
-    
-    if (branchChart) branchChart.destroy();
-    const branchCtx = document.getElementById('branchChart').getContext('2d');
-    branchChart = new Chart(branchCtx, {
-      type: 'bar',
-      data: {
-        labels: branchLabels,
-        datasets: [{
-          label: 'Cases',
-          data: branchData,
-          backgroundColor: 'rgba(211, 47, 47, 0.7)',
-          borderColor: 'rgba(211, 47, 47, 1)',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          y: { beginAtZero: true }
-        }
-      }
-    });
-    
-    // Case Chart
-    const caseTypes = {};
-    tickets.forEach(t => {
-      const type = t.issue ? t.issue.split(' ')[0] : 'Unknown'; // Simple extraction
-      caseTypes[type] = (caseTypes[type] || 0) + 1;
-    });
-    
-    const caseLabels = Object.keys(caseTypes).slice(0, 5); // Top 5
-    const caseData = caseLabels.map(c => caseTypes[c]);
-    
-    if (caseChart) caseChart.destroy();
-    const caseCtx = document.getElementById('caseChart').getContext('2d');
-    caseChart = new Chart(caseCtx, {
-      type: 'doughnut',
-      data: {
-        labels: caseLabels,
-        datasets: [{
-          data: caseData,
-          backgroundColor: [
-            'rgba(211, 47, 47, 0.7)',
-            'rgba(255, 112, 67, 0.7)',
-            'rgba(33, 150, 243, 0.7)',
-            'rgba(76, 175, 80, 0.7)',
-            'rgba(255, 193, 7, 0.7)'
-          ]
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { position: 'right' }
-        }
-      }
-    });
-    
-    // Update labels
-    document.getElementById('topBranchLabel').textContent = 
-      branchLabels.length > 0 ? `Top: ${branchLabels[0]}` : '';
-    document.getElementById('topCaseLabel').textContent = 
-      caseLabels.length > 0 ? `Top: ${caseLabels[0]}` : '';
-  }
-  
-  // ===== Render Case Analysis =====
-  function renderCaseAnalysis() {
-    const container = document.getElementById('branchAnalysisContainer');
-    const branchData = {};
-    
-    tickets.forEach(ticket => {
-      if (!branchData[ticket.branch]) {
-        branchData[ticket.branch] = {
-          total: 0,
-          compensation: 0,
-          refunded: 0,
-          cases: []
-        };
-      }
-      branchData[ticket.branch].total++;
-      branchData[ticket.branch].compensation += ticket.compensation || 0;
-      branchData[ticket.branch].refunded += ticket.refundedAmount || 0;
-      branchData[ticket.branch].cases.push(ticket);
-    });
-    
-    let html = '<div class="branch-analysis-grid">';
-    Object.keys(branchData).forEach(branch => {
-      const data = branchData[branch];
-      const avgComp = data.total > 0 ? data.compensation / data.total : 0;
-      const refundRate = data.compensation > 0 ? (data.refunded / data.compensation) * 100 : 0;
-      
-      html += `
-        <div class="branch-card">
-          <h6>${branch}</h6>
-          <div class="branch-stats">
-            <div class="branch-stat-item">
-              <div class="branch-stat-value">${data.total}</div>
-              <div class="branch-stat-label">Cases</div>
-            </div>
-            <div class="branch-stat-item">
-              <div class="branch-stat-value">${avgComp.toFixed(1)}</div>
-              <div class="branch-stat-label">Avg Comp</div>
-            </div>
-            <div class="branch-stat-item">
-              <div class="branch-stat-value">${refundRate.toFixed(1)}%</div>
-              <div class="branch-stat-label">Refund Rate</div>
-            </div>
-            <div class="branch-stat-item">
-              <div class="branch-stat-value">${data.refunded.toFixed(1)}</div>
-              <div class="branch-stat-label">Total Refund</div>
-            </div>
-          </div>
-          
-          <div class="case-reasons">
-            <h6>Common Issues</h6>
-            ${getCommonIssues(data.cases)}
-          </div>
-        </div>
-      `;
-    });
-    html += '</div>';
-    
-    container.innerHTML = html;
-    
-    // Update badge
-    const avgCompensation = tickets.length > 0 ? 
-      tickets.reduce((sum, t) => sum + t.compensation, 0) / tickets.length : 0;
-    
-    const badge = document.getElementById('caseAnalysisBadge');
-    if (avgCompensation > 50) {
-      badge.textContent = 'High Level';
-      badge.className = 'case-badge badge-high';
-    } else if (avgCompensation > 30) {
-      badge.textContent = 'Medium Level';
-      badge.className = 'case-badge badge-medium';
-    } else {
-      badge.textContent = 'Low Level';
-      badge.className = 'case-badge badge-low';
-    }
-  }
-  
-  // ===== Get Common Issues =====
-  function getCommonIssues(cases) {
-    const issues = {};
-    cases.forEach(ticket => {
-      const issue = ticket.issue ? ticket.issue.split(' ')[0] : 'Unknown'; // Simple extraction
-      issues[issue] = (issues[issue] || 0) + 1;
-    });
-    
-    const sorted = Object.entries(issues)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 3); // Top 3
-    
-    let html = '';
-    sorted.forEach(([issue, count]) => {
-      const percentage = cases.length > 0 ? (count / cases.length) * 100 : 0;
-      html += `
-        <div class="case-reason-item">
-          <div>${issue}</div>
-          <div class="case-reason-info">
-            <div class="case-reason-name">${count} cases</div>
-            <div class="case-reason-count">${percentage.toFixed(1)}%</div>
-            <div class="case-reason-bar">
-              <div class="case-reason-progress" style="width:${percentage}%"></div>
-            </div>
-          </div>
-        </div>
-      `;
-    });
-    
-    return html || '<p class="text-muted">No data</p>';
-  }
-  
-  // ===== Render Compensation Analysis =====
-  function renderCompensationAnalysis() {
-    const container = document.getElementById('compensationAnalysisContainer');
-    const compTypes = {
-      'High (>50 AED)': tickets.filter(t => t.compensation > 50),
-      'Medium (20-50 AED)': tickets.filter(t => t.compensation >= 20 && t.compensation <= 50),
-      'Low (<20 AED)': tickets.filter(t => t.compensation < 20)
-    };
-    
-    let html = '<div class="compensation-analysis-grid">';
-    Object.keys(compTypes).forEach(type => {
-      const cases = compTypes[type];
-      const totalComp = cases.reduce((sum, t) => sum + t.compensation, 0);
-      const avgComp = cases.length > 0 ? totalComp / cases.length : 0;
-      
-      html += `
-        <div class="compensation-card">
-          <h6>${type}</h6>
-          <div class="compensation-stats">
-            <div class="stat-item">
-              <div class="stat-value">${cases.length}</div>
-              <div class="stat-label">Cases</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value">${totalComp.toFixed(1)}</div>
-              <div class="stat-label">Total Comp</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value">${avgComp.toFixed(1)}</div>
-              <div class="stat-label">Avg Comp</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value">${getTopBranchForCompensation(cases)}</div>
-              <div class="stat-label">Top Branch</div>
-            </div>
-          </div>
-        </div>
-      `;
-    });
-    html += '</div>';
-    
-    container.innerHTML = html;
-  }
-  
-  // ===== Get Top Branch for Compensation =====
-  function getTopBranchForCompensation(cases) {
-    const branchCounts = {};
-    cases.forEach(t => {
-      branchCounts[t.branch] = (branchCounts[t.branch] || 0) + 1;
-    });
-    
-    return Object.keys(branchCounts).reduce((a, b) => 
-      branchCounts[a] > branchCounts[b] ? a : b, '-');
-  }
-  
-  // ===== Render Rejection Analysis =====
-  function renderRejectionAnalysis() {
-    const container = document.getElementById('rejectionAnalysisContainer');
-    const rejected = tickets.filter(t => t.status === 'Rejected');
-    
-    if (rejected.length === 0) {
-      container.innerHTML = '<p class="text-center text-muted">No rejected cases</p>';
-      return;
-    }
-    
-    const reasons = {};
-    rejected.forEach(t => {
-      reasons[t.rejectionReason || 'Unknown'] = (reasons[t.rejectionReason || 'Unknown'] || 0) + 1;
-    });
-    
-    let html = '<div class="rejection-analysis-grid">';
-    Object.keys(reasons).forEach(reason => {
-      const count = reasons[reason];
-      const percentage = rejected.length > 0 ? (count / rejected.length) * 100 : 0;
-      
-      html += `
-        <div class="rejection-card">
-          <h6>${formatReason(reason)}</h6>
-          <div class="rejection-stats">
-            <div class="rejection-metric-item">
-              <div class="rejection-metric-value">${count}</div>
-              <div class="rejection-metric-label">Cases</div>
-            </div>
-            <div class="rejection-metric-item">
-              <div class="rejection-metric-value">${percentage.toFixed(1)}%</div>
-              <div class="rejection-metric-label">of Total</div>
-            </div>
-          </div>
-        </div>
-      `;
-    });
-    html += '</div>';
-    
-    container.innerHTML = html;
-  }
-  
-  // ===== Format Reason =====
-  function formatReason(reason) {
-    const reasonMap = {
-      'no_evidence': 'No Evidence',
-      'incorrect_claim': 'Incorrect Claim',
-      'driver_fault': 'Driver Fault',
-      'customer_error': 'Customer Error',
-      'restaurant_fault': 'Restaurant Fault',
-      'other': 'Other Reasons'
-    };
-    return reasonMap[reason] || reason;
-  }
-  
-  // ===== Render Restaurant Fault Analysis =====
-  function renderRestaurantFaultAnalysis() {
-    const container = document.getElementById('restaurantFaultContainer');
-    const faultCases = tickets.filter(t => t.status === 'Restaurant Fault');
-    
-    if (faultCases.length === 0) {
-      container.innerHTML = '<p class="text-center text-muted">No restaurant fault cases</p>';
-      return;
-    }
-    
-    const branchData = {};
-    faultCases.forEach(t => {
-      if (!branchData[t.branch]) {
-        branchData[t.branch] = {
-          count: 0,
-          totalComp: 0
-        };
-      }
-      branchData[t.branch].count++;
-      branchData[t.branch].totalComp += t.compensation;
-    });
-    
-    let html = '<div class="rejection-analysis-grid">';
-    Object.keys(branchData).forEach(branch => {
-      const data = branchData[branch];
-      const avgComp = data.count > 0 ? data.totalComp / data.count : 0;
-      
-      html += `
-        <div class="rejection-card">
-          <h6>${branch}</h6>
-          <div class="rejection-stats">
-            <div class="rejection-metric-item">
-              <div class="rejection-metric-value">${data.count}</div>
-              <div class="rejection-metric-label">Cases</div>
-            </div>
-            <div class="rejection-metric-item">
-              <div class="rejection-metric-value">${data.totalComp.toFixed(1)}</div>
-              <div class="rejection-metric-label">Total Comp</div>
-            </div>
-            <div class="rejection-metric-item">
-              <div class="rejection-metric-value">${avgComp.toFixed(1)}</div>
-              <div class="rejection-metric-label">Avg Comp</div>
-            </div>
-          </div>
-        </div>
-      `;
-    });
-    html += '</div>';
-    
-    container.innerHTML = html;
-  }
-  
-  // ===== Render Refund Analysis =====
+  // ===== Refund Analysis =====
   function renderRefundAnalysis() {
-    const refunded = tickets.filter(t => t.refundedAmount > 0);
-    const totalRefunded = refunded.reduce((sum, t) => sum + t.refundedAmount, 0);
-    const totalComp = tickets.reduce((sum, t) => sum + t.compensation, 0);
-    const refundRate = totalComp > 0 ? (totalRefunded / totalComp) * 100 : 0;
-    const avgRefunded = refunded.length > 0 ? totalRefunded / refunded.length : 0;
+    // Calculate refund metrics
+    const totalRefunded = tickets.reduce((sum, t) => sum + (t.refundedAmount || 0), 0);
+    const refundedCases = tickets.filter(t => t.isRefunded).length;
+    const refundRate = tickets.length > 0 ? (refundedCases / tickets.length) * 100 : 0;
+    const avgRefunded = refundedCases > 0 ? totalRefunded / refundedCases : 0;
     
-    document.getElementById('totalRefundedAmount').textContent = totalRefunded.toFixed(2);
-    document.getElementById('refundedCasesCount').textContent = refunded.length;
-    document.getElementById('refundRate').textContent = `${refundRate.toFixed(1)}%`;
-    document.getElementById('avgRefundedAmount').textContent = avgRefunded.toFixed(2);
+    // Update refund metrics
+    document.getElementById('totalRefundedAmount').textContent = 'AED ' + totalRefunded.toFixed(2);
+    document.getElementById('refundedCasesCount').textContent = refundedCases;
+    document.getElementById('refundRate').textContent = refundRate.toFixed(1) + '%';
+    document.getElementById('avgRefundedAmount').textContent = 'AED ' + avgRefunded.toFixed(2);
     
-    // Refund by branch chart
+    // Platform refunds
+    const noonRefunded = tickets.filter(t => t.platform === 'Noon' && t.isRefunded).length;
+    const careemRefunded = tickets.filter(t => t.platform === 'Careem' && t.isRefunded).length;
+    document.getElementById('noonRefunded').textContent = noonRefunded;
+    document.getElementById('careemRefunded').textContent = careemRefunded;
+    
+    // Branch refunds chart
     const branchRefunds = {};
-    refunded.forEach(t => {
-      if (!branchRefunds[t.branch]) {
-        branchRefunds[t.branch] = 0;
+    tickets.forEach(t => {
+      if (t.isRefunded) {
+        branchRefunds[t.branch] = (branchRefunds[t.branch] || 0) + (t.refundedAmount || 0);
       }
-      branchRefunds[t.branch] += t.refundedAmount;
     });
     
+    const ctx = document.getElementById('refundBranchChart').getContext('2d');
     if (refundBranchChart) refundBranchChart.destroy();
-    const refundCtx = document.getElementById('refundBranchChart').getContext('2d');
-    refundBranchChart = new Chart(refundCtx, {
+    
+    refundBranchChart = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: Object.keys(branchRefunds),
         datasets: [{
-          label: 'Refunded Amount',
+          label: 'Refunded Amount (AED)',
           data: Object.values(branchRefunds),
-          backgroundColor: 'rgba(76, 175, 80, 0.7)',
-          borderColor: 'rgba(76, 175, 80, 1)',
-          borderWidth: 1
+          backgroundColor: '#28a745'
         }]
       },
       options: {
@@ -3171,115 +1889,359 @@
     });
     
     // Refund table
-    const tbody = document.getElementById('refundTableBody');
-    tbody.innerHTML = '';
+    const refundTableBody = document.getElementById('refundTableBody');
+    refundTableBody.innerHTML = '';
     
-    refunded.slice(0, 10).forEach(ticket => { // Show last 10
+    const refundedTickets = tickets.filter(t => t.isRefunded).sort((a, b) => 
+      new Date(b.refundDate || 0) - new Date(a.refundDate || 0)
+    );
+    
+    refundedTickets.forEach(ticket => {
       const row = document.createElement('tr');
       row.innerHTML = `
         <td>${ticket.orderId}</td>
         <td>${ticket.branch}</td>
-        <td>${ticket.originalAmount.toFixed(2)} AED</td>
-        <td>${ticket.compensation.toFixed(2)} AED</td>
-        <td>${ticket.refundedAmount.toFixed(2)} AED</td>
+        <td>AED ${Number(ticket.originalAmount || 0).toFixed(2)}</td>
+        <td>AED ${Number(ticket.compensation || 0).toFixed(2)}</td>
+        <td>AED ${Number(ticket.refundedAmount || 0).toFixed(2)}</td>
         <td><span class="refund-status-badge status-refunded">Refunded</span></td>
-        <td>${new Date(ticket.refundDate || ticket.dateCreated).toLocaleDateString()}</td>
+        <td>${ticket.refundDate || '-'}</td>
       `;
-      tbody.appendChild(row);
+      refundTableBody.appendChild(row);
     });
+    
+    if (refundedTickets.length === 0) {
+      refundTableBody.innerHTML = `
+        <tr>
+          <td colspan="7" class="text-center text-muted">No refunded cases found</td>
+        </tr>
+      `;
+    }
   }
   
-  // ===== Update Mini Charts =====
-  function updateMiniCharts() {
-    // Amount Chart
-    const amountData = {
-      labels: ['Original', 'Compensation', 'Refunded', 'Net'],
-      datasets: [{
-        data: [
-          tickets.reduce((sum, t) => sum + t.originalAmount, 0),
-          tickets.reduce((sum, t) => sum + t.compensation, 0),
-          tickets.reduce((sum, t) => sum + t.refundedAmount, 0),
-          tickets.reduce((sum, t) => sum + t.compensation - t.refundedAmount, 0)
-        ],
-        backgroundColor: [
-          'rgba(33, 150, 243, 0.7)',
-          'rgba(211, 47, 47, 0.7)',
-          'rgba(76, 175, 80, 0.7)',
-          'rgba(255, 152, 0, 0.7)'
-        ]
-      }]
+  // ===== Compensation Analysis =====
+  function analyzeCompensations() {
+    const compensationTypes = {
+      'Missing/Incorrect': 0,
+      'Spilled/Damaged': 0,
+      'Late Delivery': 0,
+      'Food Quality': 0,
+      'Other': 0
     };
     
+    const compensationAmounts = {
+      'Missing/Incorrect': 0,
+      'Spilled/Damaged': 0,
+      'Late Delivery': 0,
+      'Food Quality': 0,
+      'Other': 0
+    };
+    
+    tickets.forEach(ticket => {
+      if (ticket.compensation > 0) {
+        const type = classifyCase(ticket.issue);
+        compensationTypes[type] += 1;
+        compensationAmounts[type] += ticket.compensation;
+      }
+    });
+    
+    return { compensationTypes, compensationAmounts };
+  }
+  
+  function renderCompensationAnalysis() {
+    const analysis = analyzeCompensations();
+    
+    // إنشاء HTML لعرض التحليل
+    let html = '<div class="compensation-analysis-grid">';
+    
+    Object.keys(analysis.compensationTypes).forEach(type => {
+      html += `
+        <div class="compensation-card">
+          <h6>${type}</h6>
+          <div class="compensation-stats">
+            <div class="stat-item">
+              <div class="stat-value">${analysis.compensationTypes[type]}</div>
+              <div class="stat-label">Cases</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">AED ${analysis.compensationAmounts[type].toFixed(2)}</div>
+              <div class="stat-label">Total Amount</div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    
+    html += '</div>';
+    
+    document.getElementById('compensationAnalysisContainer').innerHTML = html;
+  }
+  
+  // ===== Rejection Analysis =====
+  function analyzeRejections() {
+    const rejectionReasons = {
+      'no_evidence': 0,
+      'incorrect_claim': 0,
+      'driver_fault': 0,
+      'customer_error': 0,
+      'restaurant_fault': 0,
+      'other': 0
+    };
+    
+    const rejectionAmounts = {
+      'no_evidence': 0,
+      'incorrect_claim': 0,
+      'driver_fault': 0,
+      'customer_error': 0,
+      'restaurant_fault': 0,
+      'other': 0
+    };
+    
+    tickets.forEach(ticket => {
+      if (ticket.status === 'Rejected' && ticket.rejectionReason) {
+        const reason = ticket.rejectionReason;
+        rejectionReasons[reason] = (rejectionReasons[reason] || 0) + 1;
+        rejectionAmounts[reason] = (rejectionAmounts[reason] || 0) + (ticket.compensation || 0);
+      }
+    });
+    
+    return { rejectionReasons, rejectionAmounts };
+  }
+  
+  function renderRejectionAnalysis() {
+    const analysis = analyzeRejections();
+    const rejectedCases = tickets.filter(t => t.status === 'Rejected');
+    
+    // إنشاء HTML لعرض التحليل
+    let html = '<div class="rejection-analysis-grid">';
+    
+    Object.keys(analysis.rejectionReasons).forEach(reason => {
+      const count = analysis.rejectionReasons[reason];
+      const amount = analysis.rejectionAmounts[reason];
+      
+      if (count > 0) {
+        html += `
+          <div class="rejection-card">
+            <h6>${getReasonLabel(reason)}</h6>
+            <div class="rejection-stats">
+              <div class="rejection-metric-item">
+                <div class="rejection-metric-value">${count}</div>
+                <div class="rejection-metric-label">Cases</div>
+              </div>
+              <div class="rejection-metric-item">
+                <div class="rejection-metric-value">AED ${amount.toFixed(2)}</div>
+                <div class="rejection-metric-label">Amount Saved</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    });
+    
+    // Add summary card
+    html += `
+      <div class="rejection-card">
+        <h6>Summary</h6>
+        <div class="rejection-stats">
+          <div class="rejection-metric-item">
+            <div class="rejection-metric-value">${rejectedCases.length}</div>
+            <div class="rejection-metric-label">Total Rejected</div>
+          </div>
+          <div class="rejection-metric-item">
+            <div class="rejection-metric-value">AED ${rejectedCases.reduce((sum, t) => sum + (t.compensation || 0), 0).toFixed(2)}</div>
+            <div class="rejection-metric-label">Total Saved</div>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    html += '</div>';
+    
+    document.getElementById('rejectionAnalysisContainer').innerHTML = html;
+  }
+  
+  // ===== Restaurant Fault Analysis =====
+  function analyzeRestaurantFault() {
+    const faultCases = tickets.filter(t => t.status === 'Restaurant Fault');
+    const branchFaults = {};
+    const totalAmount = faultCases.reduce((sum, t) => sum + (t.compensation || 0), 0);
+    
+    faultCases.forEach(ticket => {
+      if (!branchFaults[ticket.branch]) {
+        branchFaults[ticket.branch] = {
+          count: 0,
+          amount: 0
+        };
+      }
+      branchFaults[ticket.branch].count++;
+      branchFaults[ticket.branch].amount += ticket.compensation || 0;
+    });
+    
+    return { faultCases, branchFaults, totalAmount };
+  }
+  
+  function renderRestaurantFaultAnalysis() {
+    const analysis = analyzeRestaurantFault();
+    const container = document.getElementById('restaurantFaultContainer');
+    
+    // Create HTML for analysis
+    let html = '<div class="rejection-analysis-grid">';
+    
+    // Branch breakdown
+    Object.keys(analysis.branchFaults).forEach(branch => {
+      const data = analysis.branchFaults[branch];
+      html += `
+        <div class="rejection-card">
+          <h6>${branch}</h6>
+          <div class="rejection-stats">
+            <div class="rejection-metric-item">
+              <div class="rejection-metric-value">${data.count}</div>
+              <div class="rejection-metric-label">Cases</div>
+            </div>
+            <div class="rejection-metric-item">
+              <div class="rejection-metric-value">AED ${data.amount.toFixed(2)}</div>
+              <div class="rejection-metric-label">Amount</div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    
+    // Summary card
+    html += `
+      <div class="rejection-card">
+        <h6>Restaurant Fault Summary</h6>
+        <div class="rejection-stats">
+          <div class="rejection-metric-item">
+            <div class="rejection-metric-value">${analysis.faultCases.length}</div>
+            <div class="rejection-metric-label">Total Cases</div>
+          </div>
+          <div class="rejection-metric-item">
+            <div class="rejection-metric-value">AED ${analysis.totalAmount.toFixed(2)}</div>
+            <div class="rejection-metric-label">Total Amount</div>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    html += '</div>';
+    container.innerHTML = html;
+  }
+  
+  function getReasonLabel(reason) {
+    const labels = {
+      no_evidence: 'لا يوجد دليل',
+      incorrect_claim: 'ادعاء غير صحيح',
+      driver_fault: 'خطأ السائق',
+      customer_error: 'خطأ العميل',
+      restaurant_fault: 'المطعم يحمل التكلفة',
+      other: 'أسباب أخرى'
+    };
+    return labels[reason] || reason;
+  }
+  
+  // ===== Summary Section =====
+  function renderSummary() {
+    // Financial Overview
+    const totalOriginal = tickets.reduce((sum, t) => sum + (t.originalAmount || 0), 0);
+    const totalComp = tickets.reduce((sum, t) => sum + (t.compensation || 0), 0);
+    const totalRefunded = tickets.reduce((sum, t) => sum + (t.refundedAmount || 0), 0);
+    const netCompensation = totalComp - totalRefunded;
+    const avgComp = tickets.filter(t => t.compensation > 0).length > 0 
+      ? totalComp / tickets.filter(t => t.compensation > 0).length 
+      : 0;
+    const compensationRate = totalOriginal > 0 ? (totalComp / totalOriginal) * 100 : 0;
+    
+    document.getElementById('totalOriginalAmount').textContent = 'AED ' + totalOriginal.toFixed(2);
+    document.getElementById('totalCompensation').textContent = 'AED ' + totalComp.toFixed(2);
+    document.getElementById('totalRefunded').textContent = 'AED ' + totalRefunded.toFixed(2);
+    document.getElementById('netCompensation').textContent = 'AED ' + netCompensation.toFixed(2);
+    document.getElementById('compensationRate').textContent = compensationRate.toFixed(1) + '%';
+    
+    // Platform Performance
+    const noonTickets = tickets.filter(t => t.platform === 'Noon').length;
+    const careemTickets = tickets.filter(t => t.platform === 'Careem').length;
+    const noonComp = tickets.filter(t => t.platform === 'Noon').reduce((sum, t) => sum + (t.compensation || 0), 0);
+    const careemComp = tickets.filter(t => t.platform === 'Careem').reduce((sum, t) => sum + (t.compensation || 0), 0);
+    const noonRef = tickets.filter(t => t.platform === 'Noon' && t.isRefunded).reduce((sum, t) => sum + (t.refundedAmount || 0), 0);
+    const careemRef = tickets.filter(t => t.platform === 'Careem' && t.isRefunded).reduce((sum, t) => sum + (t.refundedAmount || 0), 0);
+    
+    document.getElementById('noonTickets').textContent = noonTickets;
+    document.getElementById('careemTickets').textContent = careemTickets;
+    document.getElementById('noonRefunded').textContent = 'AED ' + noonRef.toFixed(2);
+    document.getElementById('careemRefunded').textContent = 'AED ' + careemRef.toFixed(2);
+    
+    // Branch Performance
+    const branchCounts = {};
+    tickets.forEach(t => {
+      branchCounts[t.branch] = (branchCounts[t.branch] || 0) + 1;
+    });
+    const topBranch = Object.keys(branchCounts).reduce((a, b) => branchCounts[a] > branchCounts[b] ? a : b, '');
+    const caseCounts = {};
+    tickets.forEach(t => {
+      const type = classifyCase(t.issue);
+      caseCounts[type] = (caseCounts[type] || 0) + 1;
+    });
+    const topCase = Object.keys(caseCounts).reduce((a, b) => caseCounts[a] > caseCounts[b] ? a : b, '');
+    const caseRate = tickets.filter(t => t.compensation > 0).length / tickets.length * 100;
+    const avgOriginal = tickets.reduce((sum, t) => sum + (t.originalAmount || 0), 0) / tickets.length;
+    
+    document.getElementById('topBranch').textContent = topBranch || '-';
+    document.getElementById('topCase').textContent = topCase || '-';
+    document.getElementById('caseRate').textContent = caseRate.toFixed(1) + '%';
+    document.getElementById('avgOriginalAmount').textContent = 'AED ' + avgOriginal.toFixed(2);
+    
+    // Update summary charts
+    updateSummaryCharts();
+  }
+  
+  function updateSummaryCharts() {
+    // Amount Chart
+    const ctx1 = document.getElementById('amountChart').getContext('2d');
     if (amountChart) amountChart.destroy();
-    const amountCtx = document.getElementById('amountChart').getContext('2d');
-    amountChart = new Chart(amountCtx, {
+    amountChart = new Chart(ctx1, {
       type: 'doughnut',
-      data: amountData,
+      data: {
+        labels: ['Original Amount', 'Compensation', 'Refunded'],
+        datasets: [{
+          data: [
+            tickets.reduce((sum, t) => sum + (t.originalAmount || 0), 0),
+            tickets.reduce((sum, t) => sum + (t.compensation || 0), 0),
+            tickets.reduce((sum, t) => sum + (t.refundedAmount || 0), 0)
+          ],
+          backgroundColor: ['#0d6efd', '#dc3545', '#28a745']
+        }]
+      },
       options: {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { display: false }
+          legend: {
+            position: 'bottom',
+            labels: { font: { size: 10 } }
+          }
         }
       }
     });
     
     // Status Chart
-    const statusData = {
-      labels: ['Open', 'Sent', 'Closed', 'Rejected', 'Restaurant Fault'],
-      datasets: [{
-        data: [
-          tickets.filter(t => t.status === 'Open').length,
-          tickets.filter(t => t.status === 'Sent').length,
-          tickets.filter(t => t.status === 'Closed').length,
-          tickets.filter(t => t.status === 'Rejected').length,
-          tickets.filter(t => t.status === 'Restaurant Fault').length
-        ],
-        backgroundColor: [
-          'rgba(33, 150, 243, 0.7)',
-          'rgba(255, 193, 7, 0.7)',
-          'rgba(76, 175, 80, 0.7)',
-          'rgba(211, 47, 47, 0.7)',
-          'rgba(255, 112, 67, 0.7)'
-        ]
-      }]
-    };
-    
+    const ctx2 = document.getElementById('statusChart').getContext('2d');
     if (statusChart) statusChart.destroy();
-    const statusCtx = document.getElementById('statusChart').getContext('2d');
-    statusChart = new Chart(statusCtx, {
-      type: 'pie',
-      data: statusData,
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false }
-        }
-      }
-    });
-    
-    // Platform Tickets Chart
-    const platformTicketsData = {
-      labels: ['Noon', 'Careem'],
-      datasets: [{
-        label: 'Cases',
-        data: [
-          tickets.filter(t => t.platform === 'Noon').length,
-          tickets.filter(t => t.platform === 'Careem').length
-        ],
-        backgroundColor: [
-          'rgba(255, 193, 7, 0.7)',
-          'rgba(33, 150, 243, 0.7)'
-        ]
-      }]
-    };
-    
-    if (platformTicketsChart) platformTicketsChart.destroy();
-    const platformTicketsCtx = document.getElementById('platformTicketsChart').getContext('2d');
-    platformTicketsChart = new Chart(platformTicketsCtx, {
+    statusChart = new Chart(ctx2, {
       type: 'bar',
-      data: platformTicketsData,
+      data: {
+        labels: ['Open', 'Sent', 'Closed', 'Rejected', 'Restaurant Fault'],
+        datasets: [{
+          data: [
+            tickets.filter(t => t.status === 'Open').length,
+            tickets.filter(t => t.status === 'Sent').length,
+            tickets.filter(t => t.status === 'Closed').length,
+            tickets.filter(t => t.status === 'Rejected').length,
+            tickets.filter(t => t.status === 'Restaurant Fault').length
+          ],
+          backgroundColor: ['#0d6efd', '#ffc107', '#198754', '#dc3545', '#ffc107']
+        }]
+      },
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -3292,32 +2254,67 @@
       }
     });
     
-    // Platform Compensation Chart
-    const platformCompData = {
-      labels: ['Noon', 'Careem'],
-      datasets: [{
-        label: 'Compensation',
-        data: [
-          tickets.filter(t => t.platform === 'Noon').reduce((sum, t) => sum + t.compensation, 0),
-          tickets.filter(t => t.platform === 'Careem').reduce((sum, t) => sum + t.compensation, 0)
-        ],
-        backgroundColor: [
-          'rgba(255, 193, 7, 0.7)',
-          'rgba(33, 150, 243, 0.7)'
-        ]
-      }]
-    };
-    
-    if (platformCompensationChart) platformCompensationChart.destroy();
-    const platformCompCtx = document.getElementById('platformCompensationChart').getContext('2d');
-    platformCompensationChart = new Chart(platformCompCtx, {
-      type: 'bar',
-      data: platformCompData,
+    // Platform Tickets Chart
+    const ctx3 = document.getElementById('platformTicketsChart').getContext('2d');
+    if (platformTicketsChart) platformTicketsChart.destroy();
+    platformTicketsChart = new Chart(ctx3, {
+      type: 'pie',
+      data: {
+        labels: ['Noon', 'Careem'],
+        datasets: [{
+          data: [
+            tickets.filter(t => t.platform === 'Noon').length,
+            tickets.filter(t => t.platform === 'Careem').length
+          ],
+          backgroundColor: ['#ff7043', '#7e57c2']
+        }]
+      },
       options: {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { display: false }
+          legend: {
+            position: 'bottom',
+            labels: { font: { size: 10 } }
+          }
+        }
+      }
+    });
+    
+    // Platform Compensation Chart
+    const ctx4 = document.getElementById('platformCompensationChart').getContext('2d');
+    if (platformCompensationChart) platformCompensationChart.destroy();
+    platformCompensationChart = new Chart(ctx4, {
+      type: 'bar',
+      data: {
+        labels: ['Noon', 'Careem'],
+        datasets: [
+          {
+            label: 'Compensation (AED)',
+            data: [
+              tickets.filter(t => t.platform === 'Noon').reduce((sum, t) => sum + (t.compensation || 0), 0),
+              tickets.filter(t => t.platform === 'Careem').reduce((sum, t) => sum + (t.compensation || 0), 0)
+            ],
+            backgroundColor: ['#ff7043', '#7e57c2']
+          },
+          {
+            label: 'Refunded (AED)',
+            data: [
+              tickets.filter(t => t.platform === 'Noon' && t.isRefunded).reduce((sum, t) => sum + (t.refundedAmount || 0), 0),
+              tickets.filter(t => t.platform === 'Careem' && t.isRefunded).reduce((sum, t) => sum + (t.refundedAmount || 0), 0)
+            ],
+            backgroundColor: ['#28a745', '#20c997']
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { font: { size: 10 } }
+          }
         },
         scales: {
           y: { beginAtZero: true }
@@ -3326,29 +2323,21 @@
     });
     
     // Branch Cases Chart
+    const ctx5 = document.getElementById('branchCasesChart').getContext('2d');
+    if (branchCasesChart) branchCasesChart.destroy();
     const branchCounts = {};
     tickets.forEach(t => {
       branchCounts[t.branch] = (branchCounts[t.branch] || 0) + 1;
     });
-    
-    const topBranches = Object.entries(branchCounts)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 5);
-    
-    const branchCasesData = {
-      labels: topBranches.map(b => b[0]),
-      datasets: [{
-        label: 'Cases',
-        data: topBranches.map(b => b[1]),
-        backgroundColor: 'rgba(211, 47, 47, 0.7)'
-      }]
-    };
-    
-    if (branchCasesChart) branchCasesChart.destroy();
-    const branchCasesCtx = document.getElementById('branchCasesChart').getContext('2d');
-    branchCasesChart = new Chart(branchCasesCtx, {
+    branchCasesChart = new Chart(ctx5, {
       type: 'bar',
-      data: branchCasesData,
+      data: {
+        labels: Object.keys(branchCounts),
+        datasets: [{
+          data: Object.values(branchCounts),
+          backgroundColor: '#d32f2f'
+        }]
+      },
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -3356,435 +2345,1271 @@
           legend: { display: false }
         },
         scales: {
-          y: { beginAtZero: true }
+          x: { beginAtZero: true }
         }
       }
     });
     
     // Case Types Chart
-    const caseTypes = {};
-    tickets.forEach(t => {
-      const type = t.issue ? t.issue.split(' ')[0] : 'Unknown';
-      caseTypes[type] = (caseTypes[type] || 0) + 1;
-    });
-    
-    const topCaseTypes = Object.entries(caseTypes)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 5);
-    
-    const caseTypesData = {
-      labels: topCaseTypes.map(c => c[0]),
-      datasets: [{
-        label: 'Cases',
-        data: topCaseTypes.map(c => c[1]),
-        backgroundColor: 'rgba(255, 112, 67, 0.7)'
-      }]
-    };
-    
+    const ctx6 = document.getElementById('caseTypesChart').getContext('2d');
     if (caseTypesChart) caseTypesChart.destroy();
-    const caseTypesCtx = document.getElementById('caseTypesChart').getContext('2d');
-    caseTypesChart = new Chart(caseTypesCtx, {
-      type: 'bar',
-      data: caseTypesData,
+    const caseCounts = {};
+    tickets.forEach(t => {
+      const type = classifyCase(t.issue);
+      caseCounts[type] = (caseCounts[type] || 0) + 1;
+    });
+    caseTypesChart = new Chart(ctx6, {
+      type: 'doughnut',
+      data: {
+        labels: Object.keys(caseCounts),
+        datasets: [{
+          data: Object.values(caseCounts),
+          backgroundColor: ['#d32f2f', '#ff7043', '#66bb6a', '#42a5f5', '#ab47bc', '#78909c']
+        }]
+      },
       options: {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          y: { beginAtZero: true }
+          legend: {
+            position: 'bottom',
+            labels: { font: { size: 10 } }
+          }
         }
       }
     });
   }
   
-  // ===== Heatmap Functions =====
-  function initHeatmap() {
-    heatmapContainer.style.position = 'fixed';
-    heatmapContainer.style.top = '0';
-    heatmapContainer.style.left = '0';
-    heatmapContainer.style.width = '100%';
-    heatmapContainer.style.height = '100%';
-    heatmapContainer.style.pointerEvents = 'none';
-    heatmapContainer.style.zIndex = '9999';
-    heatmapContainer.style.display = 'none';
-    
-    heatmapInstance = h337.create({
-      container: heatmapContainer,
-      radius: 25,
-      maxOpacity: 0.5
+  // ===== Charts =====
+  function renderCharts() {
+    const byBranch = {};
+    const byCase = {};
+    tickets.forEach(t => {
+      byBranch[t.branch] = (byBranch[t.branch] || 0) + 1;
+      const type = classifyCase(t.issue);
+      byCase[type] = (byCase[type] || 0) + 1;
     });
     
-    // Track interactions
-    document.addEventListener('click', recordInteraction);
-    document.addEventListener('mousemove', throttle(recordInteraction, 100));
-  }
-  
-  function recordInteraction(e) {
-    if (!heatmapVisible) return;
+    const branchLabels = Object.keys(byBranch);
+    const branchData = Object.values(byBranch);
+    const caseLabels = Object.keys(byCase);
+    const caseData = Object.values(byCase);
     
-    interactions.push({
-      x: e.clientX,
-      y: e.clientY,
-      value: 1,
-      timestamp: Date.now()
-    });
-    
-    // Keep only last 1000 interactions
-    if (interactions.length > 1000) {
-      interactions.shift();
+    // branchChart
+    if (!branchChart) {
+      branchChart = new Chart(document.getElementById('branchChart'), {
+        type: 'bar',
+        data: {
+          labels: branchLabels,
+          datasets: [{
+            label: 'Cases',
+            data: branchData,
+            backgroundColor: 'rgba(211, 47, 47, 0.78)'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    } else {
+      branchChart.data.labels = branchLabels;
+      branchChart.data.datasets[0].data = branchData;
+      branchChart.update();
     }
     
-    updateHeatmap();
+    if (!caseChart) {
+      caseChart = new Chart(document.getElementById('caseChart'), {
+        type: 'doughnut',
+        data: {
+          labels: caseLabels,
+          datasets: [{
+            data: caseData,
+            backgroundColor: [
+              'rgba(211, 47, 47, 0.78)',
+              'rgba(255, 112, 67, 0.78)',
+              'rgba(76, 175, 80, 0.78)',
+              'rgba(33, 150, 243, 0.78)',
+              'rgba(156, 39, 176, 0.78)',
+              'rgba(96, 125, 139, 0.78)'
+            ]
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                font: { size: 12 },
+                padding: 15
+              }
+            }
+          }
+        }
+      });
+    } else {
+      caseChart.data.labels = caseLabels;
+      caseChart.data.datasets[0].data = caseData;
+      caseChart.update();
+    }
+    
+    document.getElementById('topBranchLabel').textContent = branchLabels.length ? branchLabels[0] : '';
+    document.getElementById('topCaseLabel').textContent = caseLabels.length ? caseLabels[0] : '';
   }
   
-  function updateHeatmap() {
-    if (!heatmapInstance) return;
+  // ===== Case Analysis =====
+  function renderCaseAnalysis() {
+    const branchData = analyzeCases();
+    const container = document.getElementById('branchAnalysisContainer');
+    const branches = Object.keys(branchData);
     
-    const data = {
-      max: 5,
-      data: interactions
+    // Calculate overall case level
+    const avgCaseRate = branches.reduce((sum, branch) => sum + branchData[branch].caseRate, 0) / branches.length;
+    const badge = document.getElementById('caseAnalysisBadge');
+    
+    if (avgCaseRate > 30) {
+      badge.className = 'case-badge badge-high';
+      badge.textContent = 'High Level';
+    } else if (avgCaseRate > 15) {
+      badge.className = 'case-badge badge-medium';
+      badge.textContent = 'Medium Level';
+    } else {
+      badge.className = 'case-badge badge-low';
+      badge.textContent = 'Low Level';
+    }
+    
+    // Create HTML for analysis
+    let html = '<div class="branch-analysis-grid">';
+    
+    branches.forEach(branch => {
+      const data = branchData[branch];
+      const maxCases = Math.max(...Object.values(data.cases));
+      
+      html += `
+        <div class="branch-card">
+          <h6>${branch}</h6>
+          <div class="branch-stats">
+            <div class="branch-stat-item">
+              <div class="branch-stat-value">${data.totalCases}</div>
+              <div class="branch-stat-label">Total Cases</div>
+            </div>
+            <div class="branch-stat-item">
+              <div class="branch-stat-value">${data.compensationCases}</div>
+              <div class="branch-stat-label">Compensation Cases</div>
+            </div>
+            <div class="branch-stat-item">
+              <div class="branch-stat-value">${data.caseRate.toFixed(1)}%</div>
+              <div class="branch-stat-label">Case Rate</div>
+            </div>
+            <div class="branch-stat-item">
+              <div class="branch-stat-value">${data.totalCompensation.toFixed(0)}</div>
+              <div class="branch-stat-label">Total Comp</div>
+            </div>
+          </div>
+          
+          <div class="case-reasons">
+            <h6>Case Reasons:</h6>
+      `;
+      
+      // Display case reasons
+      Object.entries(data.cases).forEach(([caseType, count]) => {
+        const percentage = (count / data.totalCases) * 100;
+        html += `
+          <div class="case-reason-item">
+            <div class="case-reason-info">
+              <div class="case-reason-name">${caseType}</div>
+              <div class="case-reason-count">${count} (${percentage.toFixed(1)}%)</div>
+            </div>
+            <div class="case-reason-bar">
+              <div class="case-reason-progress" style="width: ${percentage}%"></div>
+            </div>
+          </div>
+        `;
+      });
+      
+      html += `
+          </div>
+        </div>
+      `;
+    });
+    
+    html += '</div>';
+    container.innerHTML = html;
+  }
+  
+  function analyzeCases() {
+    const branchData = {};
+    
+    tickets.forEach(ticket => {
+      if (!branchData[ticket.branch]) {
+        branchData[ticket.branch] = {
+          totalCases: 0,
+          compensationCases: 0,
+          totalCompensation: 0,
+          cases: {}
+        };
+      }
+      
+      branchData[ticket.branch].totalCases++;
+      
+      // If there's compensation, it's a compensation case
+      if (ticket.compensation > 0) {
+        branchData[ticket.branch].compensationCases++;
+        branchData[ticket.branch].totalCompensation += ticket.compensation;
+      }
+      
+      // Classify case type
+      const caseType = classifyCase(ticket.issue);
+      if (!branchData[ticket.branch].cases[caseType]) {
+        branchData[ticket.branch].cases[caseType] = 0;
+      }
+      branchData[ticket.branch].cases[caseType]++;
+    });
+    
+    // Calculate rates and levels
+    const branches = Object.keys(branchData);
+    branches.forEach(branch => {
+      const data = branchData[branch];
+      data.caseRate = (data.compensationCases / data.totalCases) * 100;
+      data.avgCompensation = data.compensationCases > 0 ? data.totalCompensation / data.compensationCases : 0;
+      
+      // Determine case level
+      if (data.caseRate > 30) {
+        data.caseLevel = 'high';
+      } else if (data.caseRate > 15) {
+        data.caseLevel = 'medium';
+      } else {
+        data.caseLevel = 'low';
+      }
+    });
+    
+    return branchData;
+  }
+  
+  function classifyCase(text = '') {
+    const t = (text || '').toLowerCase();
+    
+    // تصنيف دقيق أكثر
+    if (/cold|temperature|ice|frozen/.test(t)) return 'Cold Food';
+    if (/late|delay|time/.test(t)) return 'Late Delivery';
+    if (/wrong|incorrect|different|missing/.test(t)) return 'Missing/Incorrect';
+    if (/spilled|damaged|broken/.test(t)) return 'Spilled/Damaged';
+    if (/quality|taste|bad|spoiled|raw/.test(t)) return 'Food Quality';
+    if (/rude|attitude|behavior|service/.test(t)) return 'Service Issue';
+    if (/app|website|technical|glitch/.test(t)) return 'Technical Issue';
+    return 'Other';
+  }
+  
+  // ===== Enhanced dispute templates =====
+  function getTemplateType(ticket) {
+    const issue = (ticket.issue || '').toLowerCase();
+    
+    // إذا كان هناك دليل فيديو
+    if (ticket.evidence && ticket.evidence !== 'None' && ticket.evidence.startsWith('data:image')) {
+      return 'video_proof';
+    }
+    
+    // إذا كان النزاع عنصر مفقود أو غير صحيح
+    if (/missing|incorrect|different/.test(issue)) {
+      if (!ticket.evidence || ticket.evidence === 'None') {
+        return 'no_evidence';
+      }
+      return 'missing_incorrect';
+    }
+    
+    // إذا كان النزاع عن تلف أو تسرب بسبب سائق التوصيل
+    if (/spilled|damaged/.test(issue)) {
+      return 'driver_fault';
+    }
+    
+    // القالب الافتراضي
+    return 'default';
+  }
+  
+  // ===== Enhanced Actions: Add / Edit / Close / Sample / Reset =====
+  function openAddModal() {
+    console.log('Opening add modal...');
+    document.getElementById('modalTitle').textContent = 'Add Compensation Case';
+    document.getElementById('editingId').value = '';
+    document.getElementById('ticketForm').reset();
+    
+    // Clear image preview and base64 data
+    document.getElementById('imagePreview').style.display = 'none';
+    const base64Input = document.getElementById('f_evidenceBase64');
+    if (base64Input) base64Input.remove();
+    
+    const nowLocal = new Date().toISOString().slice(0, 16);
+    document.getElementById('f_orderDate').value = nowLocal;
+    new bootstrap.Modal(document.getElementById('ticketModal')).show();
+    
+    // Track command
+    addCommand('Open Add Modal');
+  }
+  
+  document.getElementById('ticketForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    console.log('Form submitted...');
+    
+    const id = document.getElementById('editingId').value;
+    const payload = {
+      orderId: document.getElementById('f_orderId').value.trim(),
+      orderDate: document.getElementById('f_orderDate').value,
+      branch: document.getElementById('f_branch').value,
+      platform: document.getElementById('f_platform').value,
+      issue: document.getElementById('f_issue').value.trim(),
+      originalAmount: Number(document.getElementById('f_originalAmount').value || 0),
+      compensation: Number(document.getElementById('f_compensation').value || 0),
+      refundedAmount: Number(document.getElementById('f_refundedAmount').value || 0),
+      isRefunded: document.getElementById('f_isRefunded').checked,
+      refundDate: document.getElementById('f_refundDate').value || null,
+      evidence: document.getElementById('f_noEvidence').checked ? 'None' : 
+                (document.getElementById('f_shortLink').value || 
+                 document.getElementById('f_evidenceBase64')?.value || 'None'),
+      status: 'Open'
     };
     
-    heatmapInstance.setData(data);
+    console.log('Form payload:', payload);
+    
+    if (!payload.orderId || !payload.orderDate || !payload.branch || !payload.platform || !payload.issue) {
+      showNotif('Fill required fields', 'error');
+      return;
+    }
+    
+    // Check for duplicate order ID
+    const isDuplicate = tickets.some(t => 
+      t.orderId === payload.orderId && 
+      t.platform === payload.platform &&
+      t.id !== id
+    );
+    
+    if (isDuplicate) {
+      showNotif('Order ID already exists on this platform', 'error');
+      return;
+    }
+    
+    // Check storage quota before adding new case
+    if (!checkStorageQuota()) {
+      showNotif('Cannot add case: Storage quota exceeded. Please clean up first.', 'error');
+      offerStorageCleanup();
+      return;
+    }
+    
+    if (id) {
+      // Update existing ticket
+      const idx = tickets.findIndex(t => t.id === id);
+      if (idx > -1) { 
+        tickets[idx] = { ...tickets[idx], ...payload }; 
+        showNotif('Case updated', 'success'); 
+        // Track command
+        addCommand('Update Ticket', `Updated Order ${payload.orderId}`);
+      }
+    } else {
+      // Add new ticket
+      const newTicket = { 
+        id: Date.now().toString(), 
+        ...payload,
+        dateCreated: new Date().toISOString()
+      };
+      tickets.unshift(newTicket); 
+      showNotif('Case added', 'success');
+      // Track command
+      addCommand('Add Ticket', `Added Order ${payload.orderId}`);
+    }
+    
+    console.log('Tickets before save:', tickets.length);
+    
+    if (save()) {
+      console.log('Data saved successfully');
+      renderAll();
+      bootstrap.Modal.getInstance(document.getElementById('ticketModal')).hide();
+    } else {
+      showNotif('Error saving data', 'error');
+    }
+  });
+  
+  function editTicket(id) {
+    const t = tickets.find(x => x.id === id); 
+    if (!t) return;
+    
+    document.getElementById('editingId').value = t.id;
+    document.getElementById('f_orderId').value = t.orderId || '';
+    document.getElementById('f_orderDate').value = t.orderDate || '';
+    document.getElementById('f_branch').value = t.branch || '';
+    document.getElementById('f_platform').value = t.platform || '';
+    document.getElementById('f_issue').value = t.issue || '';
+    document.getElementById('f_originalAmount').value = t.originalAmount || 0;
+    document.getElementById('f_compensation').value = t.compensation || 0;
+    document.getElementById('f_refundedAmount').value = t.refundedAmount || 0;
+    document.getElementById('f_isRefunded').checked = t.isRefunded || false;
+    document.getElementById('f_refundDate').value = t.refundDate || '';
+    
+    // Handle evidence
+    if (t.evidence && t.evidence !== 'None') {
+      // If it's a base64 image
+      if (t.evidence.startsWith('data:image')) {
+        document.getElementById('imagePreview').src = t.evidence;
+        document.getElementById('imagePreview').style.display = 'block';
+        
+        const base64Input = document.createElement('input');
+        base64Input.type = 'hidden';
+        base64Input.id = 'f_evidenceBase64';
+        base64Input.value = t.evidence;
+        document.getElementById('ticketForm').appendChild(base64Input);
+      } else if (t.evidence.startsWith('https://crispy.ch/t/')) {
+        // If it's a short link
+        document.getElementById('f_shortLink').value = t.evidence;
+      } else {
+        // If it's a regular URL
+        document.getElementById('f_evidence').value = t.evidence;
+      }
+    } else {
+      document.getElementById('f_noEvidence').checked = true;
+    }
+    
+    autogrow(document.getElementById('f_issue'));
+    new bootstrap.Modal(document.getElementById('ticketModal')).show();
+    
+    // Track command
+    addCommand('Edit Ticket', `Editing Order ${t.orderId}`);
+  }
+  
+  function closeTicket(id) {
+    const t = tickets.find(x => x.id === id); 
+    if (!t) return;
+    t.status = 'Closed'; 
+    save(); 
+    renderAll(); 
+    showNotif('Case closed', 'success');
+    
+    // Track command
+    addCommand('Close Ticket', `Order ${t.orderId} marked as Closed`);
+  }
+  
+  function addSample() {
+    console.log('Adding sample data...');
+    try {
+      const sample = [
+        { 
+          id: Date.now().toString() + 'a', 
+          orderId: 'CR' + Math.floor(Math.random() * 900000 + 100000), 
+          orderDate: new Date().toISOString(), 
+          branch: 'Crispy Chicken Khalidiya', 
+          platform: 'Careem', 
+          issue: 'Food was cold and delivery was late', 
+          originalAmount: 85.00,
+          compensation: 25.00, 
+          refundedAmount: 10.00,
+          isRefunded: true,
+          refundDate: new Date().toISOString().split('T')[0],
+          evidence: 'None', 
+          status: 'Open',
+          dateCreated: new Date().toISOString()
+        },
+        { 
+          id: Date.now().toString() + 'b', 
+          orderId: 'ORD' + Math.floor(Math.random() * 900000 + 100000), 
+          orderDate: new Date().toISOString(), 
+          branch: 'Crispy Chicken Muroor', 
+          platform: 'Noon', 
+          issue: 'Wrong order items received', 
+          originalAmount: 120.00,
+          compensation: 45.00, 
+          refundedAmount: 0,
+          isRefunded: false,
+          evidence: 'None', 
+          status: 'Open',
+          dateCreated: new Date().toISOString()
+        }
+      ];
+      
+      // إضافة الحالات الجديدة بشكل صريح
+      sample.forEach(newTicket => {
+        tickets.unshift(newTicket);
+      });
+      
+      console.log('After adding sample:', tickets.length);
+      
+      // حفظ البيانات
+      if (save()) {
+        // تحديث الواجهة
+        renderAll();
+        
+        // إظهار الإشعار
+        showNotif('Sample cases added successfully', 'success');
+        
+        // Track command
+        addCommand('Add Sample Cases', `Added ${sample.length} sample cases`);
+      } else {
+        showNotif('Error saving sample data', 'error');
+      }
+      
+    } catch (error) {
+      console.error('Error in addSample:', error);
+      showNotif('Error adding sample cases', 'error');
+    }
+  }
+  
+  function resetAll() {
+    if (!confirm('Reset all data?')) return;
+    localStorage.removeItem('crispyTickets'); 
+    tickets = [];
+    renderAll();
+    showNotif('Data reset', 'success');
+    
+    // Track command
+    addCommand('Reset All Data');
+  }
+  
+  // ===== Enhanced Communications with dispute templates =====
+  function sendEmail(id) {
+    const t = tickets.find(x => x.id === id); 
+    if (!t) return;
+    
+    const templateType = getTemplateType(t);
+    const subject = `Dispute Rejection – Order ${t.orderId}`;
+    
+    let body = '';
+    
+    switch (templateType) {
+      case 'missing_incorrect':
+        body = `Subject: Dispute Rejection – Order ${t.orderId}
+Dear ${t.platform} Support Team,
+This is regarding Order ${t.orderId} from ${t.branch} on ${formatDateISO(t.orderDate)}, with a basket amount of AED ${Number(t.originalAmount || 0).toFixed(2)}.
+We have noted the deduction of AED ${Number(t.compensation || 0).toFixed(2)} for "${t.issue}". After reviewing our records and attached video evidence, the order was fully prepared and delivered as requested.
+We therefore reject this adjustment and request reversal.
+Best regards,
+${t.branch}`;
+        break;
+        
+      case 'driver_fault':
+        body = `Subject: Dispute Rejection – Order ${t.orderId}
+Dear ${t.platform} Support Team,
+This is regarding Order ${t.orderId} from ${t.branch} on ${formatDateISO(t.orderDate)}, with a basket amount of AED ${Number(t.originalAmount || 0).toFixed(2)}.
+The deduction of AED ${Number(t.compensation || 0).toFixed(2)} for "Spilled / Damaged" cannot be applied, as the order was properly packed and handed over in perfect condition. The damage occurred during delivery due to driver mishandling and is not the restaurant's responsibility.
+We kindly request reversal of this adjustment.
+Best regards,
+${t.branch}`;
+        break;
+        
+      case 'no_evidence':
+        body = `Subject: Dispute Rejection – Order ${t.orderId}
+Dear ${t.platform} Support Team,
+This is regarding Order ${t.orderId} from ${t.branch} on ${formatDateISO(t.orderDate)}, with a basket amount of AED ${Number(t.originalAmount || 0).toFixed(2)}.
+We have noted the deduction of AED ${Number(t.compensation || 0).toFixed(2)} for "${t.issue}". No verifiable evidence has been provided to justify this adjustment, as required under platform policy and UAE Consumer Protection Law.
+Therefore, we reject this deduction and request immediate reversal.
+Best regards,
+${t.branch}`;
+        break;
+        
+      case 'video_proof':
+        body = `Subject: Dispute Rejection – Order ${t.orderId}
+Dear ${t.platform} Support Team,
+This is regarding Order ${t.orderId} from ${t.branch} on ${formatDateISO(t.orderDate)}.
+The deduction of AED ${Number(t.compensation || 0).toFixed(2)} for "${t.issue}" is rejected. The attached video clearly shows the order was fully prepared and delivered correctly.
+Please reverse the adjustment accordingly.
+Best regards,
+${t.branch}`;
+        break;
+      
+      default:
+        body = `Order ID: ${t.orderId}\nDate: ${formatDateISO(t.orderDate)}\nBranch: ${t.branch}\nPlatform: ${t.platform}\nCase: ${t.issue}\nOriginal Amount: AED ${Number(t.originalAmount || 0).toFixed(2)}\nCompensation: AED ${Number(t.compensation || 0).toFixed(2)}\nRefunded: AED ${Number(t.refundedAmount || 0).toFixed(2)}\nStatus: ${t.status}`;
+    }
+    
+    window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    t.status = 'Sent';
+    save();
+    renderAll();
+    showNotif('Email client opened', 'success');
+    
+    // Track command
+    addCommand('Send Email', `Email sent for Order ${t.orderId} (${t.platform})`);
+  }
+  
+  function sendWhatsApp(id) {
+    const t = tickets.find(x => x.id === id); 
+    if (!t) return;
+    
+    const templateType = getTemplateType(t);
+    const bn = branchWhats[t.branch] || '';
+    
+    let message = '';
+    
+    switch (templateType) {
+      case 'missing_incorrect':
+        message = `Dispute Rejection - Order ${t.orderId}\nDear ${t.platform} Support Team,\n\nThis is regarding Order ${t.orderId} from ${t.branch} on ${formatDateISO(t.orderDate)}, with a basket amount of AED ${Number(t.originalAmount || 0).toFixed(2)}.\n\nWe have noted the deduction of AED ${Number(t.compensation || 0).toFixed(2)} for "${t.issue}". After reviewing our records and attached video evidence, the order was fully prepared and delivered as requested.\n\nWe therefore reject this adjustment and request reversal.\n\nBest regards,\n${t.branch}`;
+        break;
+        
+      case 'driver_fault':
+        message = `Dispute Rejection - Order ${t.orderId}\nDear ${t.platform} Support Team,\n\nThis is regarding Order ${t.orderId} from ${t.branch} on ${formatDateISO(t.orderDate)}, with a basket amount of AED ${Number(t.originalAmount || 0).toFixed(2)}.\n\nThe deduction of AED ${Number(t.compensation || 0).toFixed(2)} for "Spilled / Damaged" cannot be applied, as the order was properly packed and handed over in perfect condition. The damage occurred during delivery due to driver mishandling and is not the restaurant's responsibility.\n\nWe kindly request reversal of this adjustment.\n\nBest regards,\n${t.branch}`;
+        break;
+        
+      case 'no_evidence':
+        message = `Dispute Rejection - Order ${t.orderId}\nDear ${t.platform} Support Team,\n\nThis is regarding Order ${t.orderId} from ${t.branch} on ${formatDateISO(t.orderDate)}, with a basket amount of AED ${Number(t.originalAmount || 0).toFixed(2)}.\n\nWe have noted the deduction of AED ${Number(t.compensation || 0).toFixed(2)} for "${t.issue}". No verifiable evidence has been provided to justify this adjustment, as required under platform policy and UAE Consumer Protection Law.\n\nTherefore, we reject this deduction and request immediate reversal.\n\nBest regards,\n${t.branch}`;
+        break;
+        
+      case 'video_proof':
+        message = `Dispute Rejection - Order ${t.orderId}\nDear ${t.platform} Support Team,\n\nThis is regarding Order ${t.orderId} from ${t.branch} on ${formatDateISO(t.orderDate)}.\n\nThe deduction of AED ${Number(t.compensation || 0).toFixed(2)} for "${t.issue}" is rejected. The attached video clearly shows the order was fully prepared and delivered correctly.\n\nPlease reverse the adjustment accordingly.\n\nBest regards,\n${t.branch}`;
+        break;
+      
+      default:
+        message = `Order ID: ${t.orderId}\nDate: ${formatDateISO(t.orderDate)}\nBranch: ${t.branch}\nPlatform: ${t.platform}\nCase: ${t.issue}\nOriginal Amount: AED ${Number(t.originalAmount || 0).toFixed(2)}\nCompensation: AED ${Number(t.compensation || 0).toFixed(2)}\nRefunded: AED ${Number(t.refundedAmount || 0).toFixed(2)}\nStatus: ${t.status}`;
+    }
+    
+    if (bn) {
+      window.open(`https://wa.me/${bn}?text=${encodeURIComponent(message)}`, '_blank');
+    } else {
+      window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+    }
+    
+    t.status = 'Sent';
+    save();
+    renderAll();
+    showNotif('WhatsApp opened', 'success');
+    
+    // Track command
+    addCommand('Send WhatsApp', `WhatsApp message sent for Order ${t.orderId}`);
+  }
+  
+  // ===== Rejection functionality =====
+  function openRejectionModal() {
+    // ملء قائمة الحالات المفتوحة فقط
+    const openCases = tickets.filter(t => t.status === 'Open' || t.status === 'Sent');
+    const caseSelect = document.getElementById('rejectionCase');
+    caseSelect.innerHTML = '<option value="">اختر حالة</option>';
+    
+    openCases.forEach(ticket => {
+      const option = document.createElement('option');
+      option.value = ticket.id;
+      option.textContent = `${ticket.orderId} - ${ticket.branch} (${ticket.platform})`;
+      caseSelect.appendChild(option);
+    });
+    
+    new bootstrap.Modal(document.getElementById('rejectionModal')).show();
+    addCommand('Open Rejection Modal');
+  }
+  
+  function openRejectionModalForCase(caseId) {
+    // Fill the case directly
+    const ticket = tickets.find(t => t.id === caseId);
+    if (!ticket) return;
+    
+    document.getElementById('rejectionCase').value = ticket.id;
+    document.getElementById('rejectionReason').value = '';
+    document.getElementById('rejectionNotes').value = '';
+    document.getElementById('sendEmail').checked = true;
+    document.getElementById('sendWhatsApp').checked = false;
+    
+    new bootstrap.Modal(document.getElementById('rejectionModal')).show();
+    addCommand('Open Rejection Modal for Case', `Order ${ticket.orderId}`);
+  }
+  
+  document.getElementById('rejectionForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const caseId = document.getElementById('rejectionCase').value;
+    const reason = document.getElementById('rejectionReason').value;
+    const notes = document.getElementById('rejectionNotes').value;
+    const sendEmail = document.getElementById('sendEmail').checked;
+    const sendWhatsApp = document.getElementById('sendWhatsApp').checked;
+    
+    const ticket = tickets.find(t => t.id === caseId);
+    if (!ticket) return;
+    
+    // تحديث حالة الحالة إلى "مرفوض"
+    ticket.status = 'Rejected';
+    ticket.rejectionReason = reason;
+    ticket.rejectionNotes = notes;
+    ticket.rejectionDate = new Date().toISOString();
+    
+    // إنشاء رسالة الرفض
+    const rejectionMessage = generateRejectionMessage(ticket, reason, notes);
+    
+    // إرسال البريد الإلكتروني إذا تم تحديده
+    if (sendEmail) {
+      sendRejectionEmail(ticket, rejectionMessage);
+    }
+    
+    // إرسال واتساب إذا تم تحديده
+    if (sendWhatsApp) {
+      sendRejectionWhatsApp(ticket, rejectionMessage);
+    }
+    
+    // حفظ البيانات
+    save();
+    renderAll();
+    
+    // إغلاق النافذة
+    bootstrap.Modal.getInstance(document.getElementById('rejectionModal')).hide();
+    
+    // إظهار إشعار بالنجاح
+    showNotif('تم رفض التعويض بنجاح', 'success');
+    
+    // تسجيل الأمر
+    addCommand('Reject Compensation', `تم رفض تعويض الحالة ${ticket.orderId}`);
+  });
+  
+  function generateRejectionMessage(ticket, reason, notes) {
+    const templates = {
+      no_evidence: `بخصوص الحالة رقم ${ticket.orderId}، نحن نرفض طلب التعويض لعدم وجود دليل يثبت الادعاء. وفقًا لسياسة المنصة وقانون حماية المستهلك في الإمارات، يجب تقديم دليل مادي لدعم المطالبة التعويضية.`,
+      incorrect_claim: `بخصوص الحالة رقم ${ticket.orderId}، نحن نرفض طلب التعويض لأن الادعاء غير صحيح. السجلات تظهر أن الطلب تمت معالجته بشكل صحيح وتم تسليمه كما هو مطلوب.`,
+      driver_fault: `بخصوص الحالة رقم ${ticket.orderId}، نحن نرفض طلب التعويض لأن المشكلة ناتجة عن خطأ السائق أثناء التوصيل. المطعم لا يتحمل مسؤولية الأضرار الناتجة عن التعامل غير السليم من قبل السائق.`,
+      customer_error: `بخصوص الحالة رقم ${ticket.orderId}، نحن نرفض طلب التعويض لأن المشكلة ناتجة عن خطأ من العميل. الطلب تمت معالجته وفقًا للمعلومات المقدمة من العميل.`,
+      restaurant_fault: `مرحباً،
+
+نحن نتصل بخصوص طلب التعويض الخاص بالطلب رقم ${ticket.orderId} بتاريخ ${formatDateISO(ticket.orderDate)} من مطعم ${ticket.branch} عبر منصة ${ticket.platform}.
+
+بعد مراجعة السجلات، نؤكد أن المطعم سيحمل تكلفة التعويض المطبقة، وذلك لأن الشكوى صحيحة. المطعم سيدفع التعويض المطبق مباشرة للعميل.
+
+لذلك، نطلب منكم عدم إلغاء التعويض المطبق.
+
+لمزيد من الاستفسارات، يرجى التواصل معنا عبر واتساب على الرقم: ${branchWhats[ticket.branch] || 'N/A'}.
+
+مع خالص التقدير،
+${ticket.branch}`,
+      other: `بخصوص الحالة رقم ${ticket.orderId}، نحن نرفض طلب التعويض للأسباب التالية: ${notes}`
+    };
+    
+    const baseMessage = templates[reason] || notes;
+    return baseMessage;
+  }
+  
+  function sendRejectionEmail(ticket, message) {
+    const subject = `رفض طلب التعويض - Order ${ticket.orderId}`;
+    const emailBody = message;
+    
+    window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+  }
+  
+  function sendRejectionWhatsApp(ticket, message) {
+    const branchNumber = branchWhats[ticket.branch] || '';
+    
+    if (branchNumber) {
+      const whatsappUrl = `https://wa.me/${branchNumber}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    } else {
+      // استخدام الرقم الافتراضي إذا لم يكن هناك رقم خاص للفرع
+      window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+    }
+  }
+  
+  // ===== Restaurant Fault functionality =====
+  function openRestaurantFaultModal() {
+    // ملء قائمة الحالات المفتوحة فقط
+    const openCases = tickets.filter(t => t.status === 'Open' || t.status === 'Sent');
+    const caseSelect = document.getElementById('faultCase');
+    caseSelect.innerHTML = '<option value="">اختر حالة</option>';
+    
+    openCases.forEach(ticket => {
+      const option = document.createElement('option');
+      option.value = ticket.id;
+      option.textContent = `${ticket.orderId} - ${ticket.branch} (${ticket.platform})`;
+      caseSelect.appendChild(option);
+    });
+    
+    new bootstrap.Modal(document.getElementById('restaurantFaultModal')).show();
+    addCommand('Open Restaurant Fault Modal');
+  }
+  
+  function openRestaurantFaultModalForCase(caseId) {
+    // Fill the case directly
+    const ticket = tickets.find(t => t.id === caseId);
+    if (!ticket) return;
+    
+    document.getElementById('faultCase').value = ticket.id;
+    document.getElementById('faultCompensation').value = ticket.compensation || 0;
+    document.getElementById('faultNotes').value = '';
+    document.getElementById('faultSendEmail').checked = true;
+    document.getElementById('faultSendWhatsApp').checked = true;
+    
+    new bootstrap.Modal(document.getElementById('restaurantFaultModal')).show();
+    addCommand('Open Restaurant Fault Modal for Case', `Order ${ticket.orderId}`);
+  }
+  
+  document.getElementById('restaurantFaultForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const caseId = document.getElementById('faultCase').value;
+    const compensation = document.getElementById('faultCompensation').value;
+    const notes = document.getElementById('faultNotes').value;
+    const sendEmail = document.getElementById('faultSendEmail').checked;
+    const sendWhatsApp = document.getElementById('faultSendWhatsApp').checked;
+    
+    const ticket = tickets.find(t => t.id === caseId);
+    if (!ticket) return;
+    
+    // تحديث حالة الحالة إلى "مطعم مسؤول"
+    ticket.status = 'Restaurant Fault';
+    ticket.compensation = Number(compensation);
+    ticket.rejectionReason = 'restaurant_fault';
+    ticket.rejectionNotes = notes;
+    ticket.rejectionDate = new Date().toISOString();
+    
+    // إنشاء رسالة المطعم المسؤول
+    const faultMessage = generateRestaurantFaultMessage(ticket, compensation, notes);
+    
+    // إرسال البريد الإلكتروني إذا تم تحديده
+    if (sendEmail) {
+      sendRestaurantFaultEmail(ticket, faultMessage);
+    }
+    
+    // إرسال واتساب إذا تم تحديده
+    if (sendWhatsApp) {
+      sendRestaurantFaultWhatsApp(ticket, faultMessage);
+    }
+    
+    // حفظ البيانات
+    save();
+    renderAll();
+    
+    // إغلاق النافذة
+    bootstrap.Modal.getInstance(document.getElementById('restaurantFaultModal')).hide();
+    
+    // إظهار إشعار بالنجاح
+    showNotif('تم تأكيد مسؤولية المطعم بنجاح', 'success');
+    
+    // تسجيل الأمر
+    addCommand('Restaurant Fault', `تم تأكيد مسؤولية المطعم للحالة ${ticket.orderId}`);
+  });
+  
+  function generateRestaurantFaultMessage(ticket, compensation, notes) {
+    const message = `مرحباً،
+
+نحن نتصل بخصوص طلب التعويض الخاص بالطلب رقم ${ticket.orderId} بتاريخ ${formatDateISO(ticket.orderDate)} من مطعم ${ticket.branch} عبر منصة ${ticket.platform}.
+
+بعد مراجعة السجلات، نؤكد أن المطعم سيحمل تكلفة التعويض المطبقة، وذلك لأن الشكوى صحيحة. المطعم سيدفع التعويض المطبق مباشرة للعميل.
+
+المبلغ: AED ${compensation}
+
+لذلك، نطلب منكم عدم إلغاء التعويض المطبق.
+
+لمزيد من الاستفسارات، يرجى التواصل معنا عبر واتساب على الرقم: ${branchWhats[ticket.branch] || 'N/A'}.
+
+مع خالص التقدير،
+${ticket.branch}
+
+${notes ? '\nملاحظات إضافية:\n' + notes : ''}`;
+    
+    return message;
+  }
+  
+  function sendRestaurantFaultEmail(ticket, message) {
+    const subject = `تأكيد مسؤولية المطعم - Order ${ticket.orderId}`;
+    const emailBody = message;
+    
+    window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+  }
+  
+  function sendRestaurantFaultWhatsApp(ticket, message) {
+    const branchNumber = branchWhats[ticket.branch] || '';
+    
+    if (branchNumber) {
+      const whatsappUrl = `https://wa.me/${branchNumber}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    } else {
+      window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+    }
+  }
+  
+  // ===== Other actions =====
+  function copyTicket(id) {
+    const t = tickets.find(x => x.id === id); 
+    if (!t) return;
+    const txt = `Order ID: ${t.orderId}\nDate: ${formatDateISO(t.orderDate)}\nBranch: ${t.branch}\nPlatform: ${t.platform}\nCase: ${t.issue}\nOriginal Amount: AED ${Number(t.originalAmount || 0).toFixed(2)}\nCompensation: AED ${Number(t.compensation || 0).toFixed(2)}\nRefunded: AED ${Number(t.refundedAmount || 0).toFixed(2)}`;
+    navigator.clipboard.writeText(txt).then(() => showNotif('Copied to clipboard', 'success'), () => showNotif('Copy failed', 'error'));
+    
+    // Track command
+    addCommand('Copy Ticket', `Copied details for Order ${t.orderId}`);
+  }
+  
+  // ===== Issue modal =====
+  function openIssueModal(id) {
+    const t = tickets.find(x => x.id === id); 
+    if (!t) return;
+    document.getElementById('issueText').textContent = t.issue;
+    new bootstrap.Modal(document.getElementById('issueModal')).show();
+    
+    // Track command
+    addCommand('View Issue', `Viewing issue details for Order ${t.orderId}`);
+  }
+  
+  // ===== Dock logic =====
+  dockToggle.addEventListener('click', () => {
+    dockPanel.classList.toggle('show');
+  });
+  
+  // Draggable dock
+  (function() {
+    let dragging = false, offsetX = 0, offsetY = 0;
+    dock.addEventListener('mousedown', (e) => {
+      if (e.target.id === 'dockToggle' || e.target.closest('.dock-panel')) return;
+      dragging = true;
+      const rect = dock.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+      dock.style.transition = 'none';
+      document.body.style.userSelect = 'none';
+    });
+    document.addEventListener('mousemove', (e) => {
+      if (!dragging) return;
+      dock.style.left = (e.clientX - offsetX) + 'px';
+      dock.style.top = (e.clientY - offsetY) + 'px';
+      dock.style.right = 'auto'; dock.style.bottom = 'auto';
+    });
+    document.addEventListener('mouseup', () => { 
+      dragging = false; 
+      document.body.style.userSelect = 'auto'; 
+      dock.style.transition = ''; 
+    });
+  })();
+  
+  // ===== Auto-grow textarea =====
+  function autogrow(el) { 
+    if (!el) return; 
+    el.style.height = 'auto'; 
+    el.style.height = (el.scrollHeight) + 'px'; 
+  }
+  document.addEventListener('input', (e) => { 
+    if (e.target && e.target.matches('textarea.autogrow')) autogrow(e.target); 
+  });
+  
+  // ===== Search & filters =====
+  searchInput.addEventListener('input', debounce(() => renderTickets(), 200));
+  filterBranch.addEventListener('change', () => renderTickets());
+  filterPlatform.addEventListener('change', () => renderTickets());
+  filterStatus.addEventListener('change', () => renderTickets());
+  function debounce(fn, ms = 200) { 
+    let t; 
+    return (...a) => { 
+      clearTimeout(t); 
+      t = setTimeout(() => fn(...a), ms); 
+    }; 
+  }
+  
+  // ===== Check for duplicate order IDs =====
+  function checkDuplicateOrder(orderId, platform, excludeId = null) {
+    const filteredTickets = excludeId 
+      ? tickets.filter(t => t.id !== excludeId)
+      : tickets;
+    
+    return filteredTickets.some(ticket => {
+      if (platform === 'Careem' && ticket.orderId === orderId) {
+        return true;
+      }
+      if (platform === 'Noon' && ticket.orderId === orderId) {
+        return true;
+      }
+      return false;
+    });
+  }
+  
+  // ===== Check for duplicates while typing =====
+  document.getElementById('f_orderId').addEventListener('input', function(e) {
+    const orderId = e.target.value.trim();
+    const platform = document.getElementById('f_platform').value;
+    const id = document.getElementById('editingId').value;
+    
+    if (!orderId || !platform) {
+      document.getElementById('duplicateWarning').classList.remove('show');
+      return;
+    }
+    
+    const isDuplicate = checkDuplicateOrder(orderId, platform, id);
+    
+    if (isDuplicate) {
+      document.getElementById('duplicateWarning').classList.add('show');
+      document.getElementById('duplicateWarning').textContent = 'This order ID already exists!';
+    } else {
+      document.getElementById('duplicateWarning').classList.remove('show');
+    }
+  });
+  
+  document.getElementById('f_platform').addEventListener('change', function(e) {
+    const orderId = document.getElementById('f_orderId').value.trim();
+    const id = document.getElementById('editingId').value;
+    
+    if (!orderId) {
+      document.getElementById('duplicateWarning').classList.remove('show');
+      return;
+    }
+    
+    const isDuplicate = checkDuplicateOrder(orderId, e.target.value, id);
+    
+    if (isDuplicate) {
+      document.getElementById('duplicateWarning').classList.add('show');
+      document.getElementById('duplicateWarning').textContent = 'This order ID already exists!';
+    } else {
+      document.getElementById('duplicateWarning').classList.remove('show');
+    }
+  });
+  
+  // ===== Export functions =====
+  function exportExcel() {
+    const wb = XLSX.utils.book_new();
+    const data = tickets.map(t => ({
+      OrderID: t.orderId,
+      OrderDate: t.orderDate,
+      Branch: t.branch,
+      Platform: t.platform,
+      Case: t.issue,
+      OriginalAmount: t.originalAmount,
+      Compensation: t.compensation,
+      RefundedAmount: t.refundedAmount,
+      IsRefunded: t.isRefunded,
+      RefundDate: t.refundDate,
+      Evidence: t.evidence,
+      Status: t.status,
+      RejectionReason: t.rejectionReason,
+      RejectionNotes: t.rejectionNotes,
+      DateCreated: t.dateCreated || ''
+    }));
+    const ws = XLSX.utils.json_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, "Cases");
+    XLSX.writeFile(wb, `compensation_cases_${new Date().toISOString().slice(0, 10)}.xlsx`);
+    
+    // Track command
+    addCommand('Export Excel', `Exported ${tickets.length} cases to Excel`);
+  }
+  
+  async function exportPDF() {
+    try {
+      dockPanel.classList.remove('show');
+      dockToggle.style.display = 'none';
+      await sleep(150);
+      const el = document.querySelector('#ticketsContainer');
+      const canvas = await html2canvas(el, { scale: 1.5, useCORS: true });
+      const imgData = canvas.toDataURL('image/png');
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const imgProps = pdf.getImageProperties(imgData);
+      const imgWidth = pageWidth - 20;
+      const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
+      pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+      pdf.save(`cases_${new Date().toISOString().slice(0, 10)}.pdf`);
+      
+      // Track command
+      addCommand('Export PDF', `Exported cases to PDF`);
+    } catch (err) { 
+      console.error(err); 
+      showNotif('PDF export failed', 'error'); 
+    } finally { 
+      dockToggle.style.display = 'flex'; 
+    }
+  }
+  
+  async function exportDashboardSummary() {
+    try {
+      dockPanel.classList.remove('show'); 
+      dockToggle.style.display = 'none';
+      await sleep(200);
+      const summaryEl = document.querySelector('.summary-section');
+      const reportsEl = document.getElementById('reports');
+      const ticketsEl = document.getElementById('ticketsContainer');
+      const caseAnalysisEl = document.querySelector('.case-analysis-section');
+      const refundAnalysisEl = document.querySelector('.refund-analysis-section');
+      const compensationAnalysisEl = document.querySelector('.compensation-analysis-section');
+      const rejectionAnalysisEl = document.querySelector('.rejection-analysis-section');
+      const restaurantFaultEl = document.querySelector('.rejection-analysis-section:last-child');
+      
+      // Render each section to canvas
+      const canvas1 = await html2canvas(summaryEl, { scale: 1.5, useCORS: true });
+      const canvas2 = await html2canvas(reportsEl, { scale: 1.5, useCORS: true });
+      const canvas3 = await html2canvas(ticketsEl, { scale: 1.5, useCORS: true });
+      const canvas4 = await html2canvas(caseAnalysisEl, { scale: 1.5, useCORS: true });
+      const canvas5 = await html2canvas(refundAnalysisEl, { scale: 1.5, useCORS: true });
+      const canvas6 = await html2canvas(compensationAnalysisEl, { scale: 1.5, useCORS: true });
+      const canvas7 = await html2canvas(rejectionAnalysisEl, { scale: 1.5, useCORS: true });
+      const canvas8 = await html2canvas(restaurantFaultEl, { scale: 1.5, useCORS: true });
+      
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pageW = pdf.internal.pageSize.getWidth();
+      
+      // First page: summary
+      pdf.addPage();
+      const img1 = canvas1.toDataURL('image/png');
+      const img1Props = pdf.getImageProperties(img1);
+      const img1W = pageW - 20;
+      const img1H = img1Props.height * img1W / img1Props.width;
+      pdf.addImage(img1, 'PNG', 10, 10, img1W, img1H);
+      
+      // Second page: reports
+      pdf.addPage();
+      const img2 = canvas2.toDataURL('image/png');
+      const img2Props = pdf.getImageProperties(img2);
+      const img2W = pageW - 20;
+      const img2H = img2Props.height * img2W / img2Props.width;
+      pdf.addImage(img2, 'PNG', 10, 10, img2W, img2H);
+      
+      // Third page: cases table
+      pdf.addPage();
+      const img3 = canvas3.toDataURL('image/png');
+      const img3Props = pdf.getImageProperties(img3);
+      const img3W = pageW - 20;
+      const img3H = img3Props.height * img3W / img3Props.width;
+      pdf.addImage(img3, 'PNG', 10, 10, img3W, img3H);
+      
+      // Fourth page: case analysis
+      pdf.addPage();
+      const img4 = canvas4.toDataURL('image/png');
+      const img4Props = pdf.getImageProperties(img4);
+      const img4W = pageW - 20;
+      const img4H = img4Props.height * img4W / img4Props.width;
+      pdf.addImage(img4, 'PNG', 10, 10, img4W, img4H);
+      
+      // Fifth page: refund analysis
+      pdf.addPage();
+      const img5 = canvas5.toDataURL('image/png');
+      const img5Props = pdf.getImageProperties(img5);
+      const img5W = pageW - 20;
+      const img5H = img5Props.height * img5W / img5Props.width;
+      pdf.addImage(img5, 'PNG', 10, 10, img5W, img5H);
+      
+      // Sixth page: compensation analysis
+      pdf.addPage();
+      const img6 = canvas6.toDataURL('image/png');
+      const img6Props = pdf.getImageProperties(img6);
+      const img6W = pageW - 20;
+      const img6H = img6Props.height * img6W / img6Props.width;
+      pdf.addImage(img6, 'PNG', 10, 10, img6W, img6H);
+      
+      // Seventh page: rejection analysis
+      pdf.addPage();
+      const img7 = canvas7.toDataURL('image/png');
+      const img7Props = pdf.getImageProperties(img7);
+      const img7W = pageW - 20;
+      const img7H = img7Props.height * img7W / img7Props.width;
+      pdf.addImage(img7, 'PNG', 10, 10, img7W, img7H);
+      
+      // Eighth page: restaurant fault analysis
+      pdf.addPage();
+      const img8 = canvas8.toDataURL('image/png');
+      const img8Props = pdf.getImageProperties(img8);
+      const img8W = pageW - 20;
+      const img8H = img8Props.height * img8W / img8Props.width;
+      pdf.addImage(img8, 'PNG', 10, 10, img8W, img8H);
+      
+      pdf.save(`dashboard_summary_${new Date().toISOString().slice(0, 10)}.pdf`);
+      
+      // Track command
+      addCommand('Export Dashboard PDF', `Exported dashboard summary to PDF`);
+    } catch (err) { 
+      console.error(err); 
+      showNotif('Dashboard PDF export failed', 'error'); 
+    } finally { 
+      dockToggle.style.display = 'flex'; 
+    }
+  }
+  
+  // ===== Usability heatmap & export log =====
+  function initHeatmap() {
+    heatmapInstance = h337.create({ 
+      container: heatmapContainer, 
+      radius: 35, 
+      maxOpacity: 0.6, 
+      minOpacity: 0.05, 
+      blur: 0.75 
+    });
+    document.addEventListener('click', (e) => recordInteraction(e));
+    document.addEventListener('mousemove', throttle((e) => recordMouseMove(e), 120));
   }
   
   function toggleHeatmap() {
     heatmapVisible = !heatmapVisible;
     heatmapContainer.style.display = heatmapVisible ? 'block' : 'none';
+    document.getElementById('heatmapToggleBtn').classList.toggle('active', heatmapVisible);
     
-    const btn = document.getElementById('heatmapToggleBtn');
-    if (heatmapVisible) {
-      btn.classList.remove('btn-outline-danger');
-      btn.classList.add('btn-danger');
-      showNotif('Heatmap enabled', 'success');
-    } else {
-      btn.classList.remove('btn-danger');
-      btn.classList.add('btn-outline-danger');
-      showNotif('Heatmap disabled', 'info');
-    }
+    // Track command
+    addCommand('Toggle Heatmap', `Heatmap ${heatmapVisible ? 'enabled' : 'disabled'}`);
   }
   
-  // ===== Dock Functions =====
-  function makeDockDraggable() {
-    let isDragging = false;
-    let currentX;
-    let currentY;
-    let initialX;
-    let initialY;
-    let xOffset = 0;
-    let yOffset = 0;
-    
-    const dockContainer = document.getElementById('dock-container');
-    
-    dockContainer.addEventListener('mousedown', dragStart);
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('mouseup', dragEnd);
-    
-    function dragStart(e) {
-      if (e.target === dockToggle || e.target.closest('#dockPanel')) return;
-      
-      initialX = e.clientX - xOffset;
-      initialY = e.clientY - yOffset;
-      
-      if (e.target === dockContainer || e.target.closest('#dock-container')) {
-        isDragging = true;
-        dockContainer.style.cursor = 'grabbing';
-      }
-    }
-    
-    function drag(e) {
-      if (isDragging) {
-        e.preventDefault();
-        currentX = e.clientX - initialX;
-        currentY = e.clientY - initialY;
-        
-        xOffset = currentX;
-        yOffset = currentY;
-        
-        dockContainer.style.transform = `translate(${currentX}px, ${currentY}px)`;
-      }
-    }
-    
-    function dragEnd(e) {
-      initialX = currentX;
-      initialY = currentY;
-      isDragging = false;
-      dockContainer.style.cursor = 'grab';
-    }
+  function recordInteraction(e) {
+    const el = e.target;
+    const entry = { 
+      t: Date.now(), 
+      type: 'click', 
+      x: e.clientX, 
+      y: e.clientY, 
+      tag: el.tagName, 
+      id: el.id || null, 
+      cls: el.className || null 
+    };
+    interactions.push(entry);
+    if (interactions.length > 500) interactions.shift();
+    if (heatmapInstance) heatmapInstance.addData({ x: e.clientX, y: e.clientY, value: 1 });
   }
   
-  // ===== Export Functions =====
-  function exportExcel() {
-    const wb = XLSX.utils.book_new();
-    
-    // Main data sheet
-    const wsData = [
-      [
-        'Order ID', 'Order Date', 'Branch', 'Platform', 'Issue', 
-        'Original Amount', 'Compensation', 'Refunded Amount', 'Status'
-      ],
-      ...tickets.map(t => [
-        t.orderId,
-        t.orderDate || '',
-        t.branch,
-        t.platform,
-        t.issue,
-        t.originalAmount,
-        t.compensation,
-        t.refundedAmount,
-        t.status
-      ])
-    ];
-    
-    const ws = XLSX.utils.aoa_to_sheet(wsData);
-    XLSX.utils.book_append_sheet(wb, ws, 'Compensation Cases');
-    
-    // Summary sheet
-    const summaryData = [
-      ['Metric', 'Value'],
-      ['Total Cases', tickets.length],
-      ['Open Cases', tickets.filter(t => t.status === 'Open').length],
-      ['Closed Cases', tickets.filter(t => t.status === 'Closed').length],
-      ['Total Compensation', tickets.reduce((sum, t) => sum + t.compensation, 0)],
-      ['Total Refunded', tickets.reduce((sum, t) => sum + t.refundedAmount, 0)]
-    ];
-    
-    const summaryWs = XLSX.utils.aoa_to_sheet(summaryData);
-    XLSX.utils.book_append_sheet(wb, summaryWs, 'Summary');
-    
-    XLSX.writeFile(wb, `compensation_report_${new Date().toISOString().split('T')[0]}.xlsx`);
-    
-    showNotif('Excel exported successfully', 'success');
-    addCommand('Exported Excel Report');
-  }
-  
-  function exportPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    
-    // Title
-    doc.setFontSize(20);
-    doc.text('Crispy Chicken - Compensation Report', 20, 20);
-    
-    // Date
-    doc.setFontSize(12);
-    doc.text(`Generated: ${new Date().toLocaleDateString()}`, 20, 30);
-    
-    // Summary
-    doc.setFontSize(14);
-    doc.text('Summary', 20, 45);
-    doc.setFontSize(10);
-    doc.text(`Total Cases: ${tickets.length}`, 20, 55);
-    doc.text(`Open Cases: ${tickets.filter(t => t.status === 'Open').length}`, 20, 62);
-    doc.text(`Total Compensation: ${tickets.reduce((sum, t) => sum + t.compensation, 0).toFixed(2)} AED`, 20, 69);
-    
-    // Table
-    doc.setFontSize(14);
-    doc.text('Cases', 20, 85);
-    
-    // Simple table (first 10 cases)
-    const tableData = tickets.slice(0, 10).map(t => [
-      t.orderId,
-      t.branch,
-      t.platform,
-      t.compensation.toFixed(2),
-      t.status
-    ]);
-    
-    doc.autoTable({
-      head: [['Order ID', 'Branch', 'Platform', 'Compensation', 'Status']],
-      body: tableData,
-      startY: 95,
-      theme: 'grid'
-    });
-    
-    doc.save(`compensation_report_${new Date().toISOString().split('T')[0]}.pdf`);
-    
-    showNotif('PDF exported successfully', 'success');
-    addCommand('Exported PDF Report');
-  }
-  
-  function exportDashboardSummary() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    
-    // Capture dashboard
-    html2canvas(document.querySelector('.container-page')).then(canvas => {
-      const imgData = canvas.toDataURL('image/png');
-      const imgWidth = 210;
-      const pageHeight = 295;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      let heightLeft = imgHeight;
-      
-      let position = 0;
-      
-      doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-      
-      while (heightLeft >= 0) {
-        position = heightLeft - imgHeight;
-        doc.addPage();
-        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
-      
-      doc.save(`dashboard_summary_${new Date().toISOString().split('T')[0]}.pdf`);
-      
-      showNotif('Dashboard summary exported successfully', 'success');
-      addCommand('Exported Dashboard Summary');
-    });
+  function recordMouseMove(e) {
+    if (!heatmapVisible) return;
+    if (heatmapInstance) heatmapInstance.addData({ x: e.clientX, y: e.clientY, value: 0.15 });
   }
   
   function exportUsabilityLog() {
-    const logData = {
-      interactions: interactions,
-      commands: commands,
-      summary: {
-        totalInteractions: interactions.length,
-        totalCommands: commands.length,
-        date: new Date().toISOString()
-      }
-    };
-    
-    const blob = new Blob([JSON.stringify(logData, null, 2)], { type: 'application/json' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `usability_log_${new Date().toISOString().split('T')[0]}.json`;
-    link.click();
-    
+    const data = JSON.stringify({ at: new Date().toISOString(), interactions }, null, 2);
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); 
+    a.href = url; 
+    a.download = `usability_log_${new Date().toISOString().slice(0, 10)}.json`; 
+    a.click(); 
+    URL.revokeObjectURL(url);
     showNotif('Usability log exported', 'success');
-    addCommand('Exported Usability Log');
+    
+    // Track command
+    addCommand('Export Usability Log', 'Exported user interaction log');
   }
   
-  // ===== Print Functions =====
+  // ===== Setup listeners =====
+  function setupListeners() {
+    // Close dock on outside click
+    document.addEventListener('click', (e) => {
+      if (!dock.contains(e.target) && dockPanel.classList.contains('show')) {
+        dockPanel.classList.remove('show');
+      }
+    });
+    
+    // Auto-grow init
+    document.querySelectorAll('textarea.autogrow').forEach(t => autogrow(t));
+    
+    // Populate branch selects
+    populateBranchFilters();
+  }
+  
+  // ===== Helpers =====
+  function sleep(ms) { return new Promise(res => setTimeout(res, ms)); }
+  function escapeHtml(s = '') { 
+    return (s + '').replace(/[&<>"']/g, c => ({ 
+      '&': '&amp;', 
+      '<': '&lt;', 
+      '>': '&gt;', 
+      '"': '&quot;', 
+      "'": '&#39;' 
+    }[c])); 
+  }
+  function throttle(fn, ms) { 
+    let last = 0; 
+    return function(...a) { 
+      const now = Date.now(); 
+      if (now - last > ms) { 
+        last = now; 
+        fn(...a); 
+      } 
+    }; 
+  }
+  
+  // Print function
   function printReport() {
     window.print();
-    addCommand('Printed Report');
-  }
-  
-  // ===== Utility Functions =====
-  function throttle(func, limit) {
-    let inThrottle;
-    return function() {
-      const args = arguments;
-      const context = this;
-      if (!inThrottle) {
-        func.apply(context, args);
-        inThrottle = true;
-        setTimeout(() => inThrottle = false, limit);
-      }
-    };
-  }
-  
-  // ===== Add Sample Data =====
-  function addSample() {
-    const sampleTickets = [
-      {
-        id: Date.now().toString() + '1',
-        orderId: 'ORD-2023-001',
-        orderDate: new Date(Date.now() - 86400000).toISOString(),
-        branch: 'Crispy Chicken Khalidiya',
-        platform: 'Noon',
-        issue: 'Wrong item delivered - customer ordered chicken burger but received beef burger',
-        originalAmount: 45.00,
-        compensation: 20.00,
-        refundedAmount: 0,
-        refundDate: '',
-        evidence: 'None',
-        shortLink: 'https://crispy.ch/t/abc123',
-        status: 'Open',
-        dateCreated: new Date().toISOString()
-      },
-      {
-        id: Date.now().toString() + '2',
-        orderId: 'ORD-2023-002',
-        orderDate: new Date(Date.now() - 172800000).toISOString(),
-        branch: 'Crispy Chicken Muroor',
-        platform: 'Careem',
-        issue: 'Cold food - customer complained that food was not hot enough',
-        originalAmount: 38.50,
-        compensation: 15.00,
-        refundedAmount: 15.00,
-        refundDate: new Date().toISOString().split('T')[0],
-        evidence: 'None',
-        shortLink: '',
-        status: 'Closed',
-        dateCreated: new Date().toISOString()
-      },
-      {
-        id: Date.now().toString() + '3',
-        orderId: 'ORD-2023-003',
-        orderDate: new Date(Date.now() - 259200000).toISOString(),
-        branch: 'Crispy Chicken Shabiya 11',
-        platform: 'Noon',
-        issue: 'Missing items - customer did not receive the ordered drinks',
-        originalAmount: 52.75,
-        compensation: 25.00,
-        refundedAmount: 0,
-        refundDate: '',
-        evidence: 'None',
-        shortLink: '',
-        status: 'Rejected',
-        rejectionReason: 'no_evidence',
-        rejectionDate: new Date().toISOString(),
-        dateCreated: new Date().toISOString()
-      },
-      {
-        id: Date.now().toString() + '4',
-        orderId: 'ORD-2023-004',
-        orderDate: new Date(Date.now() - 345600000).toISOString(),
-        branch: 'Crispy Chicken Al Barsha',
-        platform: 'Careem',
-        issue: 'Long delivery time - order took more than 90 minutes to arrive',
-        originalAmount: 65.00,
-        compensation: 30.00,
-        refundedAmount: 0,
-        refundDate: '',
-        evidence: 'None',
-        shortLink: '',
-        status: 'Restaurant Fault',
-        faultDate: new Date().toISOString(),
-        dateCreated: new Date().toISOString()
-      },
-      {
-        id: Date.now().toString() + '5',
-        orderId: 'ORD-2023-005',
-        orderDate: new Date(Date.now() - 432000000).toISOString(),
-        branch: 'Crispy Chicken Al Satwa',
-        platform: 'Noon',
-        issue: 'Food quality issue - customer reported that chicken was undercooked',
-        originalAmount: 48.25,
-        compensation: 40.00,
-        refundedAmount: 40.00,
-        refundDate: new Date().toISOString().split('T')[0],
-        evidence: 'None',
-        shortLink: '',
-        status: 'Closed',
-        dateCreated: new Date().toISOString()
-      }
-    ];
-    
-    tickets = [...tickets, ...sampleTickets];
-    
-    if (saveTickets()) {
-      renderAll();
-      showNotif('Sample data added successfully', 'success');
-      addCommand('Added Sample Data', `${sampleTickets.length} cases`);
-    }
-  }
-  
-  // ===== Reset All =====
-  function resetAll() {
-    if (confirm('Are you sure you want to reset all data? This cannot be undone.')) {
-      tickets = [];
-      if (saveTickets()) {
-        renderAll();
-        showNotif('All data reset successfully', 'success');
-        addCommand('Reset All Data');
-      }
-    }
+    addCommand('Print Report');
   }
   </script>
 </body>
