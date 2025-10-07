@@ -555,6 +555,79 @@
         .notification.info {
             background: #3498db;
         }
+        
+        /* Confirmation Modal Styles */
+        .confirmation-modal {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+            border: 2px solid #e74c3c;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.2);
+        }
+        
+        .confirmation-icon {
+            font-size: 4rem;
+            color: #e74c3c;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .confirmation-title {
+            font-size: 1.8rem;
+            color: #e74c3c;
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .confirmation-message {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .confirmation-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .btn-confirm {
+            background: #e74c3c;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(231, 76, 60, 0.2);
+        }
+        
+        .btn-confirm:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(231, 76, 60, 0.3);
+        }
+        
+        .btn-cancel-confirm {
+            background: #95a5a6;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-cancel-confirm:hover {
+            background: #7f8c8d;
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
@@ -862,6 +935,22 @@
         </div>
     </div>
 
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="modal confirmation-modal">
+        <div class="modal-content">
+            <div class="confirmation-icon">⚠️</div>
+            <h3 class="confirmation-title">Confirm Clear All Data</h3>
+            <p class="confirmation-message">
+                Are you sure you want to clear all sales data?<br>
+                This action cannot be undone and will permanently remove all records from the dashboard.
+            </p>
+            <div class="confirmation-actions">
+                <button class="btn-confirm" id="confirmClearBtn">Yes, Clear All Data</button>
+                <button class="btn-cancel-confirm" id="cancelClearBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Notification -->
     <div id="notification" class="notification"></div>
 
@@ -940,7 +1029,8 @@
         let revenueTrendChart, channelDistributionChart, weeklyChannelPerformanceChart, offerEffectivenessChart;
         
         // Modal variables
-        const modal = document.getElementById('dataModal');
+        const dataModal = document.getElementById('dataModal');
+        const confirmationModal = document.getElementById('confirmationModal');
         const modalTitle = document.getElementById('modalTitle');
         const dataForm = document.getElementById('dataForm');
         let editingId = null;
@@ -1045,16 +1135,26 @@
             editingId = null;
             modalTitle.textContent = 'Add New Data';
             dataForm.reset();
-            modal.style.display = 'block';
+            dataModal.style.display = 'block';
         });
 
+        // Clear all data with confirmation modal
         document.getElementById('clearDataBtn').addEventListener('click', function() {
-            if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
-                salesData = [];
-                updateAllCharts();
-                updateKPIs();
-                showNotification('All data cleared successfully', 'info');
-            }
+            confirmationModal.style.display = 'block';
+        });
+
+        // Confirm clear data
+        document.getElementById('confirmClearBtn').addEventListener('click', function() {
+            salesData = [];
+            confirmationModal.style.display = 'none';
+            updateAllCharts();
+            updateKPIs();
+            showNotification('All data cleared successfully', 'info');
+        });
+
+        // Cancel clear data
+        document.getElementById('cancelClearBtn').addEventListener('click', function() {
+            confirmationModal.style.display = 'none';
         });
 
         document.getElementById('exportDataBtn').addEventListener('click', function() {
@@ -1076,16 +1176,20 @@
         });
 
         document.getElementById('closeModal').addEventListener('click', function() {
-            modal.style.display = 'none';
+            dataModal.style.display = 'none';
         });
 
         document.getElementById('cancelBtn').addEventListener('click', function() {
-            modal.style.display = 'none';
+            dataModal.style.display = 'none';
         });
 
+        // Close modals when clicking outside
         window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.style.display = 'none';
+            if (event.target === dataModal) {
+                dataModal.style.display = 'none';
+            }
+            if (event.target === confirmationModal) {
+                confirmationModal.style.display = 'none';
             }
         });
 
@@ -1137,7 +1241,7 @@
                 showNotification('Data added successfully', 'success');
             }
             
-            modal.style.display = 'none';
+            dataModal.style.display = 'none';
             dataForm.reset();
             updateAllCharts();
             updateKPIs();
@@ -1158,7 +1262,7 @@
                 document.getElementById('onlineSalesInput').value = data.online.sales;
                 document.getElementById('onlineOrdersInput').value = data.online.orders;
                 document.getElementById('totalOrdersInput').value = data.orders;
-                modal.style.display = 'block';
+                dataModal.style.display = 'block';
             }
         }
 
@@ -1187,6 +1291,12 @@
                 const bestWeek = salesData.reduce((best, current) => current.total > best.total ? current : best);
                 document.querySelector('.card:nth-child(4) .kpi').textContent = bestWeek.week;
                 document.querySelector('.card:nth-child(4) .kpi-label').textContent = `${bestWeek.offer}: AED ${bestWeek.total.toLocaleString('en-AE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            } else {
+                document.querySelector('.card:nth-child(1) .kpi').textContent = 'AED 0.00';
+                document.querySelector('.card:nth-child(2) .kpi').textContent = 'AED 0.00';
+                document.querySelector('.card:nth-child(3) .kpi').textContent = '0';
+                document.querySelector('.card:nth-child(4) .kpi').textContent = '-';
+                document.querySelector('.card:nth-child(4) .kpi-label').textContent = 'No data available';
             }
         }
 
